@@ -1,0 +1,45 @@
+﻿Zephyr 入门指南｜非官方简体中文译本 · 素材来源、修改与许可
+
+1. Getting Started Guide — Copyright © 2015–2026 The Zephyr Project Contributors.
+英文原页：https://docs.zephyrproject.org/latest/develop/getting_started/index.html
+冻结源文件：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/getting_started/index.rst
+许可清单：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml （**/*.rst）
+正文及本简体中文改译：CC BY 4.0，https://creativecommons.org/licenses/by/4.0/ 。
+改动：翻译正文、图注、菜单与提示，增加双语页内搜索、未译页回链及窄屏适配；命令保持原文。仅发布此页。不是 Zephyr 项目或 Linux Foundation 的官方翻译，不表示其认可本站。
+图注保留；Blinky 图片仅链接英文原图，不镜像、不热链。未分发 Zephyr 标志、favicon 或聊天机器人。
+
+2. 样式与脚本（独立许可，勿把正文许可套用到程序或字体）
+• Zephyr / Godot 自定义主题 css/custom.css、css/light.css、css/dark.css、js/custom.js：CC BY 3.0 Unported，https://creativecommons.org/licenses/by/3.0/ 。Juan Linietsky、Ariel Manzur、Godot community、Teslabs Engineering S.L.、The Linux Foundation、Benjamin Cabé，详见各文件保留的版权头。源：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/_static/ 。本包从冻结文档构建产物复制，额外中文版样式独立保存。
+• 页面 HTML 模板与 Zephyr 构建设置见上面 REUSE 清单（Apache-2.0）；Sphinx、Graphviz 扩展样式及其脚本：Sphinx 团队，BSD-2-Clause。Pygments 高亮主题：Pygments 团队，BSD-2-Clause。Docutils 另见附带声明。
+• sphinx_rtd_theme 3.1.0 的主题样式、菜单与脚本：Dave Snider、Read the Docs 及贡献者，MIT。来源 https://github.com/readthedocs/sphinx_rtd_theme/tree/3.1.0 。菜单提示和文档语言设置已本地化。主题样式还用到 Wyrm、Bourbon、Bourbon Neat（MIT）。
+• Lato 字体：Łukasz Dziedzic，SIL OFL 1.1，保留字体名 Lato。Roboto Slab：Font data copyright Google 2013，Apache-2.0。Font Awesome 4.7.0：Dave Gandy，字体 SIL OFL 1.1，CSS MIT，https://fontawesome.com/v4/license/ 。所有字体均未修改。
+• jQuery 3.6.0：OpenJS Foundation 及贡献者，MIT。sphinxcontrib-jquery 4.1：Adam Turner（0BSD）；附带的兼容层 © Sphinx contributors，按文件头使用 BSD-2-Clause。
+• sphinx-copybutton 0.5.2、clipboard.js 2.0.8、Tabler copy/check 图形：各为 MIT，原作者及全文见附件。sphinx-tabs 3.5.0、sphinx-togglebutton 0.4.5、sphinx-design 0.7.0 的脚本及样式见各自许可，附 Material Icons 和 Octicons 的声明。
+• dark-mode-toggle 及其样式加载器：© Google LLC，Apache-2.0，https://github.com/GoogleChromeLabs/dark-mode-toggle 。本地中文适配另存于 zh-pilot.css / zh-pilot.js。
+
+3. 随站提供的许可全文（路径相对于本声明）
+licenses/Apache-2.0.txt
+licenses/Bourbon-Neat.txt
+licenses/Bourbon.txt
+licenses/CC-BY-3.0.txt
+licenses/CC-BY-4.0.txt
+licenses/clipboard.js.txt
+licenses/docutils-0.22.4.txt
+licenses/Font-Awesome-CSS.txt
+licenses/Font-Awesome-font.txt
+licenses/jQuery.txt
+licenses/Lato.txt
+licenses/material-icons.txt
+licenses/normalize.css.txt
+licenses/octicons.txt
+licenses/pygments-2.20.0.txt
+licenses/Roboto-Slab.txt
+licenses/sphinx-9.1.0.txt
+licenses/sphinx-copybutton-0.5.2.txt
+licenses/sphinx-design-0.7.0.txt
+licenses/sphinx-rtd-theme.txt
+licenses/sphinx-tabs-3.5.0.txt
+licenses/sphinx-togglebutton-0.4.5.txt
+licenses/sphinxcontrib-jquery.txt
+licenses/tabler-icons.txt
+licenses/Wyrm.txt
