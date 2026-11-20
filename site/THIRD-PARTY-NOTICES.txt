@@ -1,7 +1,7 @@
-﻿Zephyr 非官方简体中文文档｜入门指南与 A–D 批 · 来源、署名、改动与许可
+﻿Zephyr 非官方简体中文文档｜入门指南与 A–E 批 · 来源、署名、改动与许可
 
 1. 正文与改译
-Copyright © 2015–2026 The Zephyr Project Contributors。范围：P 1、A 9、B 9、C 11、D 10，共 40 篇正文；不是 Zephyr Project 或 Linux Foundation 官方译本，不表示其认可。
+Copyright © 2015–2026 The Zephyr Project Contributors。范围：P 1、A 9、B 9、C 11、D 10、E 9，共 49 篇正文；不是 Zephyr Project 或 Linux Foundation 官方译本，不表示其认可。
 RST 文档及其中文改译：CC BY 4.0，https://creativecommons.org/licenses/by/4.0/ 。冻结参考树的 REUSE.toml 明列 **/*.rst：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
 改动：翻译正文、图注、导航及交互提示；保留命令和代码，加入双语检索、未译回链和窄屏适配。技术示例、生成内容、程序、图和字体各依其来源，不以正文许可替代。
 以下按固定中文相对路径列出英文原页（4.5.99 快照）和对应参考源码；官方 latest 是移动入口，固定版本链接用于溯源，不声称所有页面同次构建。
@@ -127,7 +127,62 @@ D10 Workqueue Threads — latest/kernel/services/threads/workqueue.html
   英文：https://docs.zephyrproject.org/latest/kernel/services/threads/workqueue.html
   源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/kernel/services/threads/workqueue.rst
 
+E01 Kernel Services — latest/kernel/services/index.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/c6b3c3c6af7173752ebba39a583a5fa66ba6de1e/doc/kernel/services/index.rst
+  冻结英文 HTML SHA-256：53cdb3872ceb756832eac8b007a688bc488ee998f243b977c365559513180565
+E02 Scheduling — latest/kernel/services/scheduling/index.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/scheduling/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/df1208ff5a4435b3d75dc6d6066c991839f35f42/doc/kernel/services/scheduling/index.rst
+  冻结英文 HTML SHA-256：bd125abb69f57a46adfa90a2256aa5cf768e653c11bbf338bcaff6673c8bf703
+E03 Interrupts — latest/kernel/services/interrupts.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/interrupts.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/b17d93039c213fdcf8936b349200ef5052b5d837/doc/kernel/services/interrupts.rst
+  冻结英文 HTML SHA-256：fa34b0fcaea89ace0e75b153808aecf2ea4d4ca369994273d1a0848d42b978dc
+E04 Kernel Timing — latest/kernel/services/timing/clocks.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/timing/clocks.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/5a0e1f9eb7fa3efad990b89d50257296d7d85724/doc/kernel/services/timing/clocks.rst
+  冻结英文 HTML SHA-256：9f3647b81a01b6028d690eadacc0f867deb73b5e3e8060d76e7b62c7a6d72137
+E05 Timers — latest/kernel/services/timing/timers.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/timing/timers.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/c80184273b2120074fdde8b7bd9dfcfd94c4fdb8/doc/kernel/services/timing/timers.rst
+  冻结英文 HTML SHA-256：6b5c78efb33be27376caf0473b5943f84fcf601965ee3f3c875abb320d2e989d
+E06 Semaphores — latest/kernel/services/synchronization/semaphores.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/synchronization/semaphores.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/74460ca13317b574716cee7bc1a644ed79b8a91f/doc/kernel/services/synchronization/semaphores.rst
+  冻结英文 HTML SHA-256：0c573611ce5acf7ea9377a10cc2a2f5ea573b2737d084e8a72d993348dca6243
+E07 Mutexes — latest/kernel/services/synchronization/mutexes.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/synchronization/mutexes.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/3cce2033df239568b20ebe07cefe222ba59ae056/doc/kernel/services/synchronization/mutexes.rst
+  冻结英文 HTML SHA-256：c19942ac9cdebb6af99b4c4eea9c4e7bc919a2c63efea5d999398d58dc84603d
+E08 Events — latest/kernel/services/synchronization/events.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/synchronization/events.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/c76d15f42bf1b934d2de81ca1e763513ad2ce82f/doc/kernel/services/synchronization/events.rst
+  冻结英文 HTML SHA-256：fb6b266f7d923f95b11a1edaafe6a80fffcb65dc9d5a912a5c70ab4454458bf0
+E09 Message Queues — latest/kernel/services/data_passing/message_queues.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/data_passing/message_queues.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a92cd24c3c52c62aa7b219eebb95b559fbc0a2a6/doc/kernel/services/data_passing/message_queues.rst
+  冻结英文 HTML SHA-256：eacb8fbc1d9c2100122f3c25ac3b47196eb1080ecab1454477874541d8f88dc5
+
 新增分发的素材、代码与各自的归属：
+E02 调度示意图（3 张）
+三图适用的项目许可：https://github.com/zephyrproject-rtos/zephyr/blob/df1208ff5a4435b3d75dc6d6066c991839f35f42/LICENSE ；随包全文：licenses/Apache-2.0.txt。RST 正文的 CC BY 4.0 不覆盖这些 SVG。
+• 协作式调度 — latest/_images/cooperative.svg
+  Zephyr Project contributors；原图：Anas Nashif。项目默认许可 Apache-2.0；本非官方简体中文译本翻译了可见图中文字；保留矢量布局与内嵌的英文可编辑模型。
+  固定图源：https://github.com/zephyrproject-rtos/zephyr/blob/df1208ff5a4435b3d75dc6d6066c991839f35f42/doc/kernel/services/scheduling/cooperative.svg
+  原始贡献：https://github.com/zephyrproject-rtos/zephyr/commit/2a1682e7b383c17d21913108792ee7fdf3b78460
+  官方原图：https://docs.zephyrproject.org/latest/_images/cooperative.svg
+• 抢占式调度 — latest/_images/preemptive.svg
+  Zephyr Project contributors；原图：Anas Nashif。项目默认许可 Apache-2.0；本非官方简体中文译本翻译了可见图中文字；保留矢量布局与内嵌的英文可编辑模型。
+  固定图源：https://github.com/zephyrproject-rtos/zephyr/blob/df1208ff5a4435b3d75dc6d6066c991839f35f42/doc/kernel/services/scheduling/preemptive.svg
+  原始贡献：https://github.com/zephyrproject-rtos/zephyr/commit/2a1682e7b383c17d21913108792ee7fdf3b78460
+  官方原图：https://docs.zephyrproject.org/latest/_images/preemptive.svg
+• 单处理器时间片轮转 — latest/_images/timeslicing.svg
+  Zephyr Project contributors；原图：Anas Nashif；后续修订：Peter Mitsis。项目默认许可 Apache-2.0；本非官方简体中文译本翻译了可见图中文字；保留矢量布局与内嵌的英文可编辑模型。
+  固定图源：https://github.com/zephyrproject-rtos/zephyr/blob/df1208ff5a4435b3d75dc6d6066c991839f35f42/doc/kernel/services/scheduling/timeslicing.svg
+  原始贡献：https://github.com/zephyrproject-rtos/zephyr/commit/2a1682e7b383c17d21913108792ee7fdf3b78460
+  时间片图修订：https://github.com/zephyrproject-rtos/zephyr/commit/56821d75a68e01ef27d4ff3a1008f12ecf5d60e3
+  官方原图：https://docs.zephyrproject.org/latest/_images/timeslicing.svg
 • 开发板页样式 board.css（© 2024–2025 The Linux Foundation）和脚本 board.js（© 2025 The Linux Foundation）：Apache-2.0，未修改；保留文件头。
 https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/_extensions/zephyr/domain/static/css/board.css
 https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/_extensions/zephyr/domain/static/js/board.js
