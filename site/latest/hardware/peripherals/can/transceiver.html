@@ -280,7 +280,7 @@
 </nav>
 <section id="overview">
 <h2><a class="toc-backref" href="#id1" role="doc-backlink">概述</a><a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
-<p>CAN 收发器在控制器逻辑电平与总线电平之间转换。总线的两根线为 CAN High（CAN H）和 CAN Low（CAN L）；控制器向收发器发送用 CAN TX，接收用 CAN RX。TX/RX 侧采用逻辑电平，总线侧则按 CAN H 与 CAN L 的差分电压判读。隐性为逻辑 1，显性为逻辑 0。隐性时两根线电压大致相同，也是空闲状态。驱动显性位时，晶体管使 CAN H 向 Vdd 拉高、CAN L 向地拉低。总线两端各在 CAN H 和 CAN L 之间接一个 120 Ω 终端电阻。显性总能覆盖隐性，这种结构称为线与（wired-AND）。</p>
+<p>CAN 收发器是 CAN 控制器之外的物理层器件，负责在控制器逻辑电平与总线电平之间转换。总线的两根线为 CAN High（CAN H）和 CAN Low（CAN L）；控制器向收发器发送用 CAN TX，接收用 CAN RX。TX/RX 侧采用逻辑电平，总线侧则按 CAN H 与 CAN L 的差分电压判读。隐性为逻辑 1，显性为逻辑 0。隐性时两根线电压大致相同，也是空闲状态。在本文的简化电路模型中，驱动显性位时，开漏晶体管（open-drain transistors）将 CAN H 向 Vdd 拉高、将 CAN L 向地拉低。总线两端各在 CAN H 和 CAN L 之间接一个 120 Ω 终端电阻。显性总能覆盖隐性，这种结构称为线与（wired-AND）。</p>
 <a href="https://docs.zephyrproject.org/latest/_images/transceiver.svg" hreflang="en" class="original-figure" data-lang-target="en">官方原图：CAN 收发器：控制器 TX/RX 与差分总线 CAN H、CAN L 的连接</a>
 </section>
 <section id="can-transceiver-api-reference">

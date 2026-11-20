@@ -320,7 +320,7 @@
 </section>
 <section id="thread-compatibility">
 <h3><a class="toc-backref" href="#id4" role="doc-backlink">收发线程的匹配条件</a><a class="headerlink" href="#thread-compatibility" title="链接到此标题"></a></h3>
-<p>发送线程可指定目标线程地址，或指定 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 表示任何线程都可接收。接收线程也可指定来源线程地址，或用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 表示接受任意来源。只有双方的条件都满足才发生交换，这样的线程称为<strong>compatible</strong>。</p>
+<p>发送线程可指定目标线程地址，或指定 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 表示任何线程都可接收。接收线程也可指定来源线程地址，或用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 表示接受任意来源。只有收发双方的筛选条件都满足，才会交换消息；这时称两个线程<strong>相互匹配（compatible）</strong>。</p>
 <p>例如 A 只向 B 发送消息。B 若等待来自 A 或任意线程的消息，就可收到；若 B 只等 C，则不会交换。即使 C 等待来自 A 或任意来源的消息，C 也不可能收到这一条。</p>
 </section>
 <section id="message-flow-control">
@@ -374,6 +374,7 @@
 <p>即使指定最大等待时间，同步发送也可能无限期阻塞。超时只限制等待其他线程接收消息的阶段。一旦被接收，接收线程取走数据、解除发送线程阻塞所用的时间就<em>没有</em>上限。</p>
 </div>
 <p>异步发送始终立即返回，无论消息是马上交付还是加入发送队列，发送方都可继续执行。可以指定一个信号量：邮箱在删除消息时（例如接收者已收到并取走数据后）释放该信号量。这样就能实现流量控制，保证任一时刻邮箱中来自某个或某些发送线程的消息数量不超过应用指定的上限。</p>
+<div class="admonition note zh-tech-note" role="note" aria-labelledby="zh-note-f09-02-label" id="zh-note-f09-02" data-zh-note="F09-02" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-f09-02-label">译校注 · F09-02</p><p class="zh-note-text">异步发送不等待接收线程取走或处理消息，但内部异步消息描述符由 CONFIG_NUM_MBOX_ASYNC_MSGS 限量，且各邮箱共用。描述符耗尽时，k_mbox_async_put() 可能等待可用描述符，因而不能承诺总是立即返回。</p><details class="zh-note-evidence"><summary>固定版本依据：Zephyr 1b1b2e0cdca4</summary><p><a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/kernel/mailbox.c#L36-L51" hreflang="en" title="kernel/mailbox.c">mailbox.c：36–51</a>；<a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/kernel/mailbox.c#L364-L385" hreflang="en" title="kernel/mailbox.c">mailbox.c：364–385</a>；<a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/kernel/Kconfig#L649-L658" hreflang="en" title="kernel/Kconfig">Kconfig：649–658</a></p></details></div>
 <div class="admonition note">
 <p class="admonition-title">说明</p>
 <p>异步发送的线程无法据此得知哪一线程接收了消息、实际交换了多少数据，也无法得到接收方指定的 info 值。</p>

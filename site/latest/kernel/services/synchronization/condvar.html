@@ -293,6 +293,7 @@
 <li><p>释放最近获取的互斥锁。</p></li>
 <li><p>将当前线程加入条件变量的等待队列。</p></li>
 </ol>
+<div class="admonition note zh-tech-note" role="note" aria-labelledby="zh-note-f03-01-label" id="zh-note-f03-01" data-zh-note="F03-01" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-f03-01-label">译校注 · F03-01</p><p class="zh-note-text">调用线程应持有传给 k_condvar_wait() 的那把 mutex。实际进入等待时释放、返回前重新获取的都是这个参数所指的锁，而不是内核自动寻找的“最近一把”。K_NO_WAIT 路径不释放该锁；超时限制的是条件等待，不含之后重新获取互斥锁所花的时间。</p><details class="zh-note-evidence"><summary>固定版本依据：Zephyr 1b1b2e0cdca4</summary><p><a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/kernel/condvar.c#L105-L135" hreflang="en" title="kernel/condvar.c">condvar.c：105–135</a></p></details></div>
 <p>其他线程改变上述状态后，可通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__condvar__apis.html#ga0376a8f7dc6e4f1e1eed55940f43015b" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_condvar_signal()</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__condvar__apis.html#gad2e46a7b9e1bc934fd1f5cb38dde40d8" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_condvar_broadcast()</span></code></a> 通知一个或多个等待线程继续执行。被唤醒的线程随后：</p>
 <ol class="arabic simple">
 <li><p>重新获取此前释放的互斥锁。</p></li>

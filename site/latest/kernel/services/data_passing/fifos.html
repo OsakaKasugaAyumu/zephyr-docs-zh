@@ -296,7 +296,7 @@
 <p class="admonition-title">说明</p>
 <p>ISR 可以从 FIFO 取数据，但队列为空时绝不能等待。</p>
 </div>
-<p>若<strong>多个数据项</strong>已经串成单向链表，可在一次操作中把整串加入 FIFO。多个写入者提交相关数据时，可保证同组的项不会和其他项交错。批量加入也比逐项加入高效，并可保证取到组内第一项时，其余各项已入队，无须等待其到达。</p>
+<p>若<strong>多个数据项</strong>已经串成单向链表，可在一次操作中把整串加入 FIFO。多个写入者提交相关数据时，可保证同组的项不会和其他项交错。批量提交比逐项提交更高效；消费者取到组内第一项后，无须再等生产者逐项提交这一组的其余数据。</p>
 </section>
 <section id="implementation">
 <h2><a class="toc-backref" href="#id2" role="doc-backlink">实现</a><a class="headerlink" href="#implementation" title="链接到此标题"></a></h2>

@@ -281,6 +281,7 @@
 <li><p><strong>脉冲宽度（pulse width）</strong>：高电平（有效）部分的持续时间，单位为纳秒。</p></li>
 <li><p><strong>占空比</strong>：脉冲宽度与周期的比值，以百分数表示；50% 表示信号有半个周期为高电平。</p></li>
 </ul>
+<div class="admonition note zh-tech-note" role="note" aria-labelledby="zh-note-h05-01-label" id="zh-note-h05-01" data-zh-note="H05-01" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-h05-01-label">译校注 · H05-01</p><p class="zh-note-text">这里以正常极性为例。Zephyr PWM 设置接口所说的脉宽是每周期处于有效电平的时长：正常极性时有效为高，反相极性时有效为低。反相时不能把“有效占空比”直接读成“高电平占周期的比例”。</p><details class="zh-note-evidence"><summary>固定版本依据：Zephyr 1b1b2e0cdca4</summary><p><a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/include/zephyr/dt-bindings/pwm/pwm.h#L37-L48" hreflang="en" title="include/zephyr/dt-bindings/pwm/pwm.h">pwm.h：37–48</a></p></details></div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>|&lt;-- pulse --&gt;|
 +--------------+            +-
 |              |            |
@@ -359,7 +360,7 @@
 </section>
 <section id="pwm-capture">
 <h2>PWM 捕获<a class="headerlink" href="#pwm-capture" title="链接到此标题"></a></h2>
-<p>有些 PWM 控制器支持<em>输入捕获（input capture）</em>，即测量输入信号的周期或脉冲宽度，可用于解码遥控接收器、传感器等外部来源的 PWM 信号。</p>
+<p>有些 PWM 控制器支持<em>输入捕获（input capture）</em>，可测量输入信号的周期、脉冲宽度或两者，具体取决于控制器和驱动。输入捕获可用于解码遥控接收器、传感器等外部来源的 PWM 信号。</p>
 <p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#ga9603146d7f9c2690c1e1983113d6c6bb" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pwm_configure_capture()</span></code></a> 和 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#gad14ca53862a465d1789e8936ce394f9a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pwm_enable_capture()</span></code></a> 配置并启用捕获：</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">pwm_capture_cb</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">channel</span><span class="p">,</span>
 <span class="w">                    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">period_cycles</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pulse_cycles</span><span class="p">,</span>
@@ -399,12 +400,12 @@
 <div class="related-code-samples dropdown toggle-shown admonition">
 <p class="admonition-title">相关代码示例</p>
 <ul class="code-sample-list">
-<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/fade_led/README.html#fade-led" title="英文原文" hreflang="en" data-lang-target="en">淡出LED</a></span><span class="code-sample-description">使用 PWM API 淡出一个 LED.</span></li>
-<li><span class="code-sample-name"><a class="reference internal" href="../../samples/basic/blinky_pwm/README.html#pwm-blinky" title="使用 PWM API 键入 LED。">PWM 控制 LED 示例（PWM Blinky）</a></span><span class="code-sample-description">使用 PWM API 键入 LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/fade_led/README.html#fade-led" title="英文原文" hreflang="en" data-lang-target="en">LED 亮度渐变（Fade LED）</a></span><span class="code-sample-description">使用 PWM API 使 LED 逐渐变亮，再逐渐变暗。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="../../samples/basic/blinky_pwm/README.html#pwm-blinky" title="使用 PWM API 使 LED 闪烁。">PWM 控制 LED 示例（PWM Blinky）</a></span><span class="code-sample-description">使用 PWM API 使 LED 闪烁。</span></li>
 <li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/pwm/capture/README.html#capture" title="英文原文" hreflang="en" data-lang-target="en">PWM 捕获</a></span><span class="code-sample-description">捕获 PWM 信号。</span></li>
 <li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/pwm/event/README.html#event" title="英文原文" hreflang="en" data-lang-target="en">PWM 事件</a></span><span class="code-sample-description">PWM 信号上的事件。</span></li>
 <li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/rgb_led/README.html#rgb-led" title="英文原文" hreflang="en" data-lang-target="en">PWM RGB 发光灯</a></span><span class="code-sample-description">使用 PWM API 驱动 RGB LED。</span></li>
-<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/servo_motor/README.html#servo-motor" title="英文原文" hreflang="en" data-lang-target="en">轮船</a></span><span class="code-sample-description">使用PWM API驱动一个伺服器.</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/servo_motor/README.html#servo-motor" title="英文原文" hreflang="en" data-lang-target="en">伺服电机（Servomotor）</a></span><span class="code-sample-description">使用 PWM API 驱动伺服电机。</span></li>
 <li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/bbc/microbit/sound/README.html#bbc_microbit_sound" title="英文原文" hreflang="en" data-lang-target="en">音频</a></span><span class="code-sample-description">使用 BBC micro:bit 板上的压电蜂鸣器。</span></li>
 <li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/st/pwm/mastermode/README.html#stm32_pwm_mastermode" title="英文原文" hreflang="en" data-lang-target="en">STM32 PWM 主模式</a></span><span class="code-sample-description">配置设备树，利用主从模式同步多个定时器实例。</span></li>
 </ul>

@@ -262,6 +262,7 @@
 <p>Zephyr 设备模型为系统中各驱动提供统一的配置方式，并负责初始化所有已配置纳入系统的驱动。</p>
 <p>每类驱动（如 UART、SPI、I2C）均有相应的通用 API。</p>
 <p>在这种模型下，驱动在初始化时设置指针，指向含有各 API 函数指针的结构。相关结构按初始化级别的顺序放在 RAM 段中。</p>
+<div class="admonition note zh-tech-note" role="note" aria-labelledby="zh-note-h01-01-label" id="zh-note-h01-01" data-zh-note="H01-01" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-h01-01-label">译校注 · H01-01</p><p class="zh-note-text">对典型静态设备，设备对象的 api 指针在构建时填入，API 表通常只读；运行时可变数据由 data 等单独保存。初始化级别规定初始化项的执行顺序，不表示所有设备结构和函数表都按此顺序存于 RAM；具体位置取决于平台和链接配置。</p><details class="zh-note-evidence"><summary>固定版本依据：Zephyr 1b1b2e0cdca4</summary><p><a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/include/zephyr/device.h#L1278-L1285" hreflang="en" title="include/zephyr/device.h">device.h：1278–1285</a>；<a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/include/zephyr/device.h#L1447-L1452" hreflang="en" title="include/zephyr/device.h">device.h：1447–1452</a></p></details></div>
 <a href="https://docs.zephyrproject.org/latest/_images/device_driver_model.svg" hreflang="en" class="original-figure" data-lang-target="en">官方原图：设备驱动模型：设备对象如何关联配置数据、运行时数据和 API 函数表</a>
 </section>
 <section id="standard-drivers">
