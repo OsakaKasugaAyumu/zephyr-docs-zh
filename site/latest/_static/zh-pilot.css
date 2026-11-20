@@ -5,3 +5,13 @@
 .wy-menu-vertical a[data-lang-target=en]::after,.wy-breadcrumbs a[data-lang-target=en]::after,.rst-other-versions a[data-lang-target=en]::after,.rst-content [role=main] a[data-lang-target=en]:not(.headerlink)::after{content:'\2060英';font:10px/1.2 sans-serif;vertical-align:super;opacity:.85;margin-inline:.1em}
 
 .wy-side-nav-search>a .zh-site-title{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex-direction:column;width:210px;height:105px;max-width:100%;font:600 1.4rem/1.4 sans-serif;color:#fff}.zh-site-title small{font:normal .83rem/1.5 sans-serif;margin-top:.25rem}
+
+@media(max-width:900px){.rst-content dl,.rst-content dd{min-width:0}.rst-content dl dt.sig{display:block;box-sizing:border-box;max-width:100%;overflow-x:auto;overflow-wrap:anywhere}.rst-content dl dt.sig *{overflow-wrap:anywhere}.rst-content dd{margin-left:min(1rem,4vw)}}
+
+@media(max-width:900px){.rst-content dl,.rst-content dd{min-width:0}.rst-content dl dt.sig{display:block;box-sizing:border-box;max-width:100%;overflow-x:auto;overflow-wrap:anywhere}.rst-content dl dt.sig *{overflow-wrap:anywhere}.rst-content dd{margin-left:min(1rem,4vw)}}
+
+@media(max-width:1000px){.rst-content dl.field-list,.rst-content dl.simple{display:block}.rst-content dl.field-list dd,.rst-content dl.simple dd{margin-left:1rem;min-width:0}.rst-content :not(pre)>code,.rst-content :not(pre)>code span.pre{white-space:normal;overflow-wrap:anywhere}.rst-content dl dt{overflow-wrap:anywhere}}
+
+@media(max-width:900px){.rst-content dl,.rst-content dd{min-width:0}.rst-content dl dt.sig{display:block;box-sizing:border-box;max-width:100%;overflow-x:auto;overflow-wrap:anywhere}.rst-content dl dt.sig *{overflow-wrap:anywhere}.rst-content dd{margin-left:min(1rem,4vw)}}
+
+@media(max-width:1000px){.rst-content dl.field-list,.rst-content dl.simple{display:block}.rst-content dl.field-list dd,.rst-content dl.simple dd{margin-left:1rem;min-width:0}.rst-content :not(pre)>code,.rst-content :not(pre)>code span.pre{white-space:normal;overflow-wrap:anywhere}.rst-content dl dt{overflow-wrap:anywhere}}

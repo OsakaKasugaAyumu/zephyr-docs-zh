@@ -1,12 +1,154 @@
-﻿Zephyr 入门指南｜非官方简体中文译本 · 素材来源、修改与许可
+﻿Zephyr 非官方简体中文文档｜入门指南与 A–D 批 · 来源、署名、改动与许可
 
-1. Getting Started Guide — Copyright © 2015–2026 The Zephyr Project Contributors.
-英文原页：https://docs.zephyrproject.org/latest/develop/getting_started/index.html
-冻结源文件：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/getting_started/index.rst
-许可清单：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml （**/*.rst）
-正文及本简体中文改译：CC BY 4.0，https://creativecommons.org/licenses/by/4.0/ 。
-改动：翻译正文、图注、菜单与提示，增加双语页内搜索、未译页回链及窄屏适配；命令保持原文。仅发布此页。不是 Zephyr 项目或 Linux Foundation 的官方翻译，不表示其认可本站。
-图注保留；Blinky 图片仅链接英文原图，不镜像、不热链。未分发 Zephyr 标志、favicon 或聊天机器人。
+1. 正文与改译
+Copyright © 2015–2026 The Zephyr Project Contributors。范围：P 1、A 9、B 9、C 11、D 10，共 40 篇正文；不是 Zephyr Project 或 Linux Foundation 官方译本，不表示其认可。
+RST 文档及其中文改译：CC BY 4.0，https://creativecommons.org/licenses/by/4.0/ 。冻结参考树的 REUSE.toml 明列 **/*.rst：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+改动：翻译正文、图注、导航及交互提示；保留命令和代码，加入双语检索、未译回链和窄屏适配。技术示例、生成内容、程序、图和字体各依其来源，不以正文许可替代。
+以下按固定中文相对路径列出英文原页（4.5.99 快照）和对应参考源码；官方 latest 是移动入口，固定版本链接用于溯源，不声称所有页面同次构建。
+
+P01 Getting Started Guide — latest/develop/getting_started/index.html
+  英文：https://docs.zephyrproject.org/latest/develop/getting_started/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/getting_started/index.rst
+A01 Beyond the Getting Started Guide — latest/develop/beyond-GSG.html
+  英文：https://docs.zephyrproject.org/latest/develop/beyond-GSG.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/beyond-GSG.rst
+A02 Install Linux Host Dependencies — latest/develop/getting_started/installation_linux.html
+  英文：https://docs.zephyrproject.org/latest/develop/getting_started/installation_linux.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/getting_started/installation_linux.rst
+A03 macOS alternative setup instructions — latest/develop/getting_started/installation_mac.html
+  英文：https://docs.zephyrproject.org/latest/develop/getting_started/installation_mac.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/getting_started/installation_mac.rst
+A04 Windows alternative setup instructions — latest/develop/getting_started/installation_win.html
+  英文：https://docs.zephyrproject.org/latest/develop/getting_started/installation_win.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/getting_started/installation_win.rst
+A05 Zephyr SDK — latest/develop/toolchains/zephyr_sdk.html
+  英文：https://docs.zephyrproject.org/latest/develop/toolchains/zephyr_sdk.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/toolchains/zephyr_sdk.rst
+A06 West (Zephyr’s meta-tool) — latest/develop/west/index.html
+  英文：https://docs.zephyrproject.org/latest/develop/west/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/west/index.rst
+A07 Installing west — latest/develop/west/install.html
+  英文：https://docs.zephyrproject.org/latest/develop/west/install.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/west/install.rst
+A08 Basics — latest/develop/west/basics.html
+  英文：https://docs.zephyrproject.org/latest/develop/west/basics.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/west/basics.rst
+A09 Workspaces — latest/develop/west/workspaces.html
+  英文：https://docs.zephyrproject.org/latest/develop/west/workspaces.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/west/workspaces.rst
+B01 Nucleo G474RE — latest/boards/st/nucleo_g474re/doc/index.html
+  英文：https://docs.zephyrproject.org/latest/boards/st/nucleo_g474re/doc/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/boards/st/nucleo_g474re/doc/index.rst
+B02 Blinky — latest/samples/basic/blinky/README.html
+  英文：https://docs.zephyrproject.org/latest/samples/basic/blinky/README.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/samples/basic/blinky/README.rst
+B03 Application Development — latest/develop/application/index.html
+  英文：https://docs.zephyrproject.org/latest/develop/application/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/application/index.rst
+B04 Building, Flashing and Debugging — latest/develop/west/build-flash-debug.html
+  英文：https://docs.zephyrproject.org/latest/develop/west/build-flash-debug.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/west/build-flash-debug.rst
+B05 Flashing and Hardware Debugging — latest/develop/flash_debug/index.html
+  英文：https://docs.zephyrproject.org/latest/develop/flash_debug/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/flash_debug/index.rst
+B06 Debug Probes — latest/develop/flash_debug/probes.html
+  英文：https://docs.zephyrproject.org/latest/develop/flash_debug/probes.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/flash_debug/probes.rst
+B07 Flashing — latest/build/flashing/index.html
+  英文：https://docs.zephyrproject.org/latest/build/flashing/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/flashing/index.rst
+B08 Flashing configuration — latest/build/flashing/configuration.html
+  英文：https://docs.zephyrproject.org/latest/build/flashing/configuration.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/flashing/configuration.rst
+B09 General-Purpose Input/Output (GPIO) — latest/hardware/peripherals/gpio.html
+  英文：https://docs.zephyrproject.org/latest/hardware/peripherals/gpio.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/hardware/peripherals/gpio.rst
+C01 Devicetree — latest/build/dts/index.html
+  英文：https://docs.zephyrproject.org/latest/build/dts/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/dts/index.rst
+C02 Introduction to devicetree — latest/build/dts/intro.html
+  英文：https://docs.zephyrproject.org/latest/build/dts/intro.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/dts/intro.rst
+C03 Syntax and structure — latest/build/dts/intro-syntax-structure.html
+  英文：https://docs.zephyrproject.org/latest/build/dts/intro-syntax-structure.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/dts/intro-syntax-structure.rst
+C04 Input and output files — latest/build/dts/intro-input-output.html
+  英文：https://docs.zephyrproject.org/latest/build/dts/intro-input-output.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/dts/intro-input-output.rst
+C05 Devicetree HOWTOs — latest/build/dts/howtos.html
+  英文：https://docs.zephyrproject.org/latest/build/dts/howtos.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/dts/howtos.rst
+C06 Troubleshooting devicetree — latest/build/dts/troubleshooting.html
+  英文：https://docs.zephyrproject.org/latest/build/dts/troubleshooting.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/dts/troubleshooting.rst
+C07 Devicetree versus Kconfig — latest/build/dts/dt-vs-kconfig.html
+  英文：https://docs.zephyrproject.org/latest/build/dts/dt-vs-kconfig.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/dts/dt-vs-kconfig.rst
+C08 Configuration System (Kconfig) — latest/build/kconfig/index.html
+  英文：https://docs.zephyrproject.org/latest/build/kconfig/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/kconfig/index.rst
+C09 Setting Kconfig configuration values — latest/build/kconfig/setting.html
+  英文：https://docs.zephyrproject.org/latest/build/kconfig/setting.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/kconfig/setting.rst
+C10 Interactive Kconfig interfaces — latest/build/kconfig/menuconfig.html
+  英文：https://docs.zephyrproject.org/latest/build/kconfig/menuconfig.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/kconfig/menuconfig.rst
+C11 Tracing values to their source — latest/build/kconfig/tracing.html
+  英文：https://docs.zephyrproject.org/latest/build/kconfig/tracing.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/kconfig/tracing.rst
+D01 Sysbuild (System build) — latest/build/sysbuild/index.html
+  英文：https://docs.zephyrproject.org/latest/build/sysbuild/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/sysbuild/index.rst
+D02 Sysbuild images — latest/build/sysbuild/images.html
+  英文：https://docs.zephyrproject.org/latest/build/sysbuild/images.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/sysbuild/images.rst
+D03 MCUboot with sysbuild — latest/samples/sysbuild/with_mcuboot/README.html
+  英文：https://docs.zephyrproject.org/latest/samples/sysbuild/with_mcuboot/README.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/samples/sysbuild/with_mcuboot/README.rst
+D04 Signing Binaries — latest/build/signing/index.html
+  英文：https://docs.zephyrproject.org/latest/build/signing/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/signing/index.rst
+D05 Signing Binaries — latest/develop/west/sign.html
+  英文：https://docs.zephyrproject.org/latest/develop/west/sign.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/west/sign.rst
+D06 Device Firmware Upgrade — latest/services/device_mgmt/dfu.html
+  英文：https://docs.zephyrproject.org/latest/services/device_mgmt/dfu.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/services/device_mgmt/dfu.rst
+D07 Kernel — latest/kernel/index.html
+  英文：https://docs.zephyrproject.org/latest/kernel/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/kernel/index.rst
+D08 Threads — latest/kernel/services/threads/index.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/threads/index.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/kernel/services/threads/index.rst
+D09 System Threads — latest/kernel/services/threads/system_threads.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/threads/system_threads.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/kernel/services/threads/system_threads.rst
+D10 Workqueue Threads — latest/kernel/services/threads/workqueue.html
+  英文：https://docs.zephyrproject.org/latest/kernel/services/threads/workqueue.html
+  源码：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/kernel/services/threads/workqueue.rst
+
+新增分发的素材、代码与各自的归属：
+• 开发板页样式 board.css（© 2024–2025 The Linux Foundation）和脚本 board.js（© 2025 The Linux Foundation）：Apache-2.0，未修改；保留文件头。
+https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/_extensions/zephyr/domain/static/css/board.css
+https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/_extensions/zephyr/domain/static/js/board.js
+• Application Development 中引入的 application-kconfig.include 示例：保留原代码，Apache-2.0，https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/develop/application/application-kconfig.include
+• Sysbuild 架构图 sysbuild.svg：The Zephyr Project Contributors。原始指南的贡献提交（签署者 Torsten Rasmussen、Martí Bolívar）：https://github.com/zephyrproject-rtos/zephyr/commit/5fa4156462527b73f24d9560bd426fe86b611853
+  图源：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/build/sysbuild/sysbuild.svg 。按项目缺省 Apache-2.0（https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/LICENSE）；SVG 及其可编辑模型由图形和文字构成，未发现嵌入的第三方图片或外部加载资源。图内 29 处标签经中文改译，图形布局保留；文件内另有改动说明。随附 licenses/Apache-2.0.txt。
+
+不再分发的图像（只给图注和点击后才访问的官网原图链接；不嵌入、不热链，也不分发其汉化副本）：
+• 入门指南原有的 Blinky 照片：https://docs.zephyrproject.org/latest/_images/ReelBoard-Blinky.webp
+• NUCLEO-G474RE 开发板照片。 https://docs.zephyrproject.org/latest/_images/nucleo_g474re.jpg
+• 开发板示意图：三个 I2C 外设连接到 SoC 的同一总线控制器。 https://docs.zephyrproject.org/latest/_images/zephyr_dt_i2c_high_level.png
+• 设备树示例：I2C 控制器与子设备的节点名称和属性。 https://docs.zephyrproject.org/latest/_images/zephyr_dt_i2c_example.png
+• 设备树构建流程图：从源文件、覆盖文件和绑定到生成的 DTS 与 C 头文件。 https://docs.zephyrproject.org/latest/_images/zephyr_dt_inputs_outputs.svg
+• menuconfig 终端配置界面。 https://docs.zephyrproject.org/latest/_images/menuconfig.png
+• guiconfig 图形配置界面。 https://docs.zephyrproject.org/latest/_images/guiconfig.png
+• 保存并退出对话框。 https://docs.zephyrproject.org/latest/_images/menuconfig-quit.png
+• menuconfig 的跳转到符号对话框。 https://docs.zephyrproject.org/latest/_images/menuconfig-jump-to.png
+• guiconfig 的跳转到符号对话框。 https://docs.zephyrproject.org/latest/_images/guiconfig-jump-to.png
+• 线程状态与调度转换：从创建、就绪和执行，到等待、挂起、恢复或终止。 https://docs.zephyrproject.org/latest/_images/thread_states.svg
+• 线程优先级范围：协作式优先级为负，可抢占优先级非负；数值越小，优先级越高。 https://docs.zephyrproject.org/latest/_images/priorities.svg
+未包含官方站标、favicon 或聊天机器人。
 
 2. 样式与脚本（独立许可，勿把正文许可套用到程序或字体）
 • Zephyr / Godot 自定义主题 css/custom.css、css/light.css、css/dark.css、js/custom.js：CC BY 3.0 Unported，https://creativecommons.org/licenses/by/3.0/ 。Juan Linietsky、Ariel Manzur、Godot community、Teslabs Engineering S.L.、The Linux Foundation、Benjamin Cabé，详见各文件保留的版权头。源：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/doc/_static/ 。本包从冻结文档构建产物复制，额外中文版样式独立保存。
