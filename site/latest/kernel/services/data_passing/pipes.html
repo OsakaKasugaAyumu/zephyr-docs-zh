@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管道（Pipes） — Zephyr 项目文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/kernel/services/data_passing/pipes.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="内核计时（Kernel Timing）" href="../timing/clocks.html">
+    <link rel="prev" title="邮箱（Mailboxes）" href="mailboxes.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/kernel/services/data_passing/pipes.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/kernel/services/data_passing/pipes.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="pipes.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">内核（Kernel）</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">内核服务</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#scheduling-interrupts-and-synchronization">调度、中断与同步</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#data-passing">数据传递</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="queues.html">队列（Queues）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fifos.html">先进先出队列（FIFOs）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lifos.html">后进先出队列（LIFOs）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/services/data_passing/stacks.html" hreflang="en" data-lang-target="en" title="英文原文">栈（Stack）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="message_queues.html">消息队列（Message Queues）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mailboxes.html">邮箱（Mailboxes）</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">管道（Pipes）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#concepts">基本概念</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#implementation">实现</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#writing-to-a-pipe">写入管道</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#reading-from-a-pipe">读取管道</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#resetting-a-pipe">重置管道</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#suggested-uses">建议用法</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#memory-management">内存管理总览（Memory Management）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#timing">定时</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#other">其他</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../drivers/index.html">设备驱动模型（Device Driver Model）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/usermode/index.html" hreflang="en" data-lang-target="en" title="英文原文">用户模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../memory_management/index.html">内存管理总览（Memory Management）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/data_structures/index.html" hreflang="en" data-lang-target="en" title="英文原文">数据结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/timing_functions/index.html" hreflang="en" data-lang-target="en" title="英文原文">执行时间函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/object_cores/index.html" hreflang="en" data-lang-target="en" title="英文原文">对象核心（object cores）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/timeutil.html" hreflang="en" data-lang-target="en" title="英文原文">时间工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/precision_timing.html" hreflang="en" data-lang-target="en" title="英文原文">精密计时</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/util/index.html" hreflang="en" data-lang-target="en" title="英文原文">实用工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/div64.html" hreflang="en" data-lang-target="en" title="英文原文">利用倒数实现 64 位除法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/iterable_sections/index.html" hreflang="en" data-lang-target="en" title="英文原文">可迭代段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/code-relocation.html" hreflang="en" data-lang-target="en" title="英文原文">代码与数据重定位</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/cleanup.html" hreflang="en" data-lang-target="en" title="英文原文">基于作用域的清理辅助函数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="../../index.html">内核（Kernel）</a> »</li>
+  
+     <li><a href="../index.html">内核服务</a> »</li>
+  
+  <li>管道（Pipes）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/kernel/services/data_passing/pipes.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27kernel%2Fservices%2Fdata_passing%2Fpipes%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Kernel&amp;env=-+Page%3A+kernel%2Fservices%2Fdata_passing%2Fpipes%0A-+Version%3A+main%0A-+SHA-1%3A+29ae9e34351cd9e0106555e5e37c01bad75989fd&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="pipes">
+<span id="pipes-v2"></span><h1>管道（Pipes）<a class="headerlink" href="#pipes" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · F08 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（79 篇）</a> · <a href="../../../../index.html#batch-f">F 批目录</a> · <a href="https://docs.zephyrproject.org/latest/kernel/services/data_passing/pipes.html" hreflang="en">本页英文原文</a></p><p><em class="dfn">管道（pipe）</em>是用来在线程之间发送字节流的内核对象，可高效地在线程间通信，并以同步方式传输整个数据块或其中一部分。</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#concepts" id="id1">基本概念</a></p></li>
+<li><p><a class="reference internal" href="#implementation" id="id2">实现</a></p>
+<ul>
+<li><p><a class="reference internal" href="#writing-to-a-pipe" id="id3">写入管道</a></p></li>
+<li><p><a class="reference internal" href="#reading-from-a-pipe" id="id4">读取管道</a></p></li>
+<li><p><a class="reference internal" href="#resetting-a-pipe" id="id5">重置管道</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#suggested-uses" id="id6">建议用法</a></p></li>
+<li><p><a class="reference internal" href="#api-reference" id="id7">API 参考</a></p></li>
+</ul>
+</nav>
+<section id="concepts">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">基本概念</a><a class="headerlink" href="#concepts" title="链接到此标题"></a></h2>
+<p>管道数量仅受可用 RAM 限制，每个管道通过其内存地址引用。</p>
+<p>管道有以下关键属性：</p>
+<ul class="simple">
+<li><p><strong>大小</strong>指定管道环形缓冲区的容量。大小为零表示没有环形缓冲区。</p></li>
+</ul>
+<p>管道必须先初始化再使用，初始状态为空。</p>
+<p>线程与管道的交互如下：</p>
+<ul class="simple">
+<li><p><strong>写入</strong>：线程同步写入全部或部分数据。已接收的数据要么直接复制给等待的读取者，要么复制到管道的环形缓冲区。如果缓冲区已满或根本没有缓冲区，操作将阻塞，直到有足够空间或指定的等待时间到期。</p></li>
+<li><p><strong>读取</strong>：线程同步读取全部或部分数据。数据要么来自管道的环形缓冲区，要么直接来自等待的发送者。如果缓冲区为空或根本没有缓冲区，操作将阻塞，直到有数据可读或超时。</p></li>
+<li><p><strong>重置</strong>：线程可以重置管道，清除内部状态，使所有正在等待的读写操作以错误码结束。</p></li>
+</ul>
+<p>管道适用于生产者／消费者模式，以及在线程间传输连续数据流等场景。</p>
+</section>
+<section id="implementation">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">实现</a><a class="headerlink" href="#implementation" title="链接到此标题"></a></h2>
+<p>用一个 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structk__pipe.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">k_pipe</span></code></a> 类型的变量和一个字节缓冲区定义管道，再调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pipe__apis.html#gae2c8d97af1f7e9deb93e670859525cf3" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_pipe_init()</span></code></a> 初始化。</p>
+<p>以下代码定义并初始化一个空管道，其环形缓冲区可容纳 100 字节，并按 4 字节边界对齐：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">__aligned</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">my_ring_buffer</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">k_pipe</span><span class="w"> </span><span class="n">my_pipe</span><span class="p">;</span>
+
+<span class="n">k_pipe_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_pipe</span><span class="p">,</span><span class="w"> </span><span class="n">my_ring_buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">my_ring_buffer</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>也可在编译期用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pipe__apis.html#gac2256aa00c59e78199be9bdefd61aa52" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_PIPE_DEFINE</span></code></a> 同时定义管道和环形缓冲区并完成初始化：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">K_PIPE_DEFINE</span><span class="p">(</span><span class="n">my_pipe</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>效果与上例相同。</p>
+<p>不使用环形缓冲区时，缓冲区指针应为 NULL，大小应为 0。</p>
+<section id="writing-to-a-pipe">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">写入管道</a><a class="headerlink" href="#writing-to-a-pipe" title="链接到此标题"></a></h3>
+<p>调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pipe__apis.html#ga514ab3d174dcada766ecbda138944ddc" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_pipe_write()</span></code></a> 向管道写入数据。</p>
+<p>下例通过管道把生产线程的数据发给一个或多个消费线程。若管道的环形缓冲区已满，生产线程最多等待指定的时间。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">message_header</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_data_bytes</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Example field */</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">producer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">total_size</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes_written</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Craft message to send in the pipe */</span>
+<span class="w">        </span><span class="n">make_message</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">total_size</span><span class="p">);</span>
+<span class="w">        </span><span class="n">bytes_written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="cm">/* Write data to the pipe, handling partial writes */</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">bytes_written</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">total_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k_pipe_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_pipe</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">bytes_written</span><span class="p">],</span><span class="w"> </span><span class="n">total_size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bytes_written</span><span class="p">,</span><span class="w"> </span><span class="n">K_NO_WAIT</span><span class="p">);</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cm">/* Error occurred */</span>
+<span class="w">                </span><span class="p">...</span>
+<span class="w">                </span><span class="k">break</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cm">/* Partial or full write succeeded; adjust for next iteration */</span>
+<span class="w">                </span><span class="n">bytes_written</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="cm">/* Reset bytes_written for the next message */</span>
+<span class="w">        </span><span class="n">bytes_written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-from-a-pipe">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">读取管道</a><a class="headerlink" href="#reading-from-a-pipe" title="链接到此标题"></a></h3>
+<p>调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pipe__apis.html#gaecb07412025d9e065ee7b99121522257" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_pipe_read()</span></code></a> 从管道读取数据。</p>
+<p>下例接续上面的生产线程示例，展示消费线程如何处理生产者生成的数据。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">message_header</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_data_bytes</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Example field */</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">consumer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">message_header</span><span class="w"> </span><span class="o">*</span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">message_header</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">buffer</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Step 1: Read the message header */</span>
+<span class="w">        </span><span class="n">bytes_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">   </span><span class="nl">read_header</span><span class="p">:</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">bytes_read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">header</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k_pipe_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_pipe</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="n">bytes_read</span><span class="p">],</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">header</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bytes_read</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bytes_read</span><span class="p">,</span><span class="w"> </span><span class="n">K_NO_WAIT</span><span class="p">);</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cm">/* Error occurred */</span>
+<span class="w">                </span><span class="p">...</span>
+<span class="w">                </span><span class="k">goto</span><span class="w"> </span><span class="n">read_header</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="cm">/* Adjust for partial reads */</span>
+<span class="w">            </span><span class="n">bytes_read</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="cm">/* Step 2: Read the message body */</span>
+<span class="w">        </span><span class="n">bytes_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">bytes_read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">header</span><span class="o">-&gt;</span><span class="n">num_data_bytes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k_pipe_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_pipe</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">header</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bytes_read</span><span class="p">],</span><span class="w"> </span><span class="n">header</span><span class="o">-&gt;</span><span class="n">num_data_bytes</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bytes_read</span><span class="p">,</span><span class="w"> </span><span class="n">K_NO_WAIT</span><span class="p">);</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cm">/* Error occurred */</span>
+<span class="w">                </span><span class="p">...</span>
+<span class="w">                </span><span class="k">goto</span><span class="w"> </span><span class="n">read_header</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="cm">/* Adjust for partial reads */</span>
+<span class="w">            </span><span class="n">bytes_read</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="cm">/* Successfully received the complete message */</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="resetting-a-pipe">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">重置管道</a><a class="headerlink" href="#resetting-a-pipe" title="链接到此标题"></a></h3>
+<p>调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pipe__apis.html#gaaedff72169127b8227c80bf8adf1f9dd" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_pipe_reset()</span></code></a> 可重置管道。这会重置其内部状态，使所有正在等待的操作以错误码结束。</p>
+<p>下例演示发生严重错误时如何重置管道：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">monitor_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">        </span><span class="cm">/* Critical error detected: reset the entire pipe to reset it. */</span>
+<span class="w">        </span><span class="n">k_pipe_reset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_pipe</span><span class="p">);</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="suggested-uses">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">建议用法</a><a class="headerlink" href="#suggested-uses" title="链接到此标题"></a></h2>
+<p>管道适合在线程间传输字节流，典型用途包括：</p>
+<ul class="simple">
+<li><p>实现生产者／消费者模式。</p></li>
+<li><p>在线程间连续传输日志或数据包。</p></li>
+<li><p>在实时系统中传递变长消息。</p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">API 参考</a><a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pipe__apis.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Pipe</span> <span class="pre">APIs</span></a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2025-01-14。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../F-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

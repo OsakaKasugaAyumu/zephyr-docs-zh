@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>设备驱动模型（Device Driver Model） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/kernel/drivers/index.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="用户模式" href="https://docs.zephyrproject.org/latest/kernel/usermode/index.html">
+    <link rel="prev" title="线程局部存储（TLS）" href="https://docs.zephyrproject.org/latest/kernel/services/other/thread_local_storage.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/kernel/drivers/index.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/kernel/drivers/index.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="index.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">内核（Kernel）</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../services/index.html">内核服务</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">设备驱动模型（Device Driver Model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#standard-drivers">标准驱动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synchronous-calls">同步调用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#driver-apis">驱动 API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#driver-data-structures">驱动数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subsystems-and-api-structures">子系统与 API 结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-class-inheritance">API 类继承</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-specific-api-extensions">设备专用 API 扩展</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#single-driver-multiple-instances">一个驱动、多个实例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialization-levels">初始化级别</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deferred-initialization">延迟初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-drivers">系统驱动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspecting-the-initialization-sequence">查看初始化顺序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-handling">错误处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-mapping">内存映射</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#device-model-drivers-with-one-mmio-region">只有一个 MMIO 区域的设备模型驱动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#device-model-drivers-with-multiple-mmio-regions">具有多个 MMIO 区域的设备模型驱动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#device-model-drivers-with-multiple-mmio-regions-in-the-same-dt-node">同一设备树节点内有多个 MMIO 区域的驱动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#drivers-that-do-not-use-zephyr-device-model">不使用 Zephyr 设备模型的驱动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#drivers-that-do-not-use-dts">不使用 DTS 的驱动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/usermode/index.html" hreflang="en" data-lang-target="en" title="英文原文">用户模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../memory_management/index.html">内存管理总览（Memory Management）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/data_structures/index.html" hreflang="en" data-lang-target="en" title="英文原文">数据结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/timing_functions/index.html" hreflang="en" data-lang-target="en" title="英文原文">执行时间函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/object_cores/index.html" hreflang="en" data-lang-target="en" title="英文原文">对象核心（object cores）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/timeutil.html" hreflang="en" data-lang-target="en" title="英文原文">时间工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/precision_timing.html" hreflang="en" data-lang-target="en" title="英文原文">精密计时</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/util/index.html" hreflang="en" data-lang-target="en" title="英文原文">实用工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/div64.html" hreflang="en" data-lang-target="en" title="英文原文">利用倒数实现 64 位除法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/iterable_sections/index.html" hreflang="en" data-lang-target="en" title="英文原文">可迭代段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/code-relocation.html" hreflang="en" data-lang-target="en" title="英文原文">代码与数据重定位</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/cleanup.html" hreflang="en" data-lang-target="en" title="英文原文">基于作用域的清理辅助函数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="../index.html">内核（Kernel）</a> »</li>
+  
+  <li>设备驱动模型（Device Driver Model）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/kernel/drivers/index.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27kernel%2Fdrivers%2Findex%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Device+Model%2Carea%3A+Kernel&amp;env=-+Page%3A+kernel%2Fdrivers%2Findex%0A-+Version%3A+main%0A-+SHA-1%3A+393ea60e5bd1f78ee2aae8f61c1e70e7a6eb707e&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="device-driver-model">
+<span id="device-model-api"></span><h1>设备驱动模型（Device Driver Model）<a class="headerlink" href="#device-driver-model" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · H01 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../index.html#batch-h">H 批目录</a> · <a href="https://docs.zephyrproject.org/latest/kernel/drivers/index.html" hreflang="en">本页英文原文</a></p><section id="introduction">
+<h2>简介<a class="headerlink" href="#introduction" title="链接到此标题"></a></h2>
+<p>Zephyr 内核支持多种设备驱动。某个驱动能否使用取决于板卡和驱动本身。</p>
+<p>Zephyr 设备模型为系统中各驱动提供统一的配置方式，并负责初始化所有已配置纳入系统的驱动。</p>
+<p>每类驱动（如 UART、SPI、I2C）均有相应的通用 API。</p>
+<p>在这种模型下，驱动在初始化时设置指针，指向含有各 API 函数指针的结构。相关结构按初始化级别的顺序放在 RAM 段中。</p>
+<a href="https://docs.zephyrproject.org/latest/_images/device_driver_model.svg" hreflang="en" class="original-figure" data-lang-target="en">官方原图：设备驱动模型：设备对象如何关联配置数据、运行时数据和 API 函数表</a>
+</section>
+<section id="standard-drivers">
+<h2>标准驱动<a class="headerlink" href="#standard-drivers" title="链接到此标题"></a></h2>
+<p>下列设备驱动存在于所有受支持的板级配置上。</p>
+<ul>
+<li><p><strong>中断控制器</strong>：供内核的中断管理子系统使用。</p></li>
+<li><p><strong>定时器</strong>：供内核的系统时钟和硬件时钟子系统使用。</p></li>
+<li><p><strong>串行通信</strong>：供内核的系统控制台子系统使用。</p></li>
+<li><p><strong>熵源（entropy）</strong>：为随机数生成子系统提供熵源。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>获取随机值应使用<a class="reference internal" href="https://docs.zephyrproject.org/latest/services/crypto/random/index.html#random-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">随机数 API</span></a>。不要把<a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/entropy.html#entropy-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">熵源函数</span></a>直接当作随机数生成器：部分硬件仅提供用于播种的熵，不能产生满足密码学安全要求的随机数流。</p>
+</div>
+</li>
+</ul>
+</section>
+<section id="synchronous-calls">
+<h2>同步调用<a class="headerlink" href="#synchronous-calls" title="链接到此标题"></a></h2>
+<p>Zephyr 为多种开发板提供设备驱动。除非硬件根本不提供中断，否则驱动应支持基于中断的实现，而不应依赖轮询。</p>
+<p>通过 <code class="file docutils literal notranslate"><span class="pre">i2c.h</span></code> 或 <code class="file docutils literal notranslate"><span class="pre">spi.h</span></code> 等设备专用 API 发出的高层调用通常是同步的，因此这些调用应该阻塞至完成。</p>
+</section>
+<section id="driver-apis">
+<span id="device-driver-api"></span><h2>驱动 API<a class="headerlink" href="#driver-apis" title="链接到此标题"></a></h2>
+<p>下列 API 由 <code class="file docutils literal notranslate"><span class="pre">device.h</span></code> 提供，只供设备驱动内部使用，应用程序不应使用。</p>
+<dl class="simple">
+<dt><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html#gac12521f4d900e8947aac45c1b228366d" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_DEFINE()</span></code></a></dt><dd><p>创建设备对象及相关数据结构，并登记启动时的初始化操作。</p>
+</dd>
+<dt><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html#ga430eb7530aeb3cff5708b55f9b571eb9" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_NAME_GET()</span></code></a></dt><dd><p>将设备标识符转换为设备对象的全局标识符。</p>
+</dd>
+<dt><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html#gaf9403e7eb573a30d2dfaed357f4ef3f4" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_GET()</span></code></a></dt><dd><p>按名称获取设备对象指针。</p>
+</dd>
+<dt><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html#ga4e763eae14dcd41d599c485410ac2983" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_DECLARE()</span></code></a></dt><dd><p>声明设备对象。需要前向引用尚未定义的设备时使用。</p>
+</dd>
+<dt><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#aa0cdc799fc0b9c80eb29f989eec86707" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API()</span></code></a></dt><dd><p>包装驱动 API 声明，将其放入对应的链接段。实现上游驱动类别必须使用此宏：<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a9907e8ee5e7be8c3b5d52b13bd33970a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_GET</span></code></a> 和 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a48c6030c2e7d1d05ace7c708dda11949" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_IS</span></code></a> 依赖每类 API 的实例位于对应链接段，才能在运行时验证设备的 API 类别。</p>
+</dd>
+</dl>
+</section>
+<section id="driver-data-structures">
+<span id="device-struct"></span><h2>驱动数据结构<a class="headerlink" href="#driver-data-structures" title="链接到此标题"></a></h2>
+<p>设备初始化宏在构建时填充数据结构，分为只读部分和运行时可变部分。概括如下：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">;</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">;</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">api</span><span class="p">;</span>
+<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">config</span></code> 成员指向构建时确定的只读配置，如内存映射 I/O 基址、IRQ 线号及设备的其他固定硬件特性。它对应传给 <code class="docutils literal notranslate"><span class="pre">DEVICE_DEFINE()</span></code> 及相关宏的 <code class="docutils literal notranslate"><span class="pre">config</span></code> 指针。</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> 结构位于 RAM，驱动在运行时用它保存每个实例的状态，如引用计数、信号量、临时缓冲区等。</p>
+<p><code class="docutils literal notranslate"><span class="pre">api</span></code> 结构将通用子系统 API 映射到本驱动的设备专用实现。它通常是只读的，在构建时填充，详见下一节。</p>
+</section>
+<section id="subsystems-and-api-structures">
+<h2>子系统与 API 结构<a class="headerlink" href="#subsystems-and-api-structures" title="链接到此标题"></a></h2>
+<p>大多数驱动实现与具体设备无关的子系统 API。应用面向这一通用 API 编程，无须依赖某个驱动实现。</p>
+<p>必须用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#aa0cdc799fc0b9c80eb29f989eec86707" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API()</span></code></a> 声明驱动 API 实例，才能将其实例放入对应的 API 链接段。这样 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a9907e8ee5e7be8c3b5d52b13bd33970a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_GET</span></code></a>、<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a48c6030c2e7d1d05ace7c708dda11949" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_IS</span></code></a> 才能在运行时验证设备的 API 是否属于预期类别。</p>
+<p>子系统 API 的定义通常如下：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">subsystem_do_this_t</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bar</span><span class="p">);</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">subsystem_do_that_t</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">baz</span><span class="p">);</span>
+
+<span class="n">__subsystem</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">subsystem_driver_api</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">subsystem_do_this_t</span><span class="w"> </span><span class="n">do_this</span><span class="p">;</span>
+<span class="w">      </span><span class="n">subsystem_do_that_t</span><span class="w"> </span><span class="n">do_that</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">subsystem_do_this</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bar</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">DEVICE_API_GET</span><span class="p">(</span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">dev</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">do_this</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="n">bar</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">subsystem_do_that</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">baz</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">      </span><span class="n">DEVICE_API_GET</span><span class="p">(</span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">dev</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">do_that</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">baz</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>驱动实现该子系统的各个函数，再用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#aa0cdc799fc0b9c80eb29f989eec86707" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API()</span></code></a> 包装并填充一个 subsystem_driver_api 结构实例：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">my_driver_do_this</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bar</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">my_driver_do_that</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">baz</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">DEVICE_API</span><span class="p">(</span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">my_driver_api_funcs</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="p">.</span><span class="n">do_this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_driver_do_this</span><span class="p">,</span>
+<span class="w">      </span><span class="p">.</span><span class="n">do_that</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_driver_do_that</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>随后把 <code class="docutils literal notranslate"><span class="pre">my_driver_api_funcs</span></code> 作为 <code class="docutils literal notranslate"><span class="pre">DEVICE_DEFINE()</span></code> 的 <code class="docutils literal notranslate"><span class="pre">api</span></code> 参数传入。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p><code class="docutils literal notranslate"><span class="pre">api</span></code> 结构引用了各 API 函数，即使应用未调用它们，函数也会进入二进制；链接器的 <code class="docutils literal notranslate"><span class="pre">gc-sections</span></code> 选项总能看到至少一个引用。因此，要使链接阶段能裁掉可选驱动功能，通常须用 Kconfig 选项控制该功能。</p>
+</div>
+</section>
+<section id="api-class-inheritance">
+<h2>API 类继承<a class="headerlink" href="#api-class-inheritance" title="链接到此标题"></a></h2>
+<p>子系统 API 可扩展另一个子系统 API，形成父子关系。实现子 API 的设备也被识别为实现了父 API。例如 I3C 控制器扩展了 I2C API，可用于要求 I2C 设备的场合。</p>
+<p>定义子 API 时，将父 API 结构嵌入为子结构的<strong>第一个成员</strong>，并通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a2b0530c13706c66229d35977c6553db9" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_EXTENDS</span></code></a> 声明继承关系：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">__subsystem</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">child_driver_api</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">struct</span><span class="w"> </span><span class="nc">subsystem_driver_api</span><span class="w"> </span><span class="n">parent_api</span><span class="p">;</span>
+<span class="w">      </span><span class="n">child_do_extra_t</span><span class="w"> </span><span class="n">do_extra</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">DEVICE_API_EXTENDS</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">parent_api</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>实现子 API 的驱动需同时填充父、子两级的方法：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">DEVICE_API</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="n">my_child_api</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="p">.</span><span class="n">parent_api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="p">.</span><span class="n">do_this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_child_do_this</span><span class="p">,</span>
+<span class="w">              </span><span class="p">.</span><span class="n">do_that</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_child_do_that</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">.</span><span class="n">do_extra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_child_do_extra</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>这样，<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a48c6030c2e7d1d05ace7c708dda11949" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_IS</span></code></a> 对父类和子类都会返回真，<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a9907e8ee5e7be8c3b5d52b13bd33970a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_GET</span></code></a> 也能以任一类型取得 API：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Both return true for a child device */</span>
+<span class="n">DEVICE_API_IS</span><span class="p">(</span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">dev</span><span class="p">);</span>
+<span class="n">DEVICE_API_IS</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="n">dev</span><span class="p">);</span>
+
+<span class="cm">/* Access through parent API */</span>
+<span class="n">DEVICE_API_GET</span><span class="p">(</span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">dev</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">do_this</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="n">bar</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>支持多级继承，例如孙类扩展子类、子类扩展父类。同一父类下的不同子类也能由 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/device_8h.html#a48c6030c2e7d1d05ace7c708dda11949" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_API_IS</span></code></a> 正确区分。</p>
+</section>
+<section id="device-specific-api-extensions">
+<h2>设备专用 API 扩展<a class="headerlink" href="#device-specific-api-extensions" title="链接到此标题"></a></h2>
+<p>有些设备既能作为 GPIO 等子系统的实例，又提供标准 API 无法表达的功能。这类设备除子系统操作外，还在设备专用头文件中提供扩展 API。</p>
+<p>设备专用 API 的定义通常如下：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/drivers/subsystem.h&gt;</span>
+
+<span class="cm">/* When extensions need not be invoked from user mode threads */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">specific_do_that</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">);</span>
+
+<span class="cm">/* When extensions must be invokable from user mode threads */</span>
+<span class="n">__syscall</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">specific_from_user</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bar</span><span class="p">);</span>
+
+<span class="cm">/* Only needed when extensions include syscalls */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/syscalls/specific.h&gt;</span>
+</pre></div>
+</div>
+<p>扩展子系统功能的驱动会同时实现子系统 API 和专用 API：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">generic_do_this</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">generic_api</span><span class="w"> </span><span class="n">api</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="p">.</span><span class="n">do_this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generic_do_this</span><span class="p">,</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">};</span>
+
+<span class="cm">/* supervisor-only API is globally visible */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">specific_do_that</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="cm">/* syscall API passes through a translation */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">z_impl_specific_from_user</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bar</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="cp">#ifdef CONFIG_USERSPACE</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/internal/syscall_handler.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">z_vrfy_specific_from_user</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bar</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">K_OOPS</span><span class="p">(</span><span class="n">K_SYSCALL_SPECIFIC_DRIVER</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">K_OBJ_DRIVER_GENERIC</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">api</span><span class="p">));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">z_impl_specific_do_that</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">bar</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/syscalls/specific_from_user_mrsh.c&gt;</span>
+
+<span class="cp">#endif </span><span class="cm">/* CONFIG_USERSPACE */</span>
+</pre></div>
+</div>
+<p>应用可以通过这两种 API 使用设备。</p>
+</section>
+<section id="single-driver-multiple-instances">
+<h2>一个驱动、多个实例<a class="headerlink" href="#single-driver-multiple-instances" title="链接到此标题"></a></h2>
+<p>系统可有同一驱动的多个实例，例如多个 GPIO 端口组或多个 UART。每个实例有独立的 <code class="docutils literal notranslate"><span class="pre">config</span></code> 结构和 <code class="docutils literal notranslate"><span class="pre">data</span></code> 结构。</p>
+<p>多实例的中断配置需要特殊处理。由于 <code class="docutils literal notranslate"><span class="pre">IRQ_CONNECT()</span></code> 的参数必须能在构建时解析，若各实例使用不同的中断线，可为每个实例提供单独的配置函数。</p>
+<p>例如，要为 <code class="docutils literal notranslate"><span class="pre">my_driver</span></code> 配置两个使用不同中断线的实例。在 <code class="docutils literal notranslate"><span class="pre">drivers/subsystem/subsystem_my_driver.h</span></code> 中：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">my_driver_config_irq_t</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">);</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">DEVICE_MMIO_ROM</span><span class="p">;</span>
+<span class="w">      </span><span class="n">my_driver_config_irq_t</span><span class="w"> </span><span class="n">config_func</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>在通用初始化函数的实现中：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">my_driver_isr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">      </span><span class="cm">/* Handle interrupt */</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">my_driver_init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">config</span><span class="p">;</span>
+
+<span class="w">      </span><span class="n">DEVICE_MMIO_MAP</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">K_MEM_CACHE_NONE</span><span class="p">);</span>
+
+<span class="w">      </span><span class="cm">/* Do other initialization stuff */</span>
+<span class="w">      </span><span class="p">...</span>
+
+<span class="w">      </span><span class="n">config</span><span class="o">-&gt;</span><span class="n">config_func</span><span class="p">(</span><span class="n">dev</span><span class="p">);</span>
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>声明具体实例时：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#if CONFIG_MY_DRIVER_0</span>
+
+<span class="n">DEVICE_DECLARE</span><span class="p">(</span><span class="n">my_driver_0</span><span class="p">);</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">my_driver_config_irq_0</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">      </span><span class="n">IRQ_CONNECT</span><span class="p">(</span><span class="n">MY_DRIVER_0_IRQ</span><span class="p">,</span><span class="w"> </span><span class="n">MY_DRIVER_0_PRI</span><span class="p">,</span><span class="w"> </span><span class="n">my_driver_isr</span><span class="p">,</span>
+<span class="w">                  </span><span class="n">DEVICE_GET</span><span class="p">(</span><span class="n">my_driver_0</span><span class="p">),</span><span class="w"> </span><span class="n">MY_DRIVER_0_FLAGS</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="n">my_driver_config_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">DEVICE_MMIO_ROM_INIT</span><span class="p">(</span><span class="n">DT_DRV_INST</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span>
+<span class="w">      </span><span class="p">.</span><span class="n">config_func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_driver_config_irq_0</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_data_0</span><span class="p">;</span>
+
+<span class="n">DEVICE_DEFINE</span><span class="p">(</span><span class="n">my_driver_0</span><span class="p">,</span><span class="w"> </span><span class="n">MY_DRIVER_0_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">my_driver_init</span><span class="p">,</span>
+<span class="w">              </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my_data_0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my_driver_config_0</span><span class="p">,</span>
+<span class="w">              </span><span class="n">POST_KERNEL</span><span class="p">,</span><span class="w"> </span><span class="n">MY_DRIVER_0_PRIORITY</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my_api_funcs</span><span class="p">);</span>
+
+<span class="cp">#endif </span><span class="cm">/* CONFIG_MY_DRIVER_0 */</span>
+</pre></div>
+</div>
+<p>注意这里用 <code class="docutils literal notranslate"><span class="pre">DEVICE_DECLARE()</span></code> 解除循环依赖：中断处理程序需要设备作为参数，而设备本身此时还在定义中。</p>
+</section>
+<section id="initialization-levels">
+<h2>初始化级别<a class="headerlink" href="#initialization-levels" title="链接到此标题"></a></h2>
+<p>一个驱动可能依赖其他驱动先初始化，或者需要使用内核服务。通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html#gac12521f4d900e8947aac45c1b228366d" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">DEVICE_DEFINE()</span></code></a> 和相关 API 可以指定启动时调用初始化函数的时机。设备驱动从下面三个初始化级别中选一个：</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">PRE_KERNEL_1</span></code></dt><dd><p>适用于无依赖的设备，如只依赖处理器／SoC 自带硬件的设备。此时内核服务尚不可用，配置时不能调用；中断子系统已就绪，可以设置中断。初始化函数在中断栈上运行。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PRE_KERNEL_2</span></code></dt><dd><p>适用于依赖 <code class="docutils literal notranslate"><span class="pre">PRE_KERNEL_1</span></code> 阶段已初始化设备的驱动。此时内核服务仍不可用，初始化函数也在中断栈上运行。</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">POST_KERNEL</span></code></dt><dd><p>适用于配置时需要内核服务的设备。初始化函数在内核主任务的上下文中运行。</p>
+</dd>
+</dl>
+<p>同一级别内可用优先级指定各设备的相对顺序。取值 0–999，数值越小，初始化越早。须使用无符号、无前导零的十进制整数字面值（如 32）或等价的符号名（如 <code class="docutils literal notranslate"><span class="pre">\#define</span> <span class="pre">MY_INIT_PRIO</span> <span class="pre">32</span></code>）；<em>不</em>允许使用表达式（如 <code class="docutils literal notranslate"><span class="pre">CONFIG_KERNEL_INIT_PRIORITY_DEFAULT</span> <span class="pre">+</span> <span class="pre">5</span></code>）。</p>
+<p>驱动及系统工具可用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__thread__apis.html#gae74e5de996276df767b96d4b50fa47ea" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_is_pre_kernel()</span></code></a> 判断当前是否仍处于内核启动前阶段。</p>
+</section>
+<section id="deferred-initialization">
+<h2>延迟初始化<a class="headerlink" href="#deferred-initialization" title="链接到此标题"></a></h2>
+<p>也可延迟初始化。此时 Zephyr 不在启动时自动初始化设备，而在应用调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html#gaeea4f9c9f14ab12d224378ab90231c09" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">device_init()</span></code></a> 时才初始化。要启用，请在 DTS 中的相应节点加入 <code class="docutils literal notranslate"><span class="pre">zephyr,deferred-init</span></code> 属性。例如：</p>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nf">a-driver</span><span class="o">@</span><span class="mi">40000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x40000000</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">zephyr</span><span class="p">,</span><span class="n">deferred-init</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>有些驱动依赖启动时即已初始化，延后操作可能无法正常工作。网络驱动目前不支持延迟初始化。</p>
+</div>
+</section>
+<section id="system-drivers">
+<h2>系统驱动<a class="headerlink" href="#system-drivers" title="链接到此标题"></a></h2>
+<p>如果只想在启动时运行一个函数，可以使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__sys__init.html#gaf507cc0613add8113c41896bd631254f" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SYS_INIT</span></code></a>。它不接受配置或运行时数据结构，之后也不能按名称获得设备指针；初始化级别和优先级规则与设备相同。</p>
+</section>
+<section id="inspecting-the-initialization-sequence">
+<h2>查看初始化顺序<a class="headerlink" href="#inspecting-the-initialization-sequence" title="链接到此标题"></a></h2>
+<p>通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html#gac12521f4d900e8947aac45c1b228366d" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">DEVICE_DEFINE</span></code></a>（或其变体）及 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__sys__init.html#gaf507cc0613add8113c41896bd631254f" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SYS_INIT</span></code></a> 声明的驱动或初始化项，会在启动时按指定级别、优先级依次调用初始化函数。</p>
+<p>要检查链接器最终生成的初始化调用顺序，可使用 <code class="docutils literal notranslate"><span class="pre">initlevels</span></code> CMake 目标，例如 <code class="docutils literal notranslate"><span class="pre">west</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">initlevels</span></code>。</p>
+</section>
+<section id="error-handling">
+<h2>错误处理<a class="headerlink" href="#error-handling" title="链接到此标题"></a></h2>
+<p>除非故障属于正常运行中预期会发生的情况（如存储设备已满），一般应使用 <code class="docutils literal notranslate"><span class="pre">__ASSERT()</span></code>，而不是层层返回错误值。无效参数、编程错误、一致性检查失败和不可恢复的异常等，适合用断言处理。</p>
+<p>如果错误应交由调用者处理，则成功返回 0，失败返回 POSIX <code class="file docutils literal notranslate"><span class="pre">errno.h</span></code> 错误码。详见<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__system__errno.html" title="英文原文" hreflang="en" data-lang-target="en">错误码</a>。</p>
+</section>
+<section id="memory-mapping">
+<h2>内存映射<a class="headerlink" href="#memory-mapping" title="链接到此标题"></a></h2>
+<p>某些系统不能在构建时确定外设内存映射 I/O（MMIO）区域的线性地址：</p>
+<ul class="simple">
+<li><p>例如 PCI Express 总线需要在运行时探测 I/O 范围。</p></li>
+<li><p>如果启用了内存管理单元（MMU），需要将 MMIO 的物理地址映射到页表中某个由内核确定的虚拟地址。</p></li>
+</ul>
+<p>此类系统须在 RAM 中保存 MMIO 区域信息，并在驱动初始化时建立映射。其他系统可直接采用 DTS 中的物理地址，无须在 RAM 中另存。</p>
+<p>为此类驱动提供了 DEVICE_MMIO 系列 API 和映射函数 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device-mmio.html#ga6b4a9841a5176104e1b63f7475d3d2a2" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">device_map()</span></code></a>。</p>
+<section id="device-model-drivers-with-one-mmio-region">
+<h3>只有一个 MMIO 区域的设备模型驱动<a class="headerlink" href="#device-model-drivers-with-one-mmio-region" title="链接到此标题"></a></h3>
+<p>最简单的是只管理一个 MMIO 区域。驱动分别在 <code class="docutils literal notranslate"><span class="pre">config_info</span></code> 和 <code class="docutils literal notranslate"><span class="pre">driver_data</span></code> 中使用 <code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_ROM</span></code>、<code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_RAM</span></code>，用 <code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_ROM_INIT</span></code> 从 DTS 初始化 <code class="docutils literal notranslate"><span class="pre">config_info</span></code>，并在初始化函数中调用 <code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_MAP()</span></code>：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_ROM</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Must be first */</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_dev_data</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_RAM</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Must be first */</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="n">my_driver_config_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_ROM_INIT</span><span class="p">(</span><span class="n">DT_DRV_INST</span><span class="p">(...)),</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">my_driver_init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_MAP</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">K_MEM_CACHE_NONE</span><span class="p">);</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">my_driver_some_function</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="cm">/* Write some data to the MMIO region */</span>
+<span class="w">   </span><span class="n">sys_write32</span><span class="p">(</span><span class="mh">0xDEADBEEF</span><span class="p">,</span><span class="w"> </span><span class="n">DEVICE_MMIO_GET</span><span class="p">(</span><span class="n">dev</span><span class="p">));</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>宏的展开随配置而异。在没有 MMU 和 PCIe 的设备上，<code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_MAP</span></code> 和 <code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_RAM</span></code> 均展开为空。</p>
+</section>
+<section id="device-model-drivers-with-multiple-mmio-regions">
+<h3>具有多个 MMIO 区域的设备模型驱动<a class="headerlink" href="#device-model-drivers-with-multiple-mmio-regions" title="链接到此标题"></a></h3>
+<p>有些驱动有多个 MMIO 区域，也可能因使用了继承而要求将其他数据放在 <code class="docutils literal notranslate"><span class="pre">config_info</span></code>、<code class="docutils literal notranslate"><span class="pre">driver_data</span></code> 的首位。</p>
+<p>此时可用 <code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_NAMED</span></code> 系列宏。须定义 <code class="docutils literal notranslate"><span class="pre">DEV_CFG()</span></code>、<code class="docutils literal notranslate"><span class="pre">DEV_DATA()</span></code>，以获得类型正确的 config_info 或 dev_data 指针。例如：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">     </span><span class="n">DEVICE_MMIO_NAMED_ROM</span><span class="p">(</span><span class="n">corge</span><span class="p">);</span>
+<span class="w">     </span><span class="n">DEVICE_MMIO_NAMED_ROM</span><span class="p">(</span><span class="n">grault</span><span class="p">);</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_dev_data</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">     </span><span class="n">DEVICE_MMIO_NAMED_RAM</span><span class="p">(</span><span class="n">corge</span><span class="p">);</span>
+<span class="w">     </span><span class="n">DEVICE_MMIO_NAMED_RAM</span><span class="p">(</span><span class="n">grault</span><span class="p">);</span>
+<span class="w">     </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="cp">#define DEV_CFG(_dev) \</span>
+<span class="cp">   ((const struct my_driver_config *)((_dev)-&gt;config))</span>
+
+<span class="cp">#define DEV_DATA(_dev) \</span>
+<span class="cp">   ((struct my_driver_dev_data *)((_dev)-&gt;data))</span>
+
+<span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="n">my_driver_config_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_NAMED_ROM_INIT</span><span class="p">(</span><span class="n">corge</span><span class="p">,</span><span class="w"> </span><span class="n">DT_DRV_INST</span><span class="p">(...)),</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_NAMED_ROM_INIT</span><span class="p">(</span><span class="n">grault</span><span class="p">,</span><span class="w"> </span><span class="n">DT_DRV_INST</span><span class="p">(...)),</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">my_driver_init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_NAMED_MAP</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">corge</span><span class="p">,</span><span class="w"> </span><span class="n">K_MEM_CACHE_NONE</span><span class="p">);</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_NAMED_MAP</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">grault</span><span class="p">,</span><span class="w"> </span><span class="n">K_MEM_CACHE_NONE</span><span class="p">);</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">my_driver_some_function</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="cm">/* Write some data to the MMIO regions */</span>
+<span class="w">   </span><span class="n">sys_write32</span><span class="p">(</span><span class="mh">0xDEADBEEF</span><span class="p">,</span><span class="w"> </span><span class="n">DEVICE_MMIO_GET</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">grault</span><span class="p">));</span>
+<span class="w">   </span><span class="n">sys_write32</span><span class="p">(</span><span class="mh">0xF0CCAC1A</span><span class="p">,</span><span class="w"> </span><span class="n">DEVICE_MMIO_GET</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">corge</span><span class="p">));</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="device-model-drivers-with-multiple-mmio-regions-in-the-same-dt-node">
+<h3>同一设备树节点内有多个 MMIO 区域的驱动<a class="headerlink" href="#device-model-drivers-with-multiple-mmio-regions-in-the-same-dt-node" title="链接到此标题"></a></h3>
+<p>同一设备树节点也可以用 <code class="docutils literal notranslate"><span class="pre">reg-names</span></code> 属性区分多个 MMIO 区域。例如：</p>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="cp">/dts-v1/</span><span class="p">;</span>
+
+<span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nf">a-driver</span><span class="o">@</span><span class="mi">40000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x40000000</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">                      </span><span class="o">&lt;</span><span class="mh">0x40001000</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                </span><span class="kr">reg</span><span class="o">-</span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"corge"</span><span class="p">,</span><span class="w"> </span><span class="s">"grault"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>处理方式与上一节类似，但改用 <code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_NAMED_ROM_INIT_BY_NAME</span></code>。因此只有驱动配置结构不同：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_driver_config</span><span class="w"> </span><span class="n">my_driver_config_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_NAMED_ROM_INIT_BY_NAME</span><span class="p">(</span><span class="n">corge</span><span class="p">,</span><span class="w"> </span><span class="n">DT_DRV_INST</span><span class="p">(...)),</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_NAMED_ROM_INIT_BY_NAME</span><span class="p">(</span><span class="n">grault</span><span class="p">,</span><span class="w"> </span><span class="n">DT_DRV_INST</span><span class="p">(...)),</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="drivers-that-do-not-use-zephyr-device-model">
+<h3>不使用 Zephyr 设备模型的驱动<a class="headerlink" href="#drivers-that-do-not-use-zephyr-device-model" title="链接到此标题"></a></h3>
+<p>某些驱动或类似驱动的代码不使用 Zephyr 设备模型，例如定时器驱动或中断控制器代码；必须另行安排 MMIO 信息的存储。</p>
+<p>可使用 <code class="docutils literal notranslate"><span class="pre">DEVICE_MMIO_TOPLEVEL</span></code> 系列宏，例如：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">DEVICE_MMIO_TOPLEVEL_STATIC</span><span class="p">(</span><span class="n">my_regs</span><span class="p">,</span><span class="w"> </span><span class="n">DT_DRV_INST</span><span class="p">(..));</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">some_init_code</span><span class="p">(...)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="n">DEVICE_MMIO_TOPLEVEL_MAP</span><span class="p">(</span><span class="n">my_regs</span><span class="p">,</span><span class="w"> </span><span class="n">K_MEM_CACHE_NONE</span><span class="p">);</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">some_function</span><span class="p">(...)</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="n">sys_write32</span><span class="p">(</span><span class="n">DEVICE_MMIO_TOPLEVEL_GET</span><span class="p">(</span><span class="n">my_regs</span><span class="p">),</span><span class="w"> </span><span class="mh">0xDEADBEEF</span><span class="p">);</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="drivers-that-do-not-use-dts">
+<h3>不使用 DTS 的驱动<a class="headerlink" href="#drivers-that-do-not-use-dts" title="链接到此标题"></a></h3>
+<p>有些驱动不从 DTS 获取 MMIO 物理地址，例如 PCIe。此时可直接调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device-mmio.html#ga6b4a9841a5176104e1b63f7475d3d2a2" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">device_map()</span></code></a>：</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">some_init_code</span><span class="p">(...)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="w">   </span><span class="k">struct</span><span class="w"> </span><span class="nc">pcie_bar</span><span class="w"> </span><span class="n">mbar</span><span class="p">;</span>
+<span class="w">   </span><span class="kt">bool</span><span class="w"> </span><span class="n">bar_found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pcie_get_mbar</span><span class="p">(</span><span class="n">bdf</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mbar</span><span class="p">);</span>
+
+<span class="w">   </span><span class="n">device_map</span><span class="p">(</span><span class="n">DEVICE_MMIO_RAM_PTR</span><span class="p">(</span><span class="n">dev</span><span class="p">),</span><span class="w"> </span><span class="n">mbar</span><span class="p">.</span><span class="n">phys_addr</span><span class="p">,</span><span class="w"> </span><span class="n">mbar</span><span class="p">.</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">K_MEM_CACHE_NONE</span><span class="p">);</span>
+<span class="w">   </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>这些情况下可省略 DEVICE_MMIO_ROM 声明。</p>
+</section>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__device__model.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Device</span> <span class="pre">Model</span></a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-11-04。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../H-sources.txt">本批来源与素材说明</a> · <a href="../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

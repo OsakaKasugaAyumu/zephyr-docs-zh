@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>邮箱（Mailboxes） — Zephyr 项目文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/kernel/services/data_passing/mailboxes.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="管道（Pipes）" href="pipes.html">
+    <link rel="prev" title="消息队列（Message Queues）" href="message_queues.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/kernel/services/data_passing/mailboxes.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/kernel/services/data_passing/mailboxes.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="mailboxes.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">内核（Kernel）</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">内核服务</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#scheduling-interrupts-and-synchronization">调度、中断与同步</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#data-passing">数据传递</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="queues.html">队列（Queues）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fifos.html">先进先出队列（FIFOs）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lifos.html">后进先出队列（LIFOs）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/services/data_passing/stacks.html" hreflang="en" data-lang-target="en" title="英文原文">栈（Stack）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="message_queues.html">消息队列（Message Queues）</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">邮箱（Mailboxes）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#concepts">基本概念</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#message-format">消息格式</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#message-lifecycle">消息生命周期</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#thread-compatibility">收发线程的匹配条件</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#message-flow-control">消息流量控制</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#implementation">实现</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#defining-a-mailbox">定义邮箱</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#message-descriptors">消息描述符</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#sending-a-message">发送消息</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#receiving-a-message">接收消息</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#suggested-uses">建议用法</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#configuration-options">配置选项</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="pipes.html">管道（Pipes）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#memory-management">内存管理总览（Memory Management）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#timing">定时</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#other">其他</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../drivers/index.html">设备驱动模型（Device Driver Model）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/usermode/index.html" hreflang="en" data-lang-target="en" title="英文原文">用户模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../memory_management/index.html">内存管理总览（Memory Management）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/data_structures/index.html" hreflang="en" data-lang-target="en" title="英文原文">数据结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/timing_functions/index.html" hreflang="en" data-lang-target="en" title="英文原文">执行时间函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/object_cores/index.html" hreflang="en" data-lang-target="en" title="英文原文">对象核心（object cores）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/timeutil.html" hreflang="en" data-lang-target="en" title="英文原文">时间工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/precision_timing.html" hreflang="en" data-lang-target="en" title="英文原文">精密计时</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/util/index.html" hreflang="en" data-lang-target="en" title="英文原文">实用工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/div64.html" hreflang="en" data-lang-target="en" title="英文原文">利用倒数实现 64 位除法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/iterable_sections/index.html" hreflang="en" data-lang-target="en" title="英文原文">可迭代段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/code-relocation.html" hreflang="en" data-lang-target="en" title="英文原文">代码与数据重定位</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/kernel/cleanup.html" hreflang="en" data-lang-target="en" title="英文原文">基于作用域的清理辅助函数</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="../../index.html">内核（Kernel）</a> »</li>
+  
+     <li><a href="../index.html">内核服务</a> »</li>
+  
+  <li>邮箱（Mailboxes）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/kernel/services/data_passing/mailboxes.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27kernel%2Fservices%2Fdata_passing%2Fmailboxes%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Kernel&amp;env=-+Page%3A+kernel%2Fservices%2Fdata_passing%2Fmailboxes%0A-+Version%3A+main%0A-+SHA-1%3A+650a59479c40bd2f2e07b6576a1dcdef77637ad6&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="mailboxes">
+<span id="mailboxes-v2"></span><h1>邮箱（Mailboxes）<a class="headerlink" href="#mailboxes" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · F09 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（79 篇）</a> · <a href="../../../../index.html#batch-f">F 批目录</a> · <a href="https://docs.zephyrproject.org/latest/kernel/services/data_passing/mailboxes.html" hreflang="en">本页英文原文</a></p><p><em class="dfn">邮箱（mailbox）</em>是比普通消息队列功能更丰富的内核对象，允许线程同步或异步收发任意大小的消息。</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#concepts" id="id1">基本概念</a></p>
+<ul>
+<li><p><a class="reference internal" href="#message-format" id="id2">消息格式</a></p></li>
+<li><p><a class="reference internal" href="#message-lifecycle" id="id3">消息生命周期</a></p></li>
+<li><p><a class="reference internal" href="#thread-compatibility" id="id4">收发线程的匹配条件</a></p></li>
+<li><p><a class="reference internal" href="#message-flow-control" id="id5">消息流量控制</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#implementation" id="id6">实现</a></p>
+<ul>
+<li><p><a class="reference internal" href="#defining-a-mailbox" id="id7">定义邮箱</a></p></li>
+<li><p><a class="reference internal" href="#message-descriptors" id="id8">消息描述符</a></p></li>
+<li><p><a class="reference internal" href="#sending-a-message" id="id9">发送消息</a></p></li>
+<li><p><a class="reference internal" href="#receiving-a-message" id="id10">接收消息</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#suggested-uses" id="id11">建议用法</a></p></li>
+<li><p><a class="reference internal" href="#configuration-options" id="id12">配置选项</a></p></li>
+<li><p><a class="reference internal" href="#api-reference" id="id13">API 参考</a></p></li>
+</ul>
+</nav>
+<section id="concepts">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">基本概念</a><a class="headerlink" href="#concepts" title="链接到此标题"></a></h2>
+<p>邮箱数量仅受可用 RAM 限制，每个邮箱通过其内存地址引用。</p>
+<p>邮箱有以下关键属性：</p>
+<ul class="simple">
+<li><p><strong>发送队列</strong>：存放已发送、尚未被接收的消息。</p></li>
+<li><p><strong>接收队列</strong>：存放等待接收消息的线程。</p></li>
+</ul>
+<p>邮箱须先初始化再使用，其两个队列最初均为空。</p>
+<p>只有线程可以通过邮箱交换消息，ISR 不可以。发出消息的是<strong>发送线程</strong>，接收消息的是<strong>接收线程</strong>。每条消息只交给一个线程，不支持点对多点或广播。</p>
+<p>邮箱交换不是匿名的：双方都能得知甚至指定对方的线程身份。</p>
+<section id="message-format">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink">消息格式</a><a class="headerlink" href="#message-format" title="链接到此标题"></a></h3>
+<p><strong>消息描述符（message descriptor）</strong>记录消息数据位于何处，以及邮箱应如何处理它。收发双方访问邮箱时各提供一个描述符；邮箱据此匹配双方并交换消息。交换时邮箱还会更新其中部分字段，使双方了解交换结果。</p>
+<p>邮箱消息包含零个或多个字节的<strong>消息数据</strong>。大小与格式均由应用定义，不同消息可各不相同。</p>
+<p><strong>消息缓冲区</strong>是收发线程提供的一块内存，通常可以使用数组或结构体变量。</p>
+<p>不含任何形式消息数据的消息称为<strong>空消息（empty message）</strong>。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>如果消息缓冲区存在，只是实际数据长度为零，则它<em>不</em>是空消息。</p>
+</div>
+</section>
+<section id="message-lifecycle">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">消息生命周期</a><a class="headerlink" href="#message-lifecycle" title="链接到此标题"></a></h3>
+<p>发送线程将消息交给邮箱时，消息就创建了；在交给接收线程之前，它归邮箱所有。接收线程可在接收消息时获取数据，也可在第二次邮箱操作中再获取。只有在数据获取结束后，邮箱才删除消息。</p>
+</section>
+<section id="thread-compatibility">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">收发线程的匹配条件</a><a class="headerlink" href="#thread-compatibility" title="链接到此标题"></a></h3>
+<p>发送线程可指定目标线程地址，或指定 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 表示任何线程都可接收。接收线程也可指定来源线程地址，或用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 表示接受任意来源。只有双方的条件都满足才发生交换，这样的线程称为<strong>compatible</strong>。</p>
+<p>例如 A 只向 B 发送消息。B 若等待来自 A 或任意线程的消息，就可收到；若 B 只等 C，则不会交换。即使 C 等待来自 A 或任意来源的消息，C 也不可能收到这一条。</p>
+</section>
+<section id="message-flow-control">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">消息流量控制</a><a class="headerlink" href="#message-flow-control" title="链接到此标题"></a></h3>
+<p>邮箱交换可<strong>同步地</strong>或<strong>异步地</strong>进行。同步时发送线程阻塞，直到接收线程处理完整条消息。异步时发送线程无须等到有人接收即可继续：在消息交付并处理完成<em>之前</em>，即可做其他工作，例如收集下一条消息的数据。交换方式由发送线程决定。</p>
+<p>同步交换隐含流量控制：发送者不会比接收者消耗消息更快地持续发送。异步交换则允许显式控制流量，例如发送下一条消息前先判断先前那条是否仍在邮箱中。</p>
+</section>
+</section>
+<section id="implementation">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">实现</a><a class="headerlink" href="#implementation" title="链接到此标题"></a></h2>
+<section id="defining-a-mailbox">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">定义邮箱</a><a class="headerlink" href="#defining-a-mailbox" title="链接到此标题"></a></h3>
+<p>用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structk__mbox.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">k_mbox</span></code></a> 类型定义邮箱，再调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mailbox__apis.html#ga686f20c199a9e971822d8279d175d8c2" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_mbox_init()</span></code></a> 初始化。</p>
+<p>以下代码定义并初始化一个空邮箱。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">k_mbox</span><span class="w"> </span><span class="n">my_mailbox</span><span class="p">;</span>
+
+<span class="n">k_mbox_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_mailbox</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>也可调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mailbox__apis.html#gab55cba898db47113a06641c01f3e3714" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_MBOX_DEFINE</span></code></a> 在编译期定义并初始化邮箱。</p>
+<p>以下代码与上面的代码片段效果相同。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">K_MBOX_DEFINE</span><span class="p">(</span><span class="n">my_mailbox</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="message-descriptors">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">消息描述符</a><a class="headerlink" href="#message-descriptors" title="链接到此标题"></a></h3>
+<p>消息描述符是 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structk__mbox__msg.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">k_mbox_msg</span></code></a> 类型的结构体。只应使用下列字段，其余字段仅供邮箱内部使用。</p>
+<dl class="simple">
+<dt><em>info（信息值）</em></dt><dd><p>由收发双方交换的 32 位值，含义由应用定义。每次交换时发送方都可传值给接收方；同步交换时接收方也可反向传值。</p>
+</dd>
+<dt><em>大小</em></dt><dd><p>消息数据大小，以字节计。发送空消息或发送有缓冲区但无实际数据的消息时都设为零。接收时设为需要的最大长度；不需要数据则设为零。收到消息后，邮箱将它更新为实际交换的字节数。</p>
+</dd>
+<dt><em>tx_data</em></dt><dd><p>发送线程的消息缓冲区指针。发空消息时设为 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>；接收时不必初始化此字段。</p>
+</dd>
+<dt><em>tx_target_thread</em></dt><dd><p>期望的接收线程地址。设为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 可允许任意线程接收。接收消息时不必初始化；收到后邮箱会写入实际接收者地址。</p>
+</dd>
+<dt><em>rx_source_thread</em></dt><dd><p>期望的发送线程地址。设为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__kernel__apis.html#gac627cc4c3da16be4b74f0a4ab036a603" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_ANY</span></code></a> 可接受任意来源。发送时不必初始化；消息放入邮箱时，邮箱会写入实际发送者地址。</p>
+</dd>
+</dl>
+</section>
+<section id="sending-a-message">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">发送消息</a><a class="headerlink" href="#sending-a-message" title="链接到此标题"></a></h3>
+<p>发送线程首先准备消息数据（如果有）。</p>
+<p>然后按照上一节的说明创建消息描述符，描述准备发送的消息。</p>
+<p>最后调用邮箱发送 API 发起交换。如有匹配的接收线程在等待，消息会立即交给它；否则消息加入邮箱的发送队列。</p>
+<p>发送队列可同时容纳任意数量的消息。先按发送线程优先级排序；优先级相同时，最早的消息先被接收。</p>
+<p>同步发送通常要等接收线程既收到消息、又取走数据才结束。如果在发送者指定的期限内无人接收，消息会从发送队列移除，发送失败。成功后，发送者可检查描述符，了解接收者身份、实际交换的字节数，以及接收者提供的应用自定义 info 值。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>即使指定最大等待时间，同步发送也可能无限期阻塞。超时只限制等待其他线程接收消息的阶段。一旦被接收，接收线程取走数据、解除发送线程阻塞所用的时间就<em>没有</em>上限。</p>
+</div>
+<p>异步发送始终立即返回，无论消息是马上交付还是加入发送队列，发送方都可继续执行。可以指定一个信号量：邮箱在删除消息时（例如接收者已收到并取走数据后）释放该信号量。这样就能实现流量控制，保证任一时刻邮箱中来自某个或某些发送线程的消息数量不超过应用指定的上限。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>异步发送的线程无法据此得知哪一线程接收了消息、实际交换了多少数据，也无法得到接收方指定的 info 值。</p>
+</div>
+<section id="sending-an-empty-message">
+<h4>发送空消息<a class="headerlink" href="#sending-an-empty-message" title="链接到此标题"></a></h4>
+<p>此例用邮箱把 4 字节随机值同步交给需要它的任一消费线程。所需信息能完全放进 info 字段，因此不使用消息数据区。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">producer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">k_mbox_msg</span><span class="w"> </span><span class="n">send_msg</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="cm">/* generate random value to send */</span>
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">random_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sys_rand32_get</span><span class="p">();</span>
+
+<span class="w">        </span><span class="cm">/* prepare to send empty message */</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">random_value</span><span class="p">;</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">tx_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">tx_target_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K_ANY</span><span class="p">;</span>
+
+<span class="w">        </span><span class="cm">/* send message and wait until a consumer receives it */</span>
+<span class="w">        </span><span class="n">k_mbox_put</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_mailbox</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">send_msg</span><span class="p">,</span><span class="w"> </span><span class="n">K_FOREVER</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="sending-data-using-a-message-buffer">
+<h4>用消息缓冲区发送数据<a class="headerlink" href="#sending-data-using-a-message-buffer" title="链接到此标题"></a></h4>
+<p>此例通过邮箱将生产线程的变长请求同步交给任一消费线程。双方用 info 字段交换自己能处理的消息缓冲区最大容量。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">producer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">buffer_bytes_used</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">k_mbox_msg</span><span class="w"> </span><span class="n">send_msg</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="cm">/* generate data to send */</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">        </span><span class="n">buffer_bytes_used</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">;</span>
+<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="n">buffer_bytes_used</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/* prepare to send message */</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer_bytes_used</span><span class="p">;</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer_bytes_used</span><span class="p">;</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">tx_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">send_msg</span><span class="p">.</span><span class="n">tx_target_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K_ANY</span><span class="p">;</span>
+
+<span class="w">        </span><span class="cm">/* send message and wait until a consumer receives it */</span>
+<span class="w">        </span><span class="n">k_mbox_put</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_mailbox</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">send_msg</span><span class="p">,</span><span class="w"> </span><span class="n">K_FOREVER</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/* info, size, and tx_target_thread fields have been updated */</span>
+
+<span class="w">        </span><span class="cm">/* verify that message data was fully received */</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">send_msg</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">buffer_bytes_used</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"some message data dropped during transfer!"</span><span class="p">);</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"receiver only had room for %d bytes"</span><span class="p">,</span><span class="w"> </span><span class="n">send_msg</span><span class="p">.</span><span class="n">info</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="receiving-a-message">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">接收消息</a><a class="headerlink" href="#receiving-a-message" title="链接到此标题"></a></h3>
+<p>接收者先创建描述符，说明期望的消息，再调用邮箱接收 API。邮箱在发送队列中寻找第一个相容的发送者并取出其消息。找不到时可选择等待；期限内仍无匹配则接收失败。成功后，可从描述符了解发送者身份、交换字节数及发送者提供的自定义 info 值。</p>
+<p>接收队列上可同时有任意数量的线程等待。按优先级排序；优先级相同时，等待最久者先接收。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>受线程匹配条件限制，接收顺序未必是 FIFO。例如 A 先等待来自 X 的消息，B 随后等待来自 Y 的消息。Y 如向任意线程发送，消息交给 B，A 继续等待。</p>
+</div>
+<p>接收者决定读取多少数据以及保存到哪里：可以取全部、只取开头一段，或完全不取；也可指定自己的缓冲区作为复制目的地。</p>
+<p>下面介绍接收线程获取数据的几种方法。</p>
+<section id="retrieving-data-at-receive-time">
+<h4>接收时立即取数据<a class="headerlink" href="#retrieving-data-at-receive-time" title="链接到此标题"></a></h4>
+<p>最直接的方法是接收时提供消息缓冲区：线程须指定非 <code class="docutils literal notranslate"><span class="pre">NULL</span></code> 的缓冲区地址及大小。</p>
+<p>邮箱在接收操作中将数据复制到缓冲区。缓冲区太小，未能复制的部分会丢失；消息太短，缓冲区剩余部分保持原状。不论哪种情况，邮箱都会将实际复制的字节数（可能为零）写回接收者的描述符。</p>
+<p>收到时立即复制最适合大小上限已知的小消息。</p>
+<p>下例立即取得数据，处理任一生产线程提交的变长请求。双方用 info 字段交换各自能处理的缓冲区最大容量。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">consumer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">k_mbox_msg</span><span class="w"> </span><span class="n">recv_msg</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* prepare to receive message */</span>
+<span class="w">        </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">        </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">        </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">rx_source_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K_ANY</span><span class="p">;</span>
+
+<span class="w">        </span><span class="cm">/* get a data item, waiting as long as needed */</span>
+<span class="w">        </span><span class="n">k_mbox_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_mailbox</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">recv_msg</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">K_FOREVER</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/* info, size, and rx_source_thread fields have been updated */</span>
+
+<span class="w">        </span><span class="cm">/* verify that message data was fully received */</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">recv_msg</span><span class="p">.</span><span class="n">info</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"some message data dropped during transfer!"</span><span class="p">);</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"sender tried to send %d bytes"</span><span class="p">,</span><span class="w"> </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">info</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="cm">/* compute sum of all message bytes (from 0 to 100 of them) */</span>
+<span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="retrieving-data-later-using-a-message-buffer">
+<h4>稍后用消息缓冲区取数据<a class="headerlink" href="#retrieving-data-later-using-a-message-buffer" title="链接到此标题"></a></h4>
+<p>接收线程可先收消息、稍后再把数据取入缓冲区。为此，接收时将缓冲区地址指定为 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>，大小设为愿意在稍后获取的最大数据量。</p>
+<p>此时邮箱不复制数据，但仍更新接收者的描述符，指出有多少字节可取。</p>
+<p>接下来，接收线程必须按下列情况处理：</p>
+<ul class="simple">
+<li><p>描述符中的大小为零，表示发送方没有数据或接收方不需要数据。此时邮箱已结束数据获取并删除消息，接收线程无须再操作。</p></li>
+<li><p>大小非零且仍要获取数据时，必须调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mailbox__apis.html#ga3d19e648e67f109609259543c9a01d6e" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_mbox_data_get()</span></code></a> 并提供足够大的缓冲区。邮箱将数据复制进去，随后删除消息。</p></li>
+<li><p>大小非零但接收线程<em>不</em>想获取数据时，仍必须调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mailbox__apis.html#ga3d19e648e67f109609259543c9a01d6e" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">k_mbox_data_get()</span></code></a>，并将缓冲区设为 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>。此时邮箱不复制数据，直接删除消息。</p></li>
+</ul>
+<p>不宜立即提取数据时，可采用延后获取。例如内存受限，接收者不可能总是提供足以容纳最大消息的缓冲区。</p>
+<p>下例仅在消息符合条件时才从生产线程获取数据，避免不必要的复制。接收方按发送者提供的 info 字段将消息分类。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">consumer_thread</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">k_mbox_msg</span><span class="w"> </span><span class="n">recv_msg</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">10000</span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* prepare to receive message */</span>
+<span class="w">        </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
+<span class="w">        </span><span class="n">recv_msg</span><span class="p">.</span><span class="n">rx_source_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K_ANY</span><span class="p">;</span>
+
+<span class="w">        </span><span class="cm">/* get message, but not its data */</span>
+<span class="w">        </span><span class="n">k_mbox_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_mailbox</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">recv_msg</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">K_FOREVER</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/* get message data for only certain types of messages */</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_message_type_ok</span><span class="p">(</span><span class="n">recv_msg</span><span class="p">.</span><span class="n">info</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cm">/* retrieve message data and delete the message */</span>
+<span class="w">            </span><span class="n">k_mbox_data_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recv_msg</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">);</span>
+
+<span class="w">            </span><span class="cm">/* process data in "buffer" */</span>
+<span class="w">            </span><span class="p">...</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cm">/* ignore message data and delete the message */</span>
+<span class="w">            </span><span class="n">k_mbox_data_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recv_msg</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="suggested-uses">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">建议用法</a><a class="headerlink" href="#suggested-uses" title="链接到此标题"></a></h2>
+<p>消息队列的能力不足以满足线程间传输需求时，可改用邮箱。</p>
+</section>
+<section id="configuration-options">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">配置选项</a><a class="headerlink" href="#configuration-options" title="链接到此标题"></a></h2>
+<p>相关配置选项：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_NUM_MBOX_ASYNC_MSGS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_NUM_MBOX_ASYNC_MSGS</span></code></a></p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">API 参考</a><a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mailbox__apis.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Mailbox</span> <span class="pre">APIs</span></a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2023-12-15。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../F-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

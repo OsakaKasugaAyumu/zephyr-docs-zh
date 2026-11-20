@@ -1,0 +1,48 @@
+﻿译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+F01 Atomic Services
+https://docs.zephyrproject.org/latest/kernel/services/other/atomic.html
+https://github.com/zephyrproject-rtos/zephyr/blob/698f3b1a58903238d945ccc3c3600b51f9e257b2/doc/kernel/services/other/atomic.rst
+英文 HTML SHA-256：e1bd09dbba09edac3e85952771b9dd34f70477edd3a8c63aa55b26088b4ed4c7
+
+F02 Spinlocks
+https://docs.zephyrproject.org/latest/kernel/services/synchronization/spinlocks.html
+https://github.com/zephyrproject-rtos/zephyr/blob/da99c80547746b424a0bf3d3526eba9d757bcc29/doc/kernel/services/synchronization/spinlocks.rst
+英文 HTML SHA-256：519c4a83a7f21c6a2bf283c9b2a8bbce2a6de12f1a4eed8eca73b2df3be61f77
+
+F03 Condition Variables
+https://docs.zephyrproject.org/latest/kernel/services/synchronization/condvar.html
+https://github.com/zephyrproject-rtos/zephyr/blob/0c2c5d70263e30c91dc080c607f619dc76c38eca/doc/kernel/services/synchronization/condvar.rst
+英文 HTML SHA-256：9a31d774d99cdcf6b14503e6ce8461d0ec479dcef23ebfa78ea10310d205792c
+
+F04 Polling API
+https://docs.zephyrproject.org/latest/kernel/services/polling.html
+https://github.com/zephyrproject-rtos/zephyr/blob/63e5202852515ad07e416f6c4764b9b9f6f86fee/doc/kernel/services/polling.rst
+英文 HTML SHA-256：a638f63a8f2905585ae642f92f2c909f2af871b07b21ba874c3fd6e0f737a0da
+
+F05 Queues
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/queues.html
+https://github.com/zephyrproject-rtos/zephyr/blob/44aadb153b6bb431694effe36ddd4705cfbeef18/doc/kernel/services/data_passing/queues.rst
+英文 HTML SHA-256：5dea5d023e5c3454e1c0e3f97c386c19c28cf432bcca55d710328843cb5eefb3
+
+F06 FIFOs
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/fifos.html
+https://github.com/zephyrproject-rtos/zephyr/blob/52b4b49644ccb3bf5941588b409276e722fe8311/doc/kernel/services/data_passing/fifos.rst
+英文 HTML SHA-256：6f088a62bfd653312959813f7cbc5dc462841e7d8805c93a70e986d872c59d07
+
+F07 LIFOs
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/lifos.html
+https://github.com/zephyrproject-rtos/zephyr/blob/52b4b49644ccb3bf5941588b409276e722fe8311/doc/kernel/services/data_passing/lifos.rst
+英文 HTML SHA-256：5707ef4b4a3a1671d1ad52ace5bf1504f3d80991318bd7b18c01fcd29bed9b51
+
+F08 Pipes
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/pipes.html
+https://github.com/zephyrproject-rtos/zephyr/blob/29ae9e34351cd9e0106555e5e37c01bad75989fd/doc/kernel/services/data_passing/pipes.rst
+英文 HTML SHA-256：39a123800450992090d402ffe6186bc6e6d68dc246857c2dc23cabb44c3e0a61
+
+F09 Mailboxes
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/mailboxes.html
+https://github.com/zephyrproject-rtos/zephyr/blob/650a59479c40bd2f2e07b6576a1dcdef77637ad6/doc/kernel/services/data_passing/mailboxes.rst
+英文 HTML SHA-256：d34ea5155133d71efc8895f7697f5f1c600006d4aaca602fb9ff3f85ed95026e

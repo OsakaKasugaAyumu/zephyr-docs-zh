@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>引脚控制（Pin Control） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/pinctrl/index.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="移植" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html">
+    <link rel="prev" title="看门狗" href="https://docs.zephyrproject.org/latest/hardware/peripherals/watchdog.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/hardware/pinctrl/index.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/pinctrl/index.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="index.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">架构相关指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/barriers/index.html" hreflang="en" data-lang-target="en" title="英文原文">屏障（barrier）API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/cache/index.html" hreflang="en" data-lang-target="en" title="英文原文">缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 设备仿真器与模拟器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/bus_emulators.html" hreflang="en" data-lang-target="en" title="英文原文">外部总线及总线外设仿真器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">引脚控制（Pin Control）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pin-control-vs-gpio">引脚控制与 GPIO 的区别</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#state-model">状态模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#standard-states">标准状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-states">自定义状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#skipping-states">跳过状态</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-pin-control">动态引脚控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#devicetree-representation">设备树中的表示方式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#states">状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pin-configuration">引脚配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-guidelines">实现指南</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pin-control-drivers">引脚控制驱动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#device-drivers">设备驱动</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pin-control-api">引脚控制 API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">动态引脚控制</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#other-reference-material">其他参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html" hreflang="en" data-lang-target="en" title="英文原文">移植</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a> »</li>
+  
+  <li>引脚控制（Pin Control）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/hardware/pinctrl/index.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27hardware%2Fpinctrl%2Findex%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Pinctrl&amp;env=-+Page%3A+hardware%2Fpinctrl%2Findex%0A-+Version%3A+main%0A-+SHA-1%3A+fd24cefd01825453e7ff3f5cd0d706c73e160b85&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="pin-control">
+<span id="pinctrl-guide"></span><h1>引脚控制（Pin Control）<a class="headerlink" href="#pin-control" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · H02 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../index.html#batch-h">H 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/pinctrl/index.html" hreflang="en">本页英文原文</a></p><p>本页概述引脚控制；接口细节见<a class="reference internal" href="#pinctrl-api"><span class="std std-ref">引脚控制 API</span></a>。</p>
+<section id="introduction">
+<h2>简介<a class="headerlink" href="#introduction" title="链接到此标题"></a></h2>
+<p>控制引脚复用和方向、上下拉等参数的硬件模块称为<strong>引脚控制器（pin controller）</strong>。主要使用者是 SoC 内部外设：例如将 <code class="docutils literal notranslate"><span class="pre">I2C0</span></code> 的 <code class="docutils literal notranslate"><span class="pre">SDA</span></code> 信号映射到引脚 <code class="docutils literal notranslate"><span class="pre">PX0</span></code>。它通常还能设置外设正常运行所需的其他参数，例如按工作频率选择转换速率。选项取决于厂商和 SoC，从简单上下拉到去抖、低功耗模式等不一而足。</p>
+<p>硬件实现因厂商和 SoC 而异。一种常见方式是<em>集中式</em>控制：包括信号映射在内的所有参数由同一硬件块（通常称为 pinmux）管理。如下图所示，<code class="docutils literal notranslate"><span class="pre">AF</span></code> 控制位决定将 <code class="docutils literal notranslate"><span class="pre">PX0</span></code> 映射到 <code class="docutils literal notranslate"><span class="pre">UART0_TX</span></code>、<code class="docutils literal notranslate"><span class="pre">I2C0_SCK</span></code> 还是 <code class="docutils literal notranslate"><span class="pre">SPI0_MOSI</span></code>；同一模块中的 <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code> 位控制上下拉等参数。很多 NXP 和 STM32 系列 SoC 采用此模型。</p>
+<figure class="align-default" id="id2">
+<a href="https://docs.zephyrproject.org/latest/_images/hw-cent-control.svg" hreflang="en" class="original-figure" data-lang-target="en">官方原图：集中式引脚控制：引脚复用与电气参数由同一模块配置</a>
+<figcaption>
+<p><span class="caption-text">集中式示例：每个引脚的映射和电气参数由同一硬件块控制</span><a class="headerlink" href="#id2" title="链接到此图"></a></p>
+</figcaption>
+</figure>
+<p>也有厂商或 SoC 采用<em>分布式</em>设计，由多个硬件模块分别负责映射和配置。如下图所示，外设寄存器决定引脚映射；Nordic nRF SoC 就属于这种情况。</p>
+<figure class="align-default" id="id3">
+<a href="https://docs.zephyrproject.org/latest/_images/hw-dist-control.svg" hreflang="en" class="original-figure" data-lang-target="en">官方原图：分布式引脚控制：外设选择映射，引脚模块设置电气参数</a>
+<figcaption>
+<p><span class="caption-text">分布式示例：外设寄存器与每引脚配置模块分工</span><a class="headerlink" href="#id3" title="链接到此图"></a></p>
+</figcaption>
+</figure>
+<p>硬件方式不同，用户的操作却相同：都是应用一个状态。差别在驱动内部。分布式实现通常更费功夫，因为驱动还需要了解不同外设的寄存器。</p>
+<section id="pin-control-vs-gpio">
+<h3>引脚控制与 GPIO 的区别<a class="headerlink" href="#pin-control-vs-gpio" title="链接到此标题"></a></h3>
+<p>引脚控制与 GPIO 驱动某些功能重叠，例如两者往往都能设置上下拉。Zephyr 的引脚控制驱动负责外设信号复用，以及外设正确工作所需的其他引脚参数，主要使用者是 SoC 外设。GPIO 驱动则用于通用引脚控制，即以软件直接读取或设置引脚逻辑电平。</p>
+</section>
+</section>
+<section id="state-model">
+<h2>状态模型<a class="headerlink" href="#state-model" title="链接到此标题"></a></h2>
+<p>驱动工作前须应用适当的引脚配置。有些配置是静态的，初始化时设置一次即可；有些须在运行时随工作条件改变，例如挂起设备时切换到低功耗模式。Zephyr 用<strong>状态（states）</strong>描述这些需求，该概念借鉴自 Linux 内核。每个驱动拥有一组状态；每个状态都有唯一名称和一套完整的引脚配置（见下图），各状态彼此独立，无须按固定顺序应用。这也使设备驱动与具体引脚配置解耦。</p>
+<table class="docutils align-center" id="id4">
+<caption><span class="caption-text">用状态模型表示引脚配置的示例</span><a class="headerlink" href="#id4" title="链接到此表"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head" colspan="4"><p><code class="docutils literal notranslate"><span class="pre">UART0</span></code> 外设</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">default</span></code> 状态</p></td>
+<td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">sleep</span></code> 状态</p></td>
+</tr>
+<tr class="row-odd"><td><p>TX</p></td>
+<td><ul class="simple">
+<li><p>引脚：PA0</p></li>
+<li><p>上下拉：无</p></li>
+<li><p>低功耗：否</p></li>
+</ul>
+</td>
+<td><p>TX</p></td>
+<td><ul class="simple">
+<li><p>引脚：PA0</p></li>
+<li><p>上下拉：无</p></li>
+<li><p>低功耗：是</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>RX</p></td>
+<td><ul class="simple">
+<li><p>引脚：PA1</p></li>
+<li><p>上下拉：上拉</p></li>
+<li><p>低功耗：否</p></li>
+</ul>
+</td>
+<td><p>RX</p></td>
+<td><ul class="simple">
+<li><p>引脚：PA1</p></li>
+<li><p>上下拉：无</p></li>
+<li><p>低功耗：是</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<section id="standard-states">
+<h3>标准状态<a class="headerlink" href="#standard-states" title="链接到此标题"></a></h3>
+<p>状态的名称和数量取决于驱动需求。许多驱动只需在初始化时应用一个状态，另一些则需要多个。为统一常见用法，约定了下列标准名称及用途。</p>
+<table class="docutils align-center" id="id5">
+<caption><span class="caption-text">标准状态名称</span><a class="headerlink" href="#id5" title="链接到此表"></a></caption>
+<tbody>
+<tr class="row-odd"><td><p>状态</p></td>
+<td><p>标识符</p></td>
+<td><p>用途</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga9bc564353cb9b1a7238c9fe8796023e6" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PINCTRL_STATE_DEFAULT</span></code></a></p></td>
+<td><p>设备运行时的引脚状态</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sleep</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga2ea5ac271930e0e2e9f77952b2dbea1b" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PINCTRL_STATE_SLEEP</span></code></a></p></td>
+<td><p>设备处于低功耗或睡眠模式时的引脚状态</p></td>
+</tr>
+</tbody>
+</table>
+<p>未来可能增加其他标准状态。</p>
+</section>
+<section id="custom-states">
+<h3>自定义状态<a class="headerlink" href="#custom-states" title="链接到此标题"></a></h3>
+<p>需要自定义状态的驱动，应在作用域中定义名为 <code class="docutils literal notranslate"><span class="pre">PINCTRL_STATE_{STATE_NAME}</span></code> 的标识符，其中 <code class="docutils literal notranslate"><span class="pre">{STATE_NAME}</span></code> 是大写状态名。例如支持 <code class="docutils literal notranslate"><span class="pre">mystate</span></code> 时，驱动必须能看到 <code class="docutils literal notranslate"><span class="pre">PINCTRL_STATE_MYSTATE</span></code> 的定义。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>自定义状态标识符的取值应从 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga25989d7b48b2d7aa4f8ca6a30d9c9077" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PINCTRL_STATE_PRIV_START</span></code></a> 开始。</p>
+</div>
+<p>若需要在驱动外访问自定义状态（如用于动态引脚控制），应在公开头文件中定义其标识符。</p>
+</section>
+<section id="skipping-states">
+<h3>跳过状态<a class="headerlink" href="#skipping-states" title="链接到此标题"></a></h3>
+<p>通常，固件使用设备树中定义的状态。但某些状态仅在特定构建配置下有用。例如 <code class="docutils literal notranslate"><span class="pre">sleep</span></code> 一般仅在启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PM" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PM</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PM_DEVICE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PM_DEVICE</span></code></a> 时使用。若某个固件变体不启用这些电源管理选项，理论上应从设备树移除 <code class="docutils literal notranslate"><span class="pre">sleep</span></code> 状态，避免占用 ROM 存储无用配置。</p>
+<p>定义引脚配置时，如果存在名为 <code class="docutils literal notranslate"><span class="pre">PINCTRL_SKIP_{STATE_NAME}</span></code>、展开为 <code class="docutils literal notranslate"><span class="pre">1</span></code> 的宏，<code class="docutils literal notranslate"><span class="pre">pinctrl</span></code> 设备树宏便会跳过对应状态。对于 <code class="docutils literal notranslate"><span class="pre">sleep</span></code>，<code class="docutils literal notranslate"><span class="pre">pinctrl</span></code> API 已根据设备电源管理是否可用提供相应定义：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if !defined(CONFIG_PM) &amp;&amp; !defined(CONFIG_PM_DEVICE)</span>
+<span class="cm">/** Out of power management configurations, ignore "sleep" state. */</span>
+<span class="cp">#define PINCTRL_SKIP_SLEEP 1</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dynamic-pin-control">
+<h2>动态引脚控制<a class="headerlink" href="#dynamic-pin-control" title="链接到此标题"></a></h2>
+<p>动态引脚控制指在运行时更改引脚配置。同一固件用于稍有差异、外设接到不同引脚的多块板时尤其有用。设置 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PINCTRL_DYNAMIC" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PINCTRL_DYNAMIC</span></code></a> 可启用。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>动态引脚控制只应用于尚未初始化的设备。设备运行中修改引脚可能产生意外行为；由于 Zephyr 目前不支持设备反初始化，该功能只应在启动早期使用。</p>
+</div>
+<p>启用后，<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structpinctrl__dev__config.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">pinctrl_dev_config</span></code></a> 存于 RAM 而非 ROM（状态及引脚配置本身不受此影响）。用户可用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface__dynamic.html#ga647115208cbed7534a98c56d93a517b8" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pinctrl_update_states()</span></code></a> 将 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structpinctrl__dev__config.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">pinctrl_dev_config</span></code></a> 中的状态替换成新集合。驱动之后应用状态时，使用的就是更新后的引脚配置。</p>
+</section>
+<section id="devicetree-representation">
+<h2>设备树中的表示方式<a class="headerlink" href="#devicetree-representation" title="链接到此标题"></a></h2>
+<p>设备树以描述硬件为目的，很适合保存引脚控制配置。以下介绍其中如何表示状态及引脚参数。</p>
+<section id="states">
+<h3>状态<a class="headerlink" href="#states" title="链接到此标题"></a></h3>
+<p>每个设备通过 <code class="docutils literal notranslate"><span class="pre">pinctrl-N</span></code> 属性描述一组状态，其中 <code class="docutils literal notranslate"><span class="pre">N</span></code> 是从零开始的索引。<code class="docutils literal notranslate"><span class="pre">pinctrl-names</span></code> 按索引为各状态指定唯一名称，例如 <code class="docutils literal notranslate"><span class="pre">pinctrl-names</span></code> 的第 0 项对应 <code class="docutils literal notranslate"><span class="pre">pinctrl-0</span></code>。</p>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="nl">periph0</span><span class="p">:</span><span class="w"> </span><span class="nf">periph</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="cm">/* state 0 ("default") */</span>
+<span class="w">    </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="cm">/* state N ("mystate") */</span>
+<span class="w">    </span><span class="n">pinctrl-N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* names for state 0 up to state N */</span>
+<span class="w">    </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="s">"mystate"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="pin-configuration">
+<h3>引脚配置<a class="headerlink" href="#pin-configuration" title="链接到此标题"></a></h3>
+<p>设备树有多种引脚配置表示法，但本质都是信号复用关系和电气参数。例如将 <code class="docutils literal notranslate"><span class="pre">UART_RX</span></code> 映射到 <code class="docutils literal notranslate"><span class="pre">PX0</span></code> 并启用上拉。具体形式主要取决于厂商／SoC，请查对应引脚控制驱动的设备树绑定文件。</p>
+<p>下例是一种常用且灵活的形式，可以根据共同参数将引脚分组，减少重复；一个状态的所有引脚参数也集中在同一设备树节点中。</p>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="cm">/* board.dts */</span>
+<span class="cp">#include</span><span class="cm"> </span><span class="cpf">"board-pinctrl.dtsi"</span>
+
+<span class="o">&amp;</span><span class="nf">periph0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">periph0_default</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* vnd-soc-pkgxx.h</span>
+<span class="cm"> * File with valid mappings for a specific package (may be autogenerated).</span>
+<span class="cm"> * This file is optional, but recommended.</span>
+<span class="cm"> */</span>
+<span class="p">...</span>
+<span class="cp">#define PERIPH0_SIGA_PX0 VNDSOC_PIN(X, 0, MUX0)</span>
+<span class="cp">#define PERIPH0_SIGB_PY7 VNDSOC_PIN(Y, 7, MUX4)</span>
+<span class="cp">#define PERIPH0_SIGC_PZ1 VNDSOC_PIN(Z, 1, MUX2)</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="cm">/* board-pinctrl.dtsi */</span>
+<span class="cp">#include</span><span class="cm"> </span><span class="cpf">&lt;vnd-soc-pkgxx.h&gt;</span>
+
+<span class="o">&amp;</span><span class="nf">pinctrl</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Node with pin configuration for default state */</span>
+<span class="w">    </span><span class="nl">periph0_default</span><span class="p">:</span><span class="w"> </span><span class="nf">periph0_default</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nf">group1</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cm">/* Mappings: PERIPH0_SIGA -&gt; PX0, PERIPH0_SIGC -&gt; PZ1 */</span>
+<span class="w">            </span><span class="n">pinmux</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="na">PERIPH0_SIGA_PX0</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="na">PERIPH0_SIGC_PZ1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">            </span><span class="cm">/* Pins PX0 and PZ1 have pull-up enabled */</span>
+<span class="w">            </span><span class="n">bias-pull-up</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">        </span><span class="nf">groupN</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cm">/* Mappings: PERIPH0_SIGB -&gt; PY7 */</span>
+<span class="w">            </span><span class="n">pinmux</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="na">PERIPH0_SIGB_PY7</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>另一种常见方式为每个引脚配置、每种状态各建节点，板级文件可能更短，但通常不能在多个状态间复用同一节点，因而每种映射和状态都要单独建节点。如果不能自动生成，不推荐此方式。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>设备树最终会被解析为 C 头文件，应尽量控制其大小。预生成节点应加上 <code class="docutils literal notranslate"><span class="pre">/omit-if-no-ref/</span></code> 前缀，使未被引用的节点被丢弃。</p>
+</div>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="cm">/* board.dts */</span>
+<span class="cp">#include</span><span class="cm"> </span><span class="cpf">"board-pinctrl.dtsi"</span>
+
+<span class="o">&amp;</span><span class="nf">periph0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">periph0_siga_px0_default</span><span class="w"> </span><span class="o">&amp;</span><span class="na">periph0_sigb_py7_default</span>
+<span class="w">                 </span><span class="o">&amp;</span><span class="na">periph0_sigc_pz1_default</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="cm">/* vnd-soc-pkgxx.dtsi</span>
+<span class="cm"> * File with valid nodes for a specific package (may be autogenerated).</span>
+<span class="cm"> * This file is optional, but recommended.</span>
+<span class="cm"> */</span>
+
+<span class="o">&amp;</span><span class="nf">pinctrl</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Mapping for PERIPH0_SIGA -&gt; PX0, to be used for default state */</span>
+<span class="w">    </span><span class="cp">/omit-if-no-ref/</span><span class="cm"> </span><span class="cp">periph0_siga_px0_default: periph0_siga_px0_default </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pinmux</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="na">VNDSOC_PIN</span><span class="p">(</span><span class="na">X</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="na">MUX0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="cm">/* Mapping for PERIPH0_SIGB -&gt; PY7, to be used for default state */</span>
+<span class="w">    </span><span class="cp">/omit-if-no-ref/</span><span class="cm"> </span><span class="cp">periph0_sigb_py7_default: periph0_sigb_py7_default </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pinmux</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="na">VNDSOC_PIN</span><span class="p">(</span><span class="na">Y</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="na">MUX4</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="cm">/* Mapping for PERIPH0_SIGC -&gt; PZ1, to be used for default state */</span>
+<span class="w">    </span><span class="cp">/omit-if-no-ref/</span><span class="cm"> </span><span class="cp">periph0_sigc_pz1_default: periph0_sigc_pz1_default </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pinmux</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="na">VNDSOC_PIN</span><span class="p">(</span><span class="na">Z</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="na">MUX2</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="cm">/* board-pinctrl.dts */</span>
+<span class="cp">#include</span><span class="cm"> </span><span class="cpf">&lt;vnd-soc-pkgxx.dtsi&gt;</span>
+
+<span class="cm">/* Enable pull-up for PX0 (default state) */</span>
+<span class="o">&amp;</span><span class="nf">periph0_siga_px0_default</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">bias-pull-up</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/* Enable pull-up for PZ1 (default state) */</span>
+<span class="o">&amp;</span><span class="nf">periph0_sigc_pz1_default</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">bias-pull-up</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>不建议在预定义节点中加入默认引脚配置。配置往往与板级设计、外设工作条件相关，应由板级代码决定。例如板上可能已有上拉，或者上拉阻值取决于总线速率。默认值的另一问题是用户可能不知道它存在，例如：</p>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="cm">/* not evident that "periph0_siga_px0_default" also implies "bias-pull-up" */</span>
+<span class="cp">/omit-if-no-ref/</span><span class="cm"> </span><span class="cp">periph0_siga_px0_default: periph0_siga_px0_default </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pinmux</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="na">VNDSOC_PIN</span><span class="p">(</span><span class="na">X</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="na">MUX0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">bias-pull-up</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="implementation-guidelines">
+<h2>实现指南<a class="headerlink" href="#implementation-guidelines" title="链接到此标题"></a></h2>
+<section id="pin-control-drivers">
+<h3>引脚控制驱动<a class="headerlink" href="#pin-control-drivers" title="链接到此标题"></a></h3>
+<p>引脚控制驱动只须实现 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga3397507e30eb10e814b793615f80455b" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pinctrl_configure_pins()</span></code></a>，它接收待应用的引脚配置数组。若设置 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PINCTRL_STORE_REG" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PINCTRL_STORE_REG</span></code></a>，还会接收与这些引脚关联的设备寄存器地址，供需要执行设备专用操作的驱动使用。</p>
+<p>配置使用厂商／SoC 专有的不透明类型 <code class="docutils literal notranslate"><span class="pre">pinctrl_soc_pin_t</span></code>，定义在 Zephyr 包含路径内名为 <code class="docutils literal notranslate"><span class="pre">pinctrl_soc.h</span></code> 的头文件中；它可以是整数，也可以是多字段结构。<code class="docutils literal notranslate"><span class="pre">pinctrl_soc.h</span></code> 还须定义 <code class="docutils literal notranslate"><span class="pre">Z_PINCTRL_STATE_PINS_INIT</span></code> 宏，接受节点标识符和属性名（<code class="docutils literal notranslate"><span class="pre">pinctrl-N</span></code>），据此为该节点 <code class="docutils literal notranslate"><span class="pre">pinctrl-N</span></code> 属性中的所有引脚配置生成初始化器。</p>
+<p>厂商可选择适合自家硬件的设备树表示，但应遵循下列约定：</p>
+<ul class="simple">
+<li><p>使用 <code class="docutils literal notranslate"><span class="pre">pinctrl-N</span></code>（N=0、1……）和 <code class="docutils literal notranslate"><span class="pre">pinctrl-names</span></code> 定义引脚控制状态。两项属性定义于 <code class="file docutils literal notranslate"><span class="pre">dts/bindings/pinctrl/pinctrl-device.yaml</span></code>。</p></li>
+<li><p>使用 <code class="file docutils literal notranslate"><span class="pre">dts/bindings/pinctrl/pincfg-node.yaml</span></code> 中的标准引脚配置属性。</p></li>
+</ul>
+<p>如果同一厂商已在其他操作系统（如 Linux）使用不同表示方式，也可能予以接受。</p>
+</section>
+<section id="device-drivers">
+<h3>设备驱动<a class="headerlink" href="#device-drivers" title="链接到此标题"></a></h3>
+<p>以下说明设备驱动如何用 <code class="docutils literal notranslate"><span class="pre">pinctrl</span></code> API 配置自身引脚。</p>
+<p>须修改与设备 compatible 匹配的绑定文件，使其包含 <code class="docutils literal notranslate"><span class="pre">pinctrl-device.yaml</span></code>。例如：</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">base.yaml</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pinctrl-device.yaml</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>此文件为设备添加 <code class="docutils literal notranslate"><span class="pre">pinctrl-N</span></code> 和 <code class="docutils literal notranslate"><span class="pre">pinctrl-names</span></code> 属性。</p>
+<p>驱动使用 <code class="docutils literal notranslate"><span class="pre">pinctrl</span></code> API 需完成两步。先用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#gace422fcd4b28e6e6e6fdbbc64b99468f" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PINCTRL_DT_DEFINE</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga8e984a57fd3c7a04cc921131ce79ac28" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PINCTRL_DT_INST_DEFINE</span></code></a> 定义包括所有状态、引脚在内的配置，再保存对该设备实例 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structpinctrl__dev__config.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">pinctrl_dev_config</span></code></a> 的引用，以供后续调用。可通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga502c3b6faec140188dd5d614f4777918" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PINCTRL_DT_DEV_CONFIG_GET</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga32748ffc5be4710707c7f1d9380cf93c" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PINCTRL_DT_INST_DEV_CONFIG_GET</span></code></a> 获取该引用。</p>
+<p>设备及其引脚控制配置只通过变量命名约定关联。给定设备树节点标识符，就能根据 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structpinctrl__dev__config.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">pinctrl_dev_config</span></code></a> 的命名规则找到对应实例。因此只有需要引脚控制的设备才保存配置引用，可减少 ROM 占用。</p>
+<p>定义配置并保存引用后，通常用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga16a9391222345d00dbc5c39c45f429f9" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pinctrl_apply_state()</span></code></a> 应用状态。如果已提前缓存状态（如在初始化时），可用底层接口 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga3549075e60ccdb743b269d590600d41b" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pinctrl_apply_state_direct()</span></code></a> 跳过查找。但查找开销预计很低，一般建议使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html#ga16a9391222345d00dbc5c39c45f429f9" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pinctrl_apply_state()</span></code></a>。</p>
+<p>以下是使用 <code class="docutils literal notranslate"><span class="pre">pinctrl</span></code> API 的完整设备驱动示例。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* A driver for the "mydev" compatible device */</span>
+<span class="cp">#define DT_DRV_COMPAT mydev</span>
+
+<span class="p">...</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/drivers/pinctrl.h&gt;</span>
+<span class="p">...</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">mydev_config</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="cm">/* Reference to mydev pinctrl configuration */</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">pinctrl_dev_config</span><span class="w"> </span><span class="o">*</span><span class="n">pcfg</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">};</span>
+
+<span class="p">...</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">mydev_init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mydev_config</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">config</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="cm">/* Select "default" state at initialization time */</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pinctrl_apply_state</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">pcfg</span><span class="p">,</span><span class="w"> </span><span class="n">PINCTRL_STATE_DEFAULT</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+
+<span class="cp">#define MYDEV_DEFINE(i)                                                    \</span>
+<span class="cp">    </span><span class="cm">/* Define all pinctrl configuration for instance "i" */</span><span class="cp">                \</span>
+<span class="cp">    PINCTRL_DT_INST_DEFINE(i);                                             \</span>
+<span class="cp">    ...                                                                    \</span>
+<span class="cp">    static const struct mydev_config mydev_config_##i = {                  \</span>
+<span class="cp">        ...                                                                \</span>
+<span class="cp">        </span><span class="cm">/* Keep a ref. to the pinctrl configuration for instance "i" */</span><span class="cp">    \</span>
+<span class="cp">        .pcfg = PINCTRL_DT_INST_DEV_CONFIG_GET(i),                         \</span>
+<span class="cp">        ...                                                                \</span>
+<span class="cp">    };                                                                     \</span>
+<span class="cp">    ...                                                                    \</span>
+<span class="cp">                                                                           \</span>
+<span class="cp">    DEVICE_DT_INST_DEFINE(i, mydev_init, NULL, &amp;mydev_data##i,             \</span>
+<span class="cp">                          &amp;mydev_config##i, ...);</span>
+
+<span class="n">DT_INST_FOREACH_STATUS_OKAY</span><span class="p">(</span><span class="n">MYDEV_DEFINE</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pin-control-api">
+<span id="pinctrl-api"></span><h2>引脚控制 API<a class="headerlink" href="#pin-control-api" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Pin</span> <span class="pre">Control</span></a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/st/mco/README.html#stm32_mco" title="英文原文" hreflang="en" data-lang-target="en">主时钟输出（MCO）</a></span><span class="code-sample-description">向外输出内部时钟以供使用。</span></li>
+</ul>
+</div>
+<section id="id1">
+<h3>动态引脚控制<a class="headerlink" href="#id1" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pinctrl__interface__dynamic.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Dynamic</span> <span class="pre">Pin</span> <span class="pre">Control</span></a></dt>
+</dl>
+
+</section>
+</section>
+<section id="other-reference-material">
+<h2>其他参考资料<a class="headerlink" href="#other-reference-material" title="链接到此标题"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://elinux.org/images/a/a7/ELC-2021_Introduction_to_pin_muxing_and_GPIO_control_under_Linux.pdf">Linux 下的引脚复用与 GPIO 控制入门</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2025-12-11。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../H-sources.txt">本批来源与素材说明</a> · <a href="../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

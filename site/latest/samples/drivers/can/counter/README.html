@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="Send and receive CAN messages." name="description">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAN 计数器示例（Controller Area Network (CAN) counter） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/samples/drivers/can/counter/README.html">
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="充电器" href="https://docs.zephyrproject.org/latest/samples/drivers/charger/README.html">
+    <link rel="prev" title="CAN 持续发送节点示例（babbling node）" href="https://docs.zephyrproject.org/latest/samples/drivers/can/babbling/README.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../../_static/zh-pilot.css"><script src="../../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/samples/drivers/can/counter/README.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/samples/drivers/can/counter/README.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="README.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a><ul class="current">
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/application_development/application_development.html" hreflang="en" data-lang-target="en" title="英文原文">应用开发（Application Development）</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">结构依赖样本</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/basic.html" hreflang="en" data-lang-target="en" title="英文原文">基础</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/bluetooth/bluetooth.html" hreflang="en" data-lang-target="en" title="英文原文">蓝牙</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/boards.html" hreflang="en" data-lang-target="en" title="英文原文">开发板</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/cpp/cpp.html" hreflang="en" data-lang-target="en" title="英文原文">C++ 组合</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/data_structures/data_structures.html" hreflang="en" data-lang-target="en" title="英文原文">数据结构</a></li>
+<li class="toctree-l2 current"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/drivers.html" hreflang="en" data-lang-target="en" title="英文原文">司机</a><ul class="current">
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/w1/README.html" hreflang="en" data-lang-target="en" title="英文原文">1-Wire</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/adc/index.html" hreflang="en" data-lang-target="en" title="英文原文">ADC</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/audio/index.html" hreflang="en" data-lang-target="en" title="英文原文">音频</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/biometrics/index.html" hreflang="en" data-lang-target="en" title="英文原文">生物特征识别</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/buzzer/index.html" hreflang="en" data-lang-target="en" title="英文原文">蜂鸣器</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/clock_monitor/index.html" hreflang="en" data-lang-target="en" title="英文原文">时钟监视器</a></li>
+<li class="toctree-l3 current"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/can/index.html" hreflang="en" data-lang-target="en" title="英文原文">CAN 外设总览（Controller Area Network (CAN)）</a><ul class="current">
+<li class="toctree-l4"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/can/babbling/README.html" title="英文原文" hreflang="en" data-lang-target="en">CAN 持续发送节点示例（babbling node）</a></li>
+<li class="toctree-l4 current"><a class="code-sample-link current reference internal" href="#" title="发送和接收 CAN 消息。">CAN 计数器示例（Controller Area Network (CAN) counter）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/counter/index.html" hreflang="en" data-lang-target="en" title="英文原文">计数器</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/ethernet/index.html" hreflang="en" data-lang-target="en" title="英文原文">以太网</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/fpga/index.html" hreflang="en" data-lang-target="en" title="英文原文">FPGA</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件示例</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/gpio/index.html" hreflang="en" data-lang-target="en" title="英文原文">通用输入／输出（GPIO）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/haptics/README.html" hreflang="en" data-lang-target="en" title="英文原文">触觉反馈</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/i2s/README.html" hreflang="en" data-lang-target="en" title="英文原文">I2S</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/i2c/README.html" hreflang="en" data-lang-target="en" title="英文原文">集成电路互连（I2C）总线</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/ipm/README.html" hreflang="en" data-lang-target="en" title="英文原文">处理器间邮箱（IPM）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/interrupt_controller/index.html" hreflang="en" data-lang-target="en" title="英文原文">中断控制器</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/index.html" hreflang="en" data-lang-target="en" title="英文原文">LED 驱动接口（Light-Emitting Diode (LED)）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/lora/index.html" hreflang="en" data-lang-target="en" title="英文原文">LoRa</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/lin/index.html" hreflang="en" data-lang-target="en" title="英文原文">局部互连网络（LIN）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/misc/README.html" hreflang="en" data-lang-target="en" title="英文原文">杂项</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/modem/index.html" hreflang="en" data-lang-target="en" title="英文原文">调制解调器</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/mspi/index.html" hreflang="en" data-lang-target="en" title="英文原文">多位 SPI 总线（MSPI）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/opamp/index.html" hreflang="en" data-lang-target="en" title="英文原文">OPAMP</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/otp/index.html" hreflang="en" data-lang-target="en" title="英文原文">一次性可编程存储器（OTP）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/pwm/index.html" hreflang="en" data-lang-target="en" title="英文原文">PWM</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/pulse_io/index.html" hreflang="en" data-lang-target="en" title="英文原文">脉冲 I/O</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/spi/index.html" hreflang="en" data-lang-target="en" title="英文原文">SPI</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/stepper/index.html" hreflang="en" data-lang-target="en" title="英文原文">步进电机</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/uart/README.html" hreflang="en" data-lang-target="en" title="英文原文">串口接口（Universal Asynchronous Receiver-Transmitter (UART)）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/spi_flash_at45/README.html" title="英文原文" hreflang="en" data-lang-target="en">AT45 DataFlash 驱动</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/auxdisplay_digits/README.html" title="英文原文" hreflang="en" data-lang-target="en">辅助数字显示器</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/auxdisplay/README.html" title="英文原文" hreflang="en" data-lang-target="en">辅助显示器</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/charger/README.html" title="英文原文" hreflang="en" data-lang-target="en">充电器</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/crypto/README.html" title="英文原文" hreflang="en" data-lang-target="en">密码运算（Crypto）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/crc/README.html" title="英文原文" hreflang="en" data-lang-target="en">循环冗余校验驱动（CRC）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/dali/README.html" title="英文原文" hreflang="en" data-lang-target="en">数字可寻址照明接口（DALI）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/dac/README.html" title="英文原文" hreflang="en" data-lang-target="en">数模转换器（DAC）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/display/README.html" title="英文原文" hreflang="en" data-lang-target="en">显示</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/eeprom/README.html" title="英文原文" hreflang="en" data-lang-target="en">EEPROM</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/espi/README.html" title="英文原文" hreflang="en" data-lang-target="en">增强型串行外设接口（eSPI）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/flash_shell/README.html" title="英文原文" hreflang="en" data-lang-target="en">闪存命令行</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/fuel_gauge/README.html" title="英文原文" hreflang="en" data-lang-target="en">电量计（Fuel Gauge）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/gnss/README.html" title="英文原文" hreflang="en" data-lang-target="en">GNSS</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/hash_bench/README.html" title="英文原文" hreflang="en" data-lang-target="en">硬件散列性能测试</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/lcd_hd44780/README.html" title="英文原文" hreflang="en" data-lang-target="en">HD44780 液晶显示控制器</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/ht16k33/README.html" title="英文原文" hreflang="en" data-lang-target="en">带按键扫描的 HT16K33 LED 驱动</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/hwspinlock/README.html" title="英文原文" hreflang="en" data-lang-target="en">HWSPINLOCK</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/spi_flash/README.html" title="英文原文" hreflang="en" data-lang-target="en">JEDEC SPI-NOR 闪存</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/jesd216/README.html" title="英文原文" hreflang="en" data-lang-target="en">JESD216 闪存</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/clock_control_litex/README.html" title="英文原文" hreflang="en" data-lang-target="en">LiteX 时钟控制驱动</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/mbox/README.html" title="英文原文" hreflang="en" data-lang-target="en">MBOX</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/mbox_data/README.html" title="英文原文" hreflang="en" data-lang-target="en">MBOX 邮箱数据</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/memc/README.html" title="英文原文" hreflang="en" data-lang-target="en">内存控制器（MEMC）驱动</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/mfd_charger/README.html" title="英文原文" hreflang="en" data-lang-target="en">集成充电器、电量计和稳压器的多功能设备（MFD）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/soc_flash_nrf/README.html" title="英文原文" hreflang="en" data-lang-target="en">nRF SoC 内部存储</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/peci/README.html" title="英文原文" hreflang="en" data-lang-target="en">PECI 接口</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/ps2/README.html" title="英文原文" hreflang="en" data-lang-target="en">PS/2 接口</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/psi5/README.html" title="英文原文" hreflang="en" data-lang-target="en">PSI5 接口</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/rtc/README.html" title="英文原文" hreflang="en" data-lang-target="en">实时时钟（RTC）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/sent/README.html" title="英文原文" hreflang="en" data-lang-target="en">SENT 接口</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/smbus/README.html" title="英文原文" hreflang="en" data-lang-target="en">SMBus 命令行</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/spi_bitbang/README.html" title="英文原文" hreflang="en" data-lang-target="en">软件模拟 SPI（bitbang）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/timeaware_gpio/README.html" title="英文原文" hreflang="en" data-lang-target="en">时间感知 GPIO</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/watchdog/README.html" title="英文原文" hreflang="en" data-lang-target="en">看门狗</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/hello_world/README.html" hreflang="en" data-lang-target="en" title="英文原文">Hello World</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/kernel/index.html" hreflang="en" data-lang-target="en" title="英文原文">内核和调度器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/modules/index.html" hreflang="en" data-lang-target="en" title="英文原文">外部模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/net/net.html" hreflang="en" data-lang-target="en" title="英文原文">联网</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/philosophers/README.html" hreflang="en" data-lang-target="en" title="英文原文">哲学家就餐问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/psa/index.html" hreflang="en" data-lang-target="en" title="英文原文">PSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/regulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">稳压器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/sensor/sensor.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/shields/shields.html" hreflang="en" data-lang-target="en" title="英文原文">Shields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/subsys.html" hreflang="en" data-lang-target="en" title="英文原文">子系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/synchronization/README.html" hreflang="en" data-lang-target="en" title="英文原文">基本同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/sysbuild/sysbuild.html" hreflang="en" data-lang-target="en" title="英文原文">系统构建（Sysbuild）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/tfm_integration/tfm_integration.html" hreflang="en" data-lang-target="en" title="英文原文">TF-M 一体化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/userspace/index.html" hreflang="en" data-lang-target="en" title="英文原文">用户空间</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/sample_definition_and_criteria.html" hreflang="en" data-lang-target="en" title="英文原文">定义和标准</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/samples/drivers/drivers.html" hreflang="en" data-lang-target="en" title="英文原文">司机</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/samples/drivers/can/index.html" hreflang="en" data-lang-target="en" title="英文原文">CAN 外设总览（Controller Area Network (CAN)）</a> »</li>
+  
+  <li>CAN 计数器示例（Controller Area Network (CAN) counter）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main//samples/drivers/can/counter/README.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27samples%2Fdrivers%2Fcan%2Fcounter%2FREADME%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+CAN%2Carea%3A+Samples&amp;env=-+Page%3A+samples%2Fdrivers%2Fcan%2Fcounter%2FREADME%0A-+Version%3A+main%0A-+SHA-1%3A+506e95325d0cdd353f84d505f69c1509e3c2f6f0&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="can-counter">
+<h1>CAN 计数器示例（Controller Area Network (CAN) counter）<a class="headerlink" href="#can-counter" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · I05 · 英文基线 4.5.99 · <a href="../../../../../index.html">全站目录（79 篇）</a> · <a href="../../../../../index.html#batch-i">I 批目录</a> · <a href="https://docs.zephyrproject.org/latest/samples/drivers/can/counter/README.html" hreflang="en">本页英文原文</a></p><p>
+                <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main//samples/drivers/can/counter/README.rst/.." class="btn btn-info fa fa-github" target="_blank" style="text-align: center;"> 在 GitHub 上浏览源码 </a>
+                </p>
+<section id="overview">
+<h2>概述<a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p>本例演示 CAN API：在总线上发送带标准和扩展标识符的消息，并通过消息队列和工作队列接收。收到帧后，LED（如有）闪烁，并将接收的计数值打印到控制台。</p>
+</section>
+<section id="building-and-running">
+<h2>构建与运行<a class="headerlink" href="#building-and-running" title="链接到此标题"></a></h2>
+<p>在环回模式下，板卡会接收自己发出的消息，适合单板测试。</p>
+<p>LED 输出引脚由板级设备树定义。</p>
+<p>本例既可在 SoC 集成 CAN 控制器的板上运行，也可在另接独立 CAN 控制器的板上构建运行。</p>
+<section id="integrated-can-controller">
+<h3>集成 CAN 控制器<a class="headerlink" href="#integrated-can-controller" title="链接到此标题"></a></h3>
+<p>以 NXP TWR-KE18F 为例：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the root of the zephyr repository</span>
+west<span class="w"> </span>build<span class="w"> </span>-b<span class="w"> </span>twr_ke18f<span class="w"> </span>samples/drivers/can/counter
+west<span class="w"> </span>flash
+</pre></div>
+</div>
+</section>
+<section id="stand-alone-can-controller">
+<h3>独立 CAN 控制器<a class="headerlink" href="#stand-alone-can-controller" title="链接到此标题"></a></h3>
+<p>以下使用 nrf52dk/nrf52832 配合带有 MCP2515 控制器的 DFRobot CAN bus V2.0 扩展板：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the root of the zephyr repository</span>
+west<span class="w"> </span>build<span class="w"> </span>-b<span class="w"> </span>nrf52dk/nrf52832<span class="w"> </span>--shield<span class="w"> </span>dfrobot_can_bus_v2_0<span class="w"> </span>samples/drivers/can/counter
+west<span class="w"> </span>flash
+</pre></div>
+</div>
+</section>
+<section id="sample-output">
+<h3>示例输出<a class="headerlink" href="#sample-output" title="链接到此标题"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Change LED filter ID: 0</span>
+<span class="go">Finished init.</span>
+<span class="go">Counter filter id: 4</span>
+
+<span class="gp">uart:~$ </span>Counter<span class="w"> </span>received:<span class="w"> </span><span class="m">0</span>
+<span class="go">Counter received: 1</span>
+<span class="go">Counter received: 2</span>
+<span class="go">Counter received: 3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>实际显示的数值可能有所不同。</p>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>另请参阅<a class="headerlink" href="#see-also" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">CAN</span> <span class="pre">Controller</span></a></dt>
+</dl>
+
+</section>
+</section>
+<script type="application/ld+json">
+                {"@context": "http://schema.org", "@type": "SoftwareSourceCode", "name": "Controller Area Network (CAN) counter", "description": "Send and receive CAN messages.", "codeSampleType": "full", "codeRepository": "https://github.com/zephyrproject-rtos/zephyr/blob/main//samples/drivers/can/counter/README.rst"}
+                </script>
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2025-08-22。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../../I-sources.txt">本批来源与素材说明</a> · <a href="../../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

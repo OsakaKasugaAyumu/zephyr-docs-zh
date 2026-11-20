@@ -1,0 +1,41 @@
+﻿译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+H01 Device Driver Model
+https://docs.zephyrproject.org/latest/kernel/drivers/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/393ea60e5bd1f78ee2aae8f61c1e70e7a6eb707e/doc/kernel/drivers/index.rst
+英文 HTML SHA-256：04881eac07fe39aae074b61db0ef21c2b672ec14a968ab5819def0d1710f8ceb
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/device_driver_model.svg
+
+H02 Pin Control
+https://docs.zephyrproject.org/latest/hardware/pinctrl/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/fd24cefd01825453e7ff3f5cd0d706c73e160b85/doc/hardware/pinctrl/index.rst
+英文 HTML SHA-256：13449196764407755a5dd8c57ed71db122a128d9bc855a62c98c8ca0a2c0902d
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/hw-cent-control.svg
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/hw-dist-control.svg
+
+H03 Button
+https://docs.zephyrproject.org/latest/samples/basic/button/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/68999e6fcf2e3a3389dd7361a0348e4aae20508c//samples/basic/button/README.rst
+英文 HTML SHA-256：756edb027acdb286de0bbedbd8555e5beaf10a61b3588946f7f66833397b6367
+
+H04 Light-Emitting Diode (LED)
+https://docs.zephyrproject.org/latest/hardware/peripherals/led.html
+https://github.com/zephyrproject-rtos/zephyr/blob/aaa539718728001172f135ef16ba4ef6ccee6939/doc/hardware/peripherals/led.rst
+英文 HTML SHA-256：f36cdae235b1d70fd84d4c932d61f0f51f82afa7823c3d72dcdf0a450f066a20
+
+H05 Pulse Width Modulation (PWM)
+https://docs.zephyrproject.org/latest/hardware/peripherals/pwm.html
+https://github.com/zephyrproject-rtos/zephyr/blob/22b90094ba0ad59006bcafa40ae756ed068344eb/doc/hardware/peripherals/pwm.rst
+英文 HTML SHA-256：ddc4dafe10bb56743d6fc4c50a18356fd0c8ac0910adff7c21848a1c473c3553
+
+H06 PWM Blinky
+https://docs.zephyrproject.org/latest/samples/basic/blinky_pwm/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/1e814a107f32cacc9df6a161584de59e4e3f91df//samples/basic/blinky_pwm/README.rst
+英文 HTML SHA-256：a467dc7ac719e6f6fde1ef55093dee6804dee414db73eb2c24f4eba4cf6837f6
+
+H07 Universal Asynchronous Receiver-Transmitter (UART)
+https://docs.zephyrproject.org/latest/hardware/peripherals/uart.html
+https://github.com/zephyrproject-rtos/zephyr/blob/df294e34e15d15e2320e1ba09dc700f830669fe3/doc/hardware/peripherals/uart.rst
+英文 HTML SHA-256：c0fc29ad7385ee04094c34e0d3e6386652b75a215fdf99c73f99053d56ba8e7e

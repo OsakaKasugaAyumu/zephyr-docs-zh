@@ -1,4 +1,6 @@
-﻿Zephyr 非官方简体中文文档｜入门指南与 A–E 批 · 来源、署名、改动与许可
+﻿Zephyr 非官方简体中文译本：本轮 F–I，累计 79 篇。以下保留原 49 篇署名，并附新增范围。
+
+Zephyr 非官方简体中文文档｜入门指南与 A–E 批 · 来源、署名、改动与许可
 
 1. 正文与改译
 Copyright © 2015–2026 The Zephyr Project Contributors。范围：P 1、A 9、B 9、C 11、D 10、E 9，共 49 篇正文；不是 Zephyr Project 或 Linux Foundation 官方译本，不表示其认可。
@@ -240,3 +242,176 @@ licenses/sphinx-togglebutton-0.4.5.txt
 licenses/sphinxcontrib-jquery.txt
 licenses/tabler-icons.txt
 licenses/Wyrm.txt
+
+
+译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+F01 Atomic Services
+https://docs.zephyrproject.org/latest/kernel/services/other/atomic.html
+https://github.com/zephyrproject-rtos/zephyr/blob/698f3b1a58903238d945ccc3c3600b51f9e257b2/doc/kernel/services/other/atomic.rst
+英文 HTML SHA-256：e1bd09dbba09edac3e85952771b9dd34f70477edd3a8c63aa55b26088b4ed4c7
+
+F02 Spinlocks
+https://docs.zephyrproject.org/latest/kernel/services/synchronization/spinlocks.html
+https://github.com/zephyrproject-rtos/zephyr/blob/da99c80547746b424a0bf3d3526eba9d757bcc29/doc/kernel/services/synchronization/spinlocks.rst
+英文 HTML SHA-256：519c4a83a7f21c6a2bf283c9b2a8bbce2a6de12f1a4eed8eca73b2df3be61f77
+
+F03 Condition Variables
+https://docs.zephyrproject.org/latest/kernel/services/synchronization/condvar.html
+https://github.com/zephyrproject-rtos/zephyr/blob/0c2c5d70263e30c91dc080c607f619dc76c38eca/doc/kernel/services/synchronization/condvar.rst
+英文 HTML SHA-256：9a31d774d99cdcf6b14503e6ce8461d0ec479dcef23ebfa78ea10310d205792c
+
+F04 Polling API
+https://docs.zephyrproject.org/latest/kernel/services/polling.html
+https://github.com/zephyrproject-rtos/zephyr/blob/63e5202852515ad07e416f6c4764b9b9f6f86fee/doc/kernel/services/polling.rst
+英文 HTML SHA-256：a638f63a8f2905585ae642f92f2c909f2af871b07b21ba874c3fd6e0f737a0da
+
+F05 Queues
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/queues.html
+https://github.com/zephyrproject-rtos/zephyr/blob/44aadb153b6bb431694effe36ddd4705cfbeef18/doc/kernel/services/data_passing/queues.rst
+英文 HTML SHA-256：5dea5d023e5c3454e1c0e3f97c386c19c28cf432bcca55d710328843cb5eefb3
+
+F06 FIFOs
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/fifos.html
+https://github.com/zephyrproject-rtos/zephyr/blob/52b4b49644ccb3bf5941588b409276e722fe8311/doc/kernel/services/data_passing/fifos.rst
+英文 HTML SHA-256：6f088a62bfd653312959813f7cbc5dc462841e7d8805c93a70e986d872c59d07
+
+F07 LIFOs
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/lifos.html
+https://github.com/zephyrproject-rtos/zephyr/blob/52b4b49644ccb3bf5941588b409276e722fe8311/doc/kernel/services/data_passing/lifos.rst
+英文 HTML SHA-256：5707ef4b4a3a1671d1ad52ace5bf1504f3d80991318bd7b18c01fcd29bed9b51
+
+F08 Pipes
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/pipes.html
+https://github.com/zephyrproject-rtos/zephyr/blob/29ae9e34351cd9e0106555e5e37c01bad75989fd/doc/kernel/services/data_passing/pipes.rst
+英文 HTML SHA-256：39a123800450992090d402ffe6186bc6e6d68dc246857c2dc23cabb44c3e0a61
+
+F09 Mailboxes
+https://docs.zephyrproject.org/latest/kernel/services/data_passing/mailboxes.html
+https://github.com/zephyrproject-rtos/zephyr/blob/650a59479c40bd2f2e07b6576a1dcdef77637ad6/doc/kernel/services/data_passing/mailboxes.rst
+英文 HTML SHA-256：d34ea5155133d71efc8895f7697f5f1c600006d4aaca602fb9ff3f85ed95026e
+
+译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+G01 Memory Management
+https://docs.zephyrproject.org/latest/kernel/memory_management/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/397c0011811fa660faf845be8de82d62afd77872/doc/kernel/memory_management/index.rst
+英文 HTML SHA-256：1c9dccf8dcd5261368c16017addd141515bcdb31653d177e6f8d7aaed391996a
+
+G02 Memory Slabs
+https://docs.zephyrproject.org/latest/kernel/memory_management/slabs.html
+https://github.com/zephyrproject-rtos/zephyr/blob/6493305b09b8224fbf5669f6e670d6efc122559d/doc/kernel/memory_management/slabs.rst
+英文 HTML SHA-256：76e683035612ad9b79871d16008c66fb845ada377b23f29e15e99dd35bed47ee
+
+G03 Memory Blocks Allocator
+https://docs.zephyrproject.org/latest/kernel/memory_management/sys_mem_blocks.html
+https://github.com/zephyrproject-rtos/zephyr/blob/7b840b124dbc6375c69bcf69c73580cf22b6f6d7/doc/kernel/memory_management/sys_mem_blocks.rst
+英文 HTML SHA-256：dd3e6438e96b4c23e4cbe091101eb200243c8ad4c23974d8ecb676e5ae337c48
+
+G04 Memory Heaps
+https://docs.zephyrproject.org/latest/kernel/memory_management/heap.html
+https://github.com/zephyrproject-rtos/zephyr/blob/5289f97277077134939b16adc9dd92de8a54972f/doc/kernel/memory_management/heap.rst
+英文 HTML SHA-256：1636665724c61eeaa803760023b3751f4d888dc2388de184f0558404074e72b3
+
+G05 Shared Multi Heap
+https://docs.zephyrproject.org/latest/kernel/memory_management/shared_multi_heap.html
+https://github.com/zephyrproject-rtos/zephyr/blob/788cf0ceab88a3efa2d013bbd9c17a401271329e/doc/kernel/memory_management/shared_multi_heap.rst
+英文 HTML SHA-256：84df2b68355f777f288ccccc9c07a8d634b799b20e5d71b3a4c3b36f9b464f2d
+
+G06 Ring Buffers
+https://docs.zephyrproject.org/latest/kernel/data_structures/ring_buffers.html
+https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/doc/kernel/data_structures/ring_buffers.rst
+英文 HTML SHA-256：05f047bfd052dc88b6a2ca38cb293e83cb74f18da61cf5dba5887bd5a633c1e2
+
+译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+H01 Device Driver Model
+https://docs.zephyrproject.org/latest/kernel/drivers/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/393ea60e5bd1f78ee2aae8f61c1e70e7a6eb707e/doc/kernel/drivers/index.rst
+英文 HTML SHA-256：04881eac07fe39aae074b61db0ef21c2b672ec14a968ab5819def0d1710f8ceb
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/device_driver_model.svg
+
+H02 Pin Control
+https://docs.zephyrproject.org/latest/hardware/pinctrl/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/fd24cefd01825453e7ff3f5cd0d706c73e160b85/doc/hardware/pinctrl/index.rst
+英文 HTML SHA-256：13449196764407755a5dd8c57ed71db122a128d9bc855a62c98c8ca0a2c0902d
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/hw-cent-control.svg
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/hw-dist-control.svg
+
+H03 Button
+https://docs.zephyrproject.org/latest/samples/basic/button/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/68999e6fcf2e3a3389dd7361a0348e4aae20508c//samples/basic/button/README.rst
+英文 HTML SHA-256：756edb027acdb286de0bbedbd8555e5beaf10a61b3588946f7f66833397b6367
+
+H04 Light-Emitting Diode (LED)
+https://docs.zephyrproject.org/latest/hardware/peripherals/led.html
+https://github.com/zephyrproject-rtos/zephyr/blob/aaa539718728001172f135ef16ba4ef6ccee6939/doc/hardware/peripherals/led.rst
+英文 HTML SHA-256：f36cdae235b1d70fd84d4c932d61f0f51f82afa7823c3d72dcdf0a450f066a20
+
+H05 Pulse Width Modulation (PWM)
+https://docs.zephyrproject.org/latest/hardware/peripherals/pwm.html
+https://github.com/zephyrproject-rtos/zephyr/blob/22b90094ba0ad59006bcafa40ae756ed068344eb/doc/hardware/peripherals/pwm.rst
+英文 HTML SHA-256：ddc4dafe10bb56743d6fc4c50a18356fd0c8ac0910adff7c21848a1c473c3553
+
+H06 PWM Blinky
+https://docs.zephyrproject.org/latest/samples/basic/blinky_pwm/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/1e814a107f32cacc9df6a161584de59e4e3f91df//samples/basic/blinky_pwm/README.rst
+英文 HTML SHA-256：a467dc7ac719e6f6fde1ef55093dee6804dee414db73eb2c24f4eba4cf6837f6
+
+H07 Universal Asynchronous Receiver-Transmitter (UART)
+https://docs.zephyrproject.org/latest/hardware/peripherals/uart.html
+https://github.com/zephyrproject-rtos/zephyr/blob/df294e34e15d15e2320e1ba09dc700f830669fe3/doc/hardware/peripherals/uart.rst
+英文 HTML SHA-256：c0fc29ad7385ee04094c34e0d3e6386652b75a215fdf99c73f99053d56ba8e7e
+
+译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+I01 Controller Area Network (CAN)
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/7940c728ab12b04f62875bd893df594fc261c50f/doc/hardware/peripherals/can/index.rst
+英文 HTML SHA-256：89a2cc81ce7fdb5219cf37a6e15d8803c9f15a9009526424f9155a050291b2ec
+
+I02 CAN Controller
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/controller.html
+https://github.com/zephyrproject-rtos/zephyr/blob/b857d3a766a38a4637ce1517fee4e0368a7a70ca/doc/hardware/peripherals/can/controller.rst
+英文 HTML SHA-256：01e69b9e664b587f30bc47e00a5e6b15529fa5df375826c701ceb68b6bd1e1da
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/timing.svg
+
+I03 CAN Transceiver
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/transceiver.html
+https://github.com/zephyrproject-rtos/zephyr/blob/435b8a25d672e53e5dcd93b9dd248b3f434cfd4f/doc/hardware/peripherals/can/transceiver.rst
+英文 HTML SHA-256：6a410c4c517235175f440947f87343bf552abe43e122c91a08766c9469cece73
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/transceiver.svg
+
+I04 CAN Shell
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/shell.html
+https://github.com/zephyrproject-rtos/zephyr/blob/b947de920ea68eb727f139ccec29fddb432e9185/doc/hardware/peripherals/can/shell.rst
+英文 HTML SHA-256：6b28bb555213f5fa6eb16e97c0e17477b1d0d496ff0f9b02a9958ac25d041206
+
+I05 Controller Area Network (CAN) counter
+https://docs.zephyrproject.org/latest/samples/drivers/can/counter/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/506e95325d0cdd353f84d505f69c1509e3c2f6f0//samples/drivers/can/counter/README.rst
+英文 HTML SHA-256：acabad7a98b1f132bebc074d957d226f01adaec29b5403abfa6f78652f94365b
+
+I06 Controller Area Network (CAN) Bus Protocols
+https://docs.zephyrproject.org/latest/services/connectivity/canbus/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/02d743889396e724d53be61e4fe34c484c1d5a97/doc/services/connectivity/canbus/index.rst
+英文 HTML SHA-256：6597aa0de5c9f37db1a817f5adc5ed90619a8e500a45d2fa9340ff88429fcc7f
+
+I07 ISO-TP Transport Protocol
+https://docs.zephyrproject.org/latest/services/connectivity/canbus/isotp.html
+https://github.com/zephyrproject-rtos/zephyr/blob/02d743889396e724d53be61e4fe34c484c1d5a97/doc/services/connectivity/canbus/isotp.rst
+英文 HTML SHA-256：68fc954c4a6e9396c3143ab7b980e2f69fceb7c581c5802d6f8530b801d31ee0
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/isotp_sequence.svg
+
+I08 ISO-TP library
+https://docs.zephyrproject.org/latest/samples/subsys/canbus/isotp/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/4f1cd0e42858b8b7f02512bfca603332bc90edee//samples/subsys/canbus/isotp/README.rst
+英文 HTML SHA-256：f6ec9bb8a2874889a1ffe03aef8149012bf905a6b588a05116e054b53d76be33

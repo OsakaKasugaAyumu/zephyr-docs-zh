@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>脉宽调制接口（Pulse Width Modulation (PWM)） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/pwm.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="继电器" href="https://docs.zephyrproject.org/latest/hardware/peripherals/relay.html">
+    <link rel="prev" title="触觉反馈" href="https://docs.zephyrproject.org/latest/hardware/peripherals/haptics.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pwm.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/pwm.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="pwm.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">架构相关指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/barriers/index.html" hreflang="en" data-lang-target="en" title="英文原文">屏障（barrier）API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/cache/index.html" hreflang="en" data-lang-target="en" title="英文原文">缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 设备仿真器与模拟器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/bus_emulators.html" hreflang="en" data-lang-target="en" title="英文原文">外部总线及总线外设仿真器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/analog.html" hreflang="en" data-lang-target="en" title="英文原文">模拟外设</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/audio/index.html" hreflang="en" data-lang-target="en" title="英文原文">音频</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/gpio_input.html" hreflang="en" data-lang-target="en" title="英文原文">GPIO 与输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html" hreflang="en" data-lang-target="en" title="英文原文">内存与存储</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/power.html" hreflang="en" data-lang-target="en" title="英文原文">电源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/sensors.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/motion_actuation.html" hreflang="en" data-lang-target="en" title="英文原文">运动与执行机构</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/haptics.html" hreflang="en" data-lang-target="en" title="英文原文">触觉反馈</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">脉宽调制接口（Pulse Width Modulation (PWM)）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#overview">概述</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pwm-signal-parameters">PWM 信号参数</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#zephyr-pwm-driver-model">Zephyr PWM 驱动模型</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#device-tree-configuration">设备树配置</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#usage-examples">用法示例</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pwm-capture">PWM 捕获</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#configuration-options">配置选项</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/relay.html" hreflang="en" data-lang-target="en" title="英文原文">继电器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/stepper/index.html" hreflang="en" data-lang-target="en" title="英文原文">步进电机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/buzzer.html" hreflang="en" data-lang-target="en" title="英文原文">蜂鸣器</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/system_diagnostics.html" hreflang="en" data-lang-target="en" title="英文原文">系统与诊断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/timing.html" hreflang="en" data-lang-target="en" title="英文原文">定时</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pinctrl/index.html">引脚控制（Pin Control）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html" hreflang="en" data-lang-target="en" title="英文原文">移植</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/motion_actuation.html" hreflang="en" data-lang-target="en" title="英文原文">运动与执行机构</a> »</li>
+  
+  <li>脉宽调制接口（Pulse Width Modulation (PWM)）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/hardware/peripherals/pwm.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27hardware%2Fperipherals%2Fpwm%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+PWM&amp;env=-+Page%3A+hardware%2Fperipherals%2Fpwm%0A-+Version%3A+main%0A-+SHA-1%3A+22b90094ba0ad59006bcafa40ae756ed068344eb&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="pulse-width-modulation-pwm">
+<span id="pwm-api"></span><h1>脉宽调制接口（Pulse Width Modulation (PWM)）<a class="headerlink" href="#pulse-width-modulation-pwm" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · H05 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../index.html#batch-h">H 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/peripherals/pwm.html" hreflang="en">本页英文原文</a></p><section id="overview">
+<h2>概述<a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p>脉宽调制（PWM）通过改变数字信号的占空比来编码信息或调节输出功率。信号以固定频率在高、低电平之间切换，每个周期内高电平所占的比例称为<em>占空比（duty cycle）</em>。</p>
+<p>PWM 在嵌入式系统中的常见用途：</p>
+<ul class="simple">
+<li><p><strong>LED 亮度控制</strong>：用占空比调节人眼感受到的亮度。</p></li>
+<li><p><strong>直流电机调速</strong>：平均电压与占空比成正比。</p></li>
+<li><p><strong>舵机定位</strong>：用脉冲宽度表示目标角度。</p></li>
+<li><p><strong>产生音调</strong>：改变频率以产生可听音调。</p></li>
+<li><p><strong>功率转换</strong>：例如降压／升压转换器及 D 类放大器。</p></li>
+</ul>
+</section>
+<section id="pwm-signal-parameters">
+<h2>PWM 信号参数<a class="headerlink" href="#pwm-signal-parameters" title="链接到此标题"></a></h2>
+<p>PWM 信号由三个量描述：</p>
+<ul class="simple">
+<li><p><strong>周期（period）</strong>：一个完整开关循环的时长，单位为纳秒。</p></li>
+<li><p><strong>脉冲宽度（pulse width）</strong>：高电平（有效）部分的持续时间，单位为纳秒。</p></li>
+<li><p><strong>占空比</strong>：脉冲宽度与周期的比值，以百分数表示；50% 表示信号有半个周期为高电平。</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>|&lt;-- pulse --&gt;|
++--------------+            +-
+|              |            |
++              +------------+
+|&lt;----------- period --------&gt;|
+</pre></div>
+</div>
+</section>
+<section id="zephyr-pwm-driver-model">
+<h2>Zephyr PWM 驱动模型<a class="headerlink" href="#zephyr-pwm-driver-model" title="链接到此标题"></a></h2>
+<p>每个 PWM 控制器提供一个或多个独立的<em>通道</em>。通道从零编号，每个通道驱动一个输出引脚。</p>
+<p>所有 PWM 驱动都实现 <code class="file docutils literal notranslate"><span class="pre">include/zephyr/drivers/pwm.h</span></code> 中的同一套 API。核心函数 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#gadd9049c9a56cd9419736b3514e42dc01" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pwm_set()</span></code></a> 设置通道的周期与脉冲宽度。下列辅助宏将常用时间／频率单位转换为纳秒：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#ga4a5edbee48c4a5706cf75524aef2364a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PWM_HZ</span></code></a>：频率以 Hz 表示（如 <code class="docutils literal notranslate"><span class="pre">PWM_HZ(1000)</span></code> 对应 1 ms 周期）。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#gaf846cf23d31d14296e0cbc1f82a530f4" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PWM_KHZ</span></code></a>：频率以 kHz 表示。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#ga368f28c8daaee25e546484bd908e675e" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PWM_USEC</span></code></a>：周期或脉冲宽度以微秒表示。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#ga1cccc226a23866dd2dcac9467ff3af0e" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PWM_MSEC</span></code></a>：周期或脉冲宽度以毫秒表示。</p></li>
+</ul>
+</section>
+<section id="device-tree-configuration">
+<h2>设备树配置<a class="headerlink" href="#device-tree-configuration" title="链接到此标题"></a></h2>
+<p>设备树通过 <code class="docutils literal notranslate"><span class="pre">pwms</span></code> 属性描述 PWM 输出。每一项都指定控制器 phandle、通道号、以纳秒计的周期，以及可选的极性标志：</p>
+<div class="highlight-dts notranslate"><div class="highlight"><pre><span></span><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">my_node</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pwms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">pwm0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="na">PWM_MSEC</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="na">PWM_POLARITY_NORMAL</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">pwm-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"servo"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>在 C 中，用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#ga59a79f0b77c5b71252bde126f333a84b" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PWM_DT_SPEC_GET</span></code></a> 系列宏取得该配置：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">pwm_dt_spec</span><span class="w"> </span><span class="n">servo</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">PWM_DT_SPEC_GET</span><span class="p">(</span><span class="n">DT_NODELABEL</span><span class="p">(</span><span class="n">my_node</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="usage-examples">
+<h2>用法示例<a class="headerlink" href="#usage-examples" title="链接到此标题"></a></h2>
+<p>用 <code class="docutils literal notranslate"><span class="pre">pwm_dt_spec</span></code> 设置占空比：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/drivers/pwm.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">pwm_dt_spec</span><span class="w"> </span><span class="n">led_pwm</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">PWM_DT_SPEC_GET</span><span class="p">(</span><span class="n">DT_ALIAS</span><span class="p">(</span><span class="n">pwm_led0</span><span class="p">));</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">set_led_brightness</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">percent</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">device_is_ready</span><span class="p">(</span><span class="n">led_pwm</span><span class="p">.</span><span class="n">dev</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* pulse = period * duty_cycle / 100 */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pulse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">led_pwm</span><span class="p">.</span><span class="n">period</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">percent</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pwm_set_dt</span><span class="p">(</span><span class="o">&amp;</span><span class="n">led_pwm</span><span class="p">,</span><span class="w"> </span><span class="n">led_pwm</span><span class="p">.</span><span class="n">period</span><span class="p">,</span><span class="w"> </span><span class="n">pulse</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>设置舵机位置（在 20 ms 周期内产生 1–2 ms 脉冲）：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/drivers/pwm.h&gt;</span>
+
+<span class="cp">#define SERVO_PERIOD_NS   PWM_MSEC(20)</span>
+<span class="cp">#define SERVO_MIN_PULSE   PWM_USEC(1000)</span>
+<span class="cp">#define SERVO_MAX_PULSE   PWM_USEC(2000)</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">set_servo_angle</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">pwm_dev</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">channel</span><span class="p">,</span>
+<span class="w">                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">angle_deg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pulse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SERVO_MIN_PULSE</span><span class="w"> </span><span class="o">+</span>
+<span class="w">        </span><span class="p">(</span><span class="n">SERVO_MAX_PULSE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">SERVO_MIN_PULSE</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">angle_deg</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">180</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pwm_set</span><span class="p">(</span><span class="n">pwm_dev</span><span class="p">,</span><span class="w"> </span><span class="n">channel</span><span class="p">,</span><span class="w"> </span><span class="n">SERVO_PERIOD_NS</span><span class="p">,</span><span class="w"> </span><span class="n">pulse</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">PWM_POLARITY_NORMAL</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="pwm-capture">
+<h2>PWM 捕获<a class="headerlink" href="#pwm-capture" title="链接到此标题"></a></h2>
+<p>有些 PWM 控制器支持<em>输入捕获（input capture）</em>，即测量输入信号的周期或脉冲宽度，可用于解码遥控接收器、传感器等外部来源的 PWM 信号。</p>
+<p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#ga9603146d7f9c2690c1e1983113d6c6bb" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pwm_configure_capture()</span></code></a> 和 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html#gad14ca53862a465d1789e8936ce394f9a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">pwm_enable_capture()</span></code></a> 配置并启用捕获：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">pwm_capture_cb</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">channel</span><span class="p">,</span>
+<span class="w">                    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">period_cycles</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pulse_cycles</span><span class="p">,</span>
+<span class="w">                    </span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* convert cycles to nanoseconds using pwm_get_cycles_per_sec() */</span>
+<span class="p">}</span>
+
+<span class="cm">/* configure for single-shot capture of both period and pulse */</span>
+<span class="n">pwm_configure_capture</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">channel</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">PWM_CAPTURE_TYPE_BOTH</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">PWM_CAPTURE_MODE_SINGLE</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">pwm_capture_cb</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="n">pwm_enable_capture</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">channel</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-options">
+<h2>配置选项<a class="headerlink" href="#configuration-options" title="链接到此标题"></a></h2>
+<p>相关配置选项：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PWM" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PWM</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PWM_SHELL" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PWM_SHELL</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PWM_CAPTURE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PWM_CAPTURE</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_PWM_EVENT" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_PWM_EVENT</span></code></a></p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__interface.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">PWM</span></a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/fade_led/README.html#fade-led" title="英文原文" hreflang="en" data-lang-target="en">淡出LED</a></span><span class="code-sample-description">使用 PWM API 淡出一个 LED.</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="../../samples/basic/blinky_pwm/README.html#pwm-blinky" title="使用 PWM API 键入 LED。">PWM 控制 LED 示例（PWM Blinky）</a></span><span class="code-sample-description">使用 PWM API 键入 LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/pwm/capture/README.html#capture" title="英文原文" hreflang="en" data-lang-target="en">PWM 捕获</a></span><span class="code-sample-description">捕获 PWM 信号。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/pwm/event/README.html#event" title="英文原文" hreflang="en" data-lang-target="en">PWM 事件</a></span><span class="code-sample-description">PWM 信号上的事件。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/rgb_led/README.html#rgb-led" title="英文原文" hreflang="en" data-lang-target="en">PWM RGB 发光灯</a></span><span class="code-sample-description">使用 PWM API 驱动 RGB LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/servo_motor/README.html#servo-motor" title="英文原文" hreflang="en" data-lang-target="en">轮船</a></span><span class="code-sample-description">使用PWM API驱动一个伺服器.</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/bbc/microbit/sound/README.html#bbc_microbit_sound" title="英文原文" hreflang="en" data-lang-target="en">音频</a></span><span class="code-sample-description">使用 BBC micro:bit 板上的压电蜂鸣器。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/st/pwm/mastermode/README.html#stm32_pwm_mastermode" title="英文原文" hreflang="en" data-lang-target="en">STM32 PWM 主模式</a></span><span class="code-sample-description">配置设备树，利用主从模式同步多个定时器实例。</span></li>
+</ul>
+</div>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__pwm__fake.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Fake</span> <span class="pre">PWM</span></a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-09-01。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../H-sources.txt">本批来源与素材说明</a> · <a href="../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

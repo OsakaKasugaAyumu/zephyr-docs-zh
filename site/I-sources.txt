@@ -1,0 +1,46 @@
+﻿译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+I01 Controller Area Network (CAN)
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/7940c728ab12b04f62875bd893df594fc261c50f/doc/hardware/peripherals/can/index.rst
+英文 HTML SHA-256：89a2cc81ce7fdb5219cf37a6e15d8803c9f15a9009526424f9155a050291b2ec
+
+I02 CAN Controller
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/controller.html
+https://github.com/zephyrproject-rtos/zephyr/blob/b857d3a766a38a4637ce1517fee4e0368a7a70ca/doc/hardware/peripherals/can/controller.rst
+英文 HTML SHA-256：01e69b9e664b587f30bc47e00a5e6b15529fa5df375826c701ceb68b6bd1e1da
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/timing.svg
+
+I03 CAN Transceiver
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/transceiver.html
+https://github.com/zephyrproject-rtos/zephyr/blob/435b8a25d672e53e5dcd93b9dd248b3f434cfd4f/doc/hardware/peripherals/can/transceiver.rst
+英文 HTML SHA-256：6a410c4c517235175f440947f87343bf552abe43e122c91a08766c9469cece73
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/transceiver.svg
+
+I04 CAN Shell
+https://docs.zephyrproject.org/latest/hardware/peripherals/can/shell.html
+https://github.com/zephyrproject-rtos/zephyr/blob/b947de920ea68eb727f139ccec29fddb432e9185/doc/hardware/peripherals/can/shell.rst
+英文 HTML SHA-256：6b28bb555213f5fa6eb16e97c0e17477b1d0d496ff0f9b02a9958ac25d041206
+
+I05 Controller Area Network (CAN) counter
+https://docs.zephyrproject.org/latest/samples/drivers/can/counter/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/506e95325d0cdd353f84d505f69c1509e3c2f6f0//samples/drivers/can/counter/README.rst
+英文 HTML SHA-256：acabad7a98b1f132bebc074d957d226f01adaec29b5403abfa6f78652f94365b
+
+I06 Controller Area Network (CAN) Bus Protocols
+https://docs.zephyrproject.org/latest/services/connectivity/canbus/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/02d743889396e724d53be61e4fe34c484c1d5a97/doc/services/connectivity/canbus/index.rst
+英文 HTML SHA-256：6597aa0de5c9f37db1a817f5adc5ed90619a8e500a45d2fa9340ff88429fcc7f
+
+I07 ISO-TP Transport Protocol
+https://docs.zephyrproject.org/latest/services/connectivity/canbus/isotp.html
+https://github.com/zephyrproject-rtos/zephyr/blob/02d743889396e724d53be61e4fe34c484c1d5a97/doc/services/connectivity/canbus/isotp.rst
+英文 HTML SHA-256：68fc954c4a6e9396c3143ab7b980e2f69fceb7c581c5802d6f8530b801d31ee0
+官方原图仅回链，不随站复制：https://docs.zephyrproject.org/latest/_images/isotp_sequence.svg
+
+I08 ISO-TP library
+https://docs.zephyrproject.org/latest/samples/subsys/canbus/isotp/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/4f1cd0e42858b8b7f02512bfca603332bc90edee//samples/subsys/canbus/isotp/README.rst
+英文 HTML SHA-256：f6ec9bb8a2874889a1ffe03aef8149012bf905a6b588a05116e054b53d76be33

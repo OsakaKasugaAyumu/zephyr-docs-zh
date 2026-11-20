@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAN 命令行（CAN Shell） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/can/shell.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="集成电路互连（I2C）总线" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i2c.html">
+    <link rel="prev" title="CAN 收发器（CAN Transceiver）" href="transceiver.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/hardware/peripherals/can/shell.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/can/shell.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="shell.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">架构相关指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/barriers/index.html" hreflang="en" data-lang-target="en" title="英文原文">屏障（barrier）API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/cache/index.html" hreflang="en" data-lang-target="en" title="英文原文">缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 设备仿真器与模拟器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/bus_emulators.html" hreflang="en" data-lang-target="en" title="英文原文">外部总线及总线外设仿真器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/analog.html" hreflang="en" data-lang-target="en" title="英文原文">模拟外设</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/audio/index.html" hreflang="en" data-lang-target="en" title="英文原文">音频</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">CAN 外设总览（Controller Area Network (CAN)）</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="controller.html">CAN 控制器（CAN Controller）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="transceiver.html">CAN 收发器（CAN Transceiver）</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">CAN 命令行（CAN Shell）</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#overview">概述</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#inspection">查看控制器状态</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#configuration">配置</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#receiving">接收</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#sending">发送</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#bus-recovery">总线恢复</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i2c.html" hreflang="en" data-lang-target="en" title="英文原文">集成电路互连（I2C）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i3c.html" hreflang="en" data-lang-target="en" title="英文原文">改进型集成电路互连（I3C）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/spi.html" hreflang="en" data-lang-target="en" title="英文原文">串行外设接口（SPI）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pcie.html" hreflang="en" data-lang-target="en" title="英文原文">高速外设互连（PCIe）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../uart.html">串口接口（Universal Asynchronous Receiver-Transmitter (UART)）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/espi.html" hreflang="en" data-lang-target="en" title="英文原文">增强型串行外设接口（eSPI）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mdio.html" hreflang="en" data-lang-target="en" title="英文原文">管理数据输入／输出（MDIO）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mspi.html" hreflang="en" data-lang-target="en" title="英文原文">多位 SPI 总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/smbus.html" hreflang="en" data-lang-target="en" title="英文原文">系统管理总线（SMBus）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/ipm.html" hreflang="en" data-lang-target="en" title="英文原文">处理器间邮箱（IPM）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/lin.html" hreflang="en" data-lang-target="en" title="英文原文">局部互连网络（LIN）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mbox.html" hreflang="en" data-lang-target="en" title="英文原文">多通道处理器间邮箱（MBOX）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/w1.html" hreflang="en" data-lang-target="en" title="英文原文">单总线（1-Wire）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pulse_io.html" hreflang="en" data-lang-target="en" title="英文原文">脉冲 I/O</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/gpio_input.html" hreflang="en" data-lang-target="en" title="英文原文">GPIO 与输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html" hreflang="en" data-lang-target="en" title="英文原文">内存与存储</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/power.html" hreflang="en" data-lang-target="en" title="英文原文">电源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/sensors.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/motion_actuation.html" hreflang="en" data-lang-target="en" title="英文原文">运动与执行机构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/system_diagnostics.html" hreflang="en" data-lang-target="en" title="英文原文">系统与诊断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/timing.html" hreflang="en" data-lang-target="en" title="英文原文">定时</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../pinctrl/index.html">引脚控制（Pin Control）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html" hreflang="en" data-lang-target="en" title="英文原文">移植</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a> »</li>
+  
+     <li><a href="index.html">CAN 外设总览（Controller Area Network (CAN)）</a> »</li>
+  
+  <li>CAN 命令行（CAN Shell）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/hardware/peripherals/can/shell.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27hardware%2Fperipherals%2Fcan%2Fshell%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+CAN&amp;env=-+Page%3A+hardware%2Fperipherals%2Fcan%2Fshell%0A-+Version%3A+main%0A-+SHA-1%3A+b947de920ea68eb727f139ccec29fddb432e9185&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="can-shell">
+<span id="id1"></span><h1>CAN 命令行（CAN Shell）<a class="headerlink" href="#can-shell" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · I04 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（79 篇）</a> · <a href="../../../../index.html#batch-i">I 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/peripherals/can/shell.html" hreflang="en">本页英文原文</a></p><nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id2">概述</a></p></li>
+<li><p><a class="reference internal" href="#inspection" id="id3">查看控制器状态</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id4">配置</a></p></li>
+<li><p><a class="reference internal" href="#receiving" id="id5">接收</a></p></li>
+<li><p><a class="reference internal" href="#sending" id="id6">发送</a></p></li>
+<li><p><a class="reference internal" href="#bus-recovery" id="id7">总线恢复</a></p></li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">概述</a><a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p>CAN 命令行为<a class="reference internal" href="https://docs.zephyrproject.org/latest/services/shell/index.html#shell-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">命令行（shell）</span></a>模块提供 <code class="docutils literal notranslate"><span class="pre">can</span></code> 命令及一组子命令。无须专门编写应用，就能交互式探索和测试<a class="reference internal" href="controller.html#can-api"><span class="std std-ref">CAN 控制器（CAN Controller）</span></a>驱动 API。也可在已有应用中启用，以交互方式排查 CAN 问题。</p>
+<p>CAN 命令行可访问多数控制器功能，包括查看状态、配置、收发帧和总线恢复。</p>
+<p>要使用 CAN 命令行，必须启用以下 <a class="reference internal" href="../../../build/kconfig/index.html#kconfig"><span class="std std-ref">Kconfig</span></a> 选项：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SHELL" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SHELL</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_SHELL" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_SHELL</span></code></a></p></li>
+</ul>
+<p>以下 <a class="reference internal" href="../../../build/kconfig/index.html#kconfig"><span class="std std-ref">Kconfig</span></a> 选项可为 <code class="docutils literal notranslate"><span class="pre">can</span></code> 命令启用额外的子命令和功能：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_FD_MODE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_FD_MODE</span></code></a>：启用 CAN FD 专用子命令，例如设置 CAN FD 数据相位时序。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_RX_TIMESTAMP" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_RX_TIMESTAMP</span></code></a>：打印收到的 CAN 帧的时间戳。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_STATS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_STATS</span></code></a>：在 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">show</span></code> 子命令中打印控制器统计信息，还须同时启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_STATS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_STATS</span></code></a>。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_MANUAL_RECOVERY_MODE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_MANUAL_RECOVERY_MODE</span></code></a>：启用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">recover</span></code> 子命令。</p></li>
+</ul>
+<p>例如，为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/nxp/frdm_k64f/doc/index.html#frdm_k64f" hreflang="en" data-lang-target="en" title="英文原文">FRDM-K64F</a> 构建 <a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/hello_world/README.html#hello_world" title="英文原文" hreflang="en" data-lang-target="en">Hello World</a> 示例，同时启用 CAN 命令行和统计功能：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the root of the zephyr repository</span>
+west<span class="w"> </span>build<span class="w"> </span>-b<span class="w"> </span>frdm_k64f<span class="w"> </span>samples/hello_world<span class="w"> </span>--<span class="w"> </span>-DCONFIG_SHELL<span class="o">=</span>y<span class="w"> </span>-DCONFIG_CAN<span class="o">=</span>y<span class="w"> </span>-DCONFIG_CAN_SHELL<span class="o">=</span>y<span class="w"> </span>-DCONFIG_STATS<span class="o">=</span>y<span class="w"> </span>-DCONFIG_CAN_STATS<span class="o">=</span>y
+</pre></div>
+</div>
+<p>关于如何连接和操作命令行，见<a class="reference internal" href="https://docs.zephyrproject.org/latest/services/shell/index.html#shell-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">命令行（shell）</span></a>文档。除非禁用了 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SHELL_HELP" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SHELL_HELP</span></code></a>，否则可向 <code class="docutils literal notranslate"><span class="pre">can</span></code> 或其任意子命令传入 <code class="docutils literal notranslate"><span class="pre">-h</span></code> 或 <code class="docutils literal notranslate"><span class="pre">--help</span></code> 查看内置帮助。所有子命令的参数也支持 Tab 补全。</p>
+<div class="admonition tip">
+<p class="admonition-title">提示</p>
+<p>所有 CAN 子命令的首个参数都是控制器名称，支持 Tab 补全。启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_DEVICE_SHELL" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_DEVICE_SHELL</span></code></a> 后，可通过 <code class="docutils literal notranslate"><span class="pre">device</span>
+<span class="pre">list</span></code> 列出可用设备。下例均使用设备名 <code class="docutils literal notranslate"><span class="pre">can@0</span></code>。</p>
+</div>
+</section>
+<section id="inspection">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">查看控制器状态</a><a class="headerlink" href="#inspection" title="链接到此标题"></a></h2>
+<p>用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">show</span></code> 可查看指定控制器的信息，包括核心 CAN 时钟频率、最大位速率、接收过滤器数量、能力、当前模式与状态、错误计数器和时序限制等：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>show<span class="w"> </span>can@0
+<span class="go">core clock:      144000000 Hz</span>
+<span class="go">max bitrate:     5000000 bps</span>
+<span class="go">max std filters: 15</span>
+<span class="go">max ext filters: 15</span>
+<span class="go">capabilities:    normal loopback listen-only fd</span>
+<span class="go">mode:            normal</span>
+<span class="go">state:           stopped</span>
+<span class="go">rx errors:       0</span>
+<span class="go">tx errors:       0</span>
+<span class="go">timing:          sjw 1..128, prop_seg 0..0, phase_seg1 2..256, phase_seg2 2..128, prescaler 1..512</span>
+<span class="go">timing data:     sjw 1..16, prop_seg 0..0, phase_seg1 1..32, phase_seg2 1..16, prescaler 1..32</span>
+<span class="go">transceiver:     passive/none</span>
+<span class="go">statistics:</span>
+<span class="go">  bit errors:    0</span>
+<span class="go">    bit0 errors: 0</span>
+<span class="go">    bit1 errors: 0</span>
+<span class="go">  stuff errors:  0</span>
+<span class="go">  crc errors:    0</span>
+<span class="go">  form errors:   0</span>
+<span class="go">  ack errors:    0</span>
+<span class="go">  rx overruns:   0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>仅在启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_STATS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_STATS</span></code></a> 时打印统计信息。</p>
+</div>
+</section>
+<section id="configuration">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">配置</a><a class="headerlink" href="#configuration" title="链接到此标题"></a></h2>
+<p>CAN 命令行可以设置控制器模式和时序，并启动或停止 CAN 帧的处理。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>只有控制器处于停止状态时才能修改模式和时序。上电初始就是停止状态，初始模式为 <code class="docutils literal notranslate"><span class="pre">normal</span></code>；初始时序由<a class="reference internal" href="../../../build/dts/index.html#devicetree"><span class="std std-ref">设备树（Devicetree）</span></a>的 <code class="docutils literal notranslate"><span class="pre">bitrate</span></code>、<code class="docutils literal notranslate"><span class="pre">sample-point</span></code>、<code class="docutils literal notranslate"><span class="pre">bitrate-data</span></code>、<code class="docutils literal notranslate"><span class="pre">sample-point-data</span></code> 属性决定。</p>
+</div>
+<section id="timing">
+<h3>计时<a class="headerlink" href="#timing" title="链接到此标题"></a></h3>
+<p>可用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">bitrate</span></code> 设置经典 CAN 位速率或 CAN FD 仲裁相位位速率。单位为 bit/s。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>bitrate<span class="w"> </span>can@0<span class="w"> </span><span class="m">125000</span>
+<span class="go">setting bitrate to 125000 bps</span>
+</pre></div>
+</div>
+<p>启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_FD_MODE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_FD_MODE</span></code></a> 后，可用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">dbitrate</span></code> 设置数据相位位速率。单位为 bit/s。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>dbitrate<span class="w"> </span>can@0<span class="w"> </span><span class="m">1000000</span>
+<span class="go">setting data bitrate to 1000000 bps</span>
+</pre></div>
+</div>
+<p>这两个子命令还支持两个可选位置参数：以千分数表示的采样点，以及以时间量子表示的（再）同步跳转宽度（SJW）。详细用法见交互式帮助。</p>
+<p>也可以用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">timing</span></code>、<code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">dtiming</span></code> 直接配置底层位时序，所需参数详见各子命令的交互式帮助。</p>
+</section>
+<section id="mode">
+<h3>模式<a class="headerlink" href="#mode" title="链接到此标题"></a></h3>
+<p>通过 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">mode</span></code> 设置控制器模式，下面演示如何启用环回模式。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>mode<span class="w"> </span>can@0<span class="w"> </span>loopback
+<span class="go">setting mode 0x00000001</span>
+</pre></div>
+</div>
+<p>可在同一行指定多个模式，例如 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">mode</span> <span class="pre">can@0</span> <span class="pre">fd</span>
+<span class="pre">loopback</span></code> 同时启用 CAN FD 与环回。厂商专用模式可用十六进制值表示。</p>
+</section>
+<section id="starting-and-stopping">
+<h3>启动与停止<a class="headerlink" href="#starting-and-stopping" title="链接到此标题"></a></h3>
+<p>时序和模式配置完毕后，用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">start</span></code> 启动控制器，启用 CAN 帧收发：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>start<span class="w"> </span>can@0
+<span class="go">starting can@0</span>
+</pre></div>
+</div>
+<p>要重新配置时序或模式，须先用 <code class="docutils literal notranslate"><span class="pre">can</span>
+<span class="pre">stop</span></code> 停止控制器：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>stop<span class="w"> </span>can@0
+<span class="go">stopping can@0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="receiving">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">接收</a><a class="headerlink" href="#receiving" title="链接到此标题"></a></h2>
+<p>要接收帧，须至少配置一个 CAN 接收过滤器。用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">filter</span> <span class="pre">add</span></code> 添加，传入十六进制 CAN ID，还可给出十六进制掩码来指定哪些 ID 位必须匹配。可用参数详见子命令的交互帮助。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>filter<span class="w"> </span>add<span class="w"> </span>can@0<span class="w"> </span><span class="m">010</span>
+<span class="go">adding filter with standard (11-bit) CAN ID 0x010, CAN ID mask 0x7ff, data frames 1, RTR frames 0, CAN FD frames 0</span>
+<span class="go">filter ID: 0</span>
+</pre></div>
+</div>
+<p>移除过滤器时使用这里返回的过滤器 ID（上例为 0）。</p>
+<p>命中已添加过滤器的帧会打印到命令行。例如：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Dev<span class="w"> </span>Flags<span class="w">    </span>ID<span class="w">   </span>Size<span class="w">  </span>Data<span class="w"> </span>bytes
+<span class="go">can0  --       010   [8]  01 02 03 04 05 06 07 08</span>
+<span class="go">can0  B-       010  [08]  01 02 03 04 05 06 07 08</span>
+<span class="go">can0  BP       010  [03]  01 aa bb</span>
+<span class="go">can0  --  00000010   [0]</span>
+<span class="go">can0  --       010   [1]  20</span>
+<span class="go">can0  --       010   [8]  remote transmission request</span>
+</pre></div>
+</div>
+<p>各列含义如下：</p>
+<ul class="simple">
+<li><p>设备（Dev）</p>
+<ul>
+<li><p>接收该帧的设备名称。</p></li>
+</ul>
+</li>
+<li><p>标志（Flags）</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code>：帧设置了 CAN FD 位速率切换（BRS）标志。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>：帧设置了 CAN FD 错误状态指示（ESI）标志；发送节点处于错误被动状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>：该标志未置位。</p></li>
+</ul>
+</li>
+<li><p>ID</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">010</span></code>：以十六进制表示的标准（11 位）CAN ID，此例为 10h。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">00000010</span></code>：以十六进制表示的扩展（29 位）CAN ID，此例为 10h。</p></li>
+</ul>
+</li>
+<li><p>大小（Size）</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">[8]</span></code>：数据字节数（十进制）；此例为 8 数据字节的经典 CAN 帧。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[08]</span></code>：数据字节数（十进制）；此例为 8 数据字节的 CAN FD 帧。</p></li>
+</ul>
+</li>
+<li><p>数据字节</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">01</span> <span class="pre">02</span> <span class="pre">03</span> <span class="pre">04</span> <span class="pre">05</span> <span class="pre">06</span> <span class="pre">07</span> <span class="pre">08</span></code>：以十六进制表示的数据字节，此例是 1 至 8。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remote</span> <span class="pre">transmission</span> <span class="pre">request</span></code>：这是远程传输请求（RTR）帧，不携带数据字节。</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">提示</p>
+<p>启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_RX_TIMESTAMP" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_RX_TIMESTAMP</span></code></a> 时，每行前面会显示来自控制器自由运行计数器的时间戳。</p>
+</div>
+<p>已配置的接收过滤器可用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">filter</span> <span class="pre">remove</span></code> 移除，使用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">filter</span> <span class="pre">add</span></code> 返回的过滤器 ID（下例为 0）。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>filter<span class="w"> </span>remove<span class="w"> </span>can@0<span class="w"> </span><span class="m">0</span>
+<span class="go">removing filter with ID 0</span>
+</pre></div>
+</div>
+<p>也可以使用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">dump</span></code>：它添加能匹配任意接收帧的标准（11 位）和扩展（29 位）过滤器，启动控制器，并将所有接收帧打印到命令行：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>dump<span class="w"> </span>can@0
+<span class="go">dumping CAN RX frames on device can@0, press Ctrl+C to exit</span>
+</pre></div>
+</div>
+<p>按 Ctrl+C 退出 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">dump</span></code> 后，会自动移除刚添加的过滤器并再次停止控制器。</p>
+</section>
+<section id="sending">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">发送</a><a class="headerlink" href="#sending" title="链接到此标题"></a></h2>
+<p>用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">send</span></code> 将待发送的帧加入发送队列。传入十六进制 CAN ID，也可附带若干十六进制数据字节。其他参数详见子命令的交互帮助。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>send<span class="w"> </span>can@0<span class="w"> </span><span class="m">010</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span>
+<span class="go">enqueuing CAN frame #2 with standard (11-bit) CAN ID 0x010, RTR 0, CAN FD 0, BRS 0, DLC 8</span>
+<span class="go">CAN frame #2 successfully sent</span>
+</pre></div>
+</div>
+</section>
+<section id="bus-recovery">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">总线恢复</a><a class="headerlink" href="#bus-recovery" title="链接到此标题"></a></h2>
+<p>可用 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">recover</span></code> 手动从总线关闭（bus-off）状态恢复：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">uart:~$ </span>can<span class="w"> </span>recover<span class="w"> </span>can@0
+<span class="go">recovering, no timeout</span>
+</pre></div>
+</div>
+<p>可选参数是以毫秒计的恢复超时。未指定时会一直等待恢复成功。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>只有启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_CAN_MANUAL_RECOVERY_MODE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_CAN_MANUAL_RECOVERY_MODE</span></code></a> 后才有 <code class="docutils literal notranslate"><span class="pre">recover</span></code> 子命令。</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2025-12-28。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../I-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

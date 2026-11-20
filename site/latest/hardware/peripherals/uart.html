@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>串口接口（Universal Asynchronous Receiver-Transmitter (UART)） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/uart.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="增强型串行外设接口（eSPI）总线" href="https://docs.zephyrproject.org/latest/hardware/peripherals/espi.html">
+    <link rel="prev" title="高速外设互连（PCIe）总线" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pcie.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/hardware/peripherals/uart.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/uart.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="uart.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">架构相关指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/barriers/index.html" hreflang="en" data-lang-target="en" title="英文原文">屏障（barrier）API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/cache/index.html" hreflang="en" data-lang-target="en" title="英文原文">缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 设备仿真器与模拟器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/bus_emulators.html" hreflang="en" data-lang-target="en" title="英文原文">外部总线及总线外设仿真器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/analog.html" hreflang="en" data-lang-target="en" title="英文原文">模拟外设</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/audio/index.html" hreflang="en" data-lang-target="en" title="英文原文">音频</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="can/index.html">CAN 外设总览（Controller Area Network (CAN)）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i2c.html" hreflang="en" data-lang-target="en" title="英文原文">集成电路互连（I2C）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i3c.html" hreflang="en" data-lang-target="en" title="英文原文">改进型集成电路互连（I3C）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/spi.html" hreflang="en" data-lang-target="en" title="英文原文">串行外设接口（SPI）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pcie.html" hreflang="en" data-lang-target="en" title="英文原文">高速外设互连（PCIe）总线</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">串口接口（Universal Asynchronous Receiver-Transmitter (UART)）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#overview">概述</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#configuration-options">配置选项</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-reference">API 参考</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#polling-api">轮询接口（Polling API）</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#interrupt-driven-api">中断驱动 API</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#asynchronous-api">异步 API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/espi.html" hreflang="en" data-lang-target="en" title="英文原文">增强型串行外设接口（eSPI）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mdio.html" hreflang="en" data-lang-target="en" title="英文原文">管理数据输入／输出（MDIO）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mspi.html" hreflang="en" data-lang-target="en" title="英文原文">多位 SPI 总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/smbus.html" hreflang="en" data-lang-target="en" title="英文原文">系统管理总线（SMBus）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/ipm.html" hreflang="en" data-lang-target="en" title="英文原文">处理器间邮箱（IPM）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/lin.html" hreflang="en" data-lang-target="en" title="英文原文">局部互连网络（LIN）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mbox.html" hreflang="en" data-lang-target="en" title="英文原文">多通道处理器间邮箱（MBOX）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/w1.html" hreflang="en" data-lang-target="en" title="英文原文">单总线（1-Wire）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pulse_io.html" hreflang="en" data-lang-target="en" title="英文原文">脉冲 I/O</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/gpio_input.html" hreflang="en" data-lang-target="en" title="英文原文">GPIO 与输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html" hreflang="en" data-lang-target="en" title="英文原文">内存与存储</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/power.html" hreflang="en" data-lang-target="en" title="英文原文">电源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/sensors.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/motion_actuation.html" hreflang="en" data-lang-target="en" title="英文原文">运动与执行机构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/system_diagnostics.html" hreflang="en" data-lang-target="en" title="英文原文">系统与诊断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/timing.html" hreflang="en" data-lang-target="en" title="英文原文">定时</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pinctrl/index.html">引脚控制（Pin Control）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html" hreflang="en" data-lang-target="en" title="英文原文">移植</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a> »</li>
+  
+  <li>串口接口（Universal Asynchronous Receiver-Transmitter (UART)）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/hardware/peripherals/uart.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27hardware%2Fperipherals%2Fuart%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+UART&amp;env=-+Page%3A+hardware%2Fperipherals%2Fuart%0A-+Version%3A+main%0A-+SHA-1%3A+df294e34e15d15e2320e1ba09dc700f830669fe3&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="universal-asynchronous-receiver-transmitter-uart">
+<span id="uart-api"></span><h1>串口接口（Universal Asynchronous Receiver-Transmitter (UART)）<a class="headerlink" href="#universal-asynchronous-receiver-transmitter-uart" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · H07 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../index.html#batch-h">H 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/peripherals/uart.html" hreflang="en">本页英文原文</a></p><section id="overview">
+<h2>概述<a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p>Zephyr 提供三种访问 UART 外设的方式，各自采用的 API 分列如下：</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#uart-polling-api"><span class="std std-ref">轮询接口（Polling API）</span></a></p></li>
+<li><p><a class="reference internal" href="#uart-interrupt-api"><span class="std std-ref">中断驱动 API</span></a></p></li>
+<li><p>使用<a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/dma.html#dma-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">直接存储器访问（DMA）</span></a>的<a class="reference internal" href="#uart-async-api"><span class="std std-ref">异步 API</span></a></p></li>
+</ol>
+<p>轮询是最基本的 UART 访问方式。读函数 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__uart__polling.html#gae81ac8cc976a20d774cfbda09e9c983d" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">uart_poll_in()</span></code></a> 不阻塞，有数据则读出字符，无有效数据时返回 <code class="docutils literal notranslate"><span class="pre">-1</span></code>。写函数 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__uart__polling.html#ga06ba27ba772a7a18462b8cdbc7f9353c" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">uart_poll_out()</span></code></a> 会阻塞，线程等待给定字符发送完毕。</p>
+<p>采用中断驱动 API 时，较慢的通信可在后台进行，线程则继续处理其他任务。线程与 UART 驱动之间可以通过内核的<a class="reference internal" href="../../kernel/services/index.html#kernel-data-passing-api"><span class="std std-ref">数据传递</span></a>机制通信。</p>
+<p>异步 API 使用 DMA 在后台收发数据，数据搬运过程无须中断 MCU，但配置比其他方法复杂。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>同一硬件外设不能同时使用中断驱动 API 和异步 API。两者都依赖硬件中断，同时使用其回调会相互干扰。默认启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_UART_EXCLUSIVE_API_CALLBACKS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_UART_EXCLUSIVE_API_CALLBACKS</span></code></a>，确保一次只有一种 API 的回调有效。</p>
+</div>
+</section>
+<section id="configuration-options">
+<h2>配置选项<a class="headerlink" href="#configuration-options" title="链接到此标题"></a></h2>
+<p>轮询 API（默认）、中断驱动 API 或异步 API 哪些可用，取决于 Kconfig 选项。只启用需要的特性，以减少内存占用。</p>
+<p>相关配置选项：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SERIAL" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SERIAL</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_UART_INTERRUPT_DRIVEN" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_UART_INTERRUPT_DRIVEN</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_UART_ASYNC_API" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_UART_ASYNC_API</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_UART_WIDE_DATA" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_UART_WIDE_DATA</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_UART_USE_RUNTIME_CONFIGURE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_UART_USE_RUNTIME_CONFIGURE</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_UART_LINE_CTRL" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_UART_LINE_CTRL</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_UART_DRV_CMD" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_UART_DRV_CMD</span></code></a></p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__uart__interface.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">UART</span></a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/net/wpan_serial/README.html#wpan-serial" title="英文原文" hreflang="en" data-lang-target="en">802.15.4 串行无线电（serial-radio）</a></span><span class="code-sample-description">为基于 Contiki 的边界路由器实现 SLIP 无线电设备。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/modem/at_client/README.html#at_client" title="英文原文" hreflang="en" data-lang-target="en">AT 命令客户端</a></span><span class="code-sample-description">在控制台与调制解调器间建立双向 UART 桥以收发 AT 命令。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/usb/console/README.html#usb-cdc-acm-console" title="英文原文" hreflang="en" data-lang-target="en">通过 USB CDC ACM 使用控制台</a></span><span class="code-sample-description">通过 USB CDC ACM 向控制台输出「Hello World!」。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/bluetooth/hci_uart_3wire/README.html#bluetooth_hci_uart_3wire" title="英文原文" hreflang="en" data-lang-target="en">HCI 三线传输（H:5）</a></span><span class="code-sample-description">通过 H5:HCI 传输将蓝牙控制器提供给另一设备或 CPU。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/bluetooth/hci_uart/README.html#bluetooth_hci_uart" title="英文原文" hreflang="en" data-lang-target="en">HCI UART</a></span><span class="code-sample-description">通过 UART 将蓝牙控制器提供给另一设备或 CPU。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/bluetooth/hci_uart_async/README.html#bluetooth_hci_uart_async" title="英文原文" hreflang="en" data-lang-target="en">异步 HCI UART</a></span><span class="code-sample-description">通过异步 UART 将蓝牙控制器提供给另一设备或 CPU。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/net/ieee802154/sniffer/README.html#ieee802154-sniffer" title="英文原文" hreflang="en" data-lang-target="en">IEEE 802.15.4 嗅探器</a></span><span class="code-sample-description">捕获 IEEE 802.15.4 帧并交给 Wireshark。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/usb/legacy/cdc_acm/README.html#legacy-usb-cdc-acm" title="英文原文" hreflang="en" data-lang-target="en">旧版 USB CDC ACM UART 示例</a></span><span class="code-sample-description">使用 USB CDC ACM UART 驱动实现串口回显。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/uart/native_tty/README.html#uart-native-tty" title="英文原文" hreflang="en" data-lang-target="en">原生 TTY UART</a></span><span class="code-sample-description">使用原生 TTY 驱动在两个 UART 转 USB 适配器之间收发数据。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/st/uart/single_wire/README.html#uart-stm32-single-wire" title="英文原文" hreflang="en" data-lang-target="en">单线 UART</a></span><span class="code-sample-description">使用 STM32 设备的单线／半双工 UART 功能。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/uart/async_api/README.html#uart_async" title="英文原文" hreflang="en" data-lang-target="en">UART 异步 API</a></span><span class="code-sample-description">演示异步 API 的用法。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/st/uart/circular_dma/README.html#uart-circular-dma" title="英文原文" hreflang="en" data-lang-target="en">UART 循环模式</a></span><span class="code-sample-description">使用循环 DMA 配置读取控制台数据并回显。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/uart/echo_bot/README.html#uart" title="英文原文" hreflang="en" data-lang-target="en">UART 回显</a></span><span class="code-sample-description">读取控制台数据并将其回显。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/uart/passthrough/README.html#uart-passthrough" title="英文原文" hreflang="en" data-lang-target="en">UART 透传</a></span><span class="code-sample-description">在控制台与另一 UART 接口之间直接转发数据。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/usb/cdc_acm/README.html#usb-cdc-acm" title="英文原文" hreflang="en" data-lang-target="en">USB CDC ACM UART 示例</a></span><span class="code-sample-description">使用 USB CDC ACM UART 驱动实现串口回显。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/usb/cdc_acm_bridge/README.html#usb-cdc-acm-bridge" title="英文原文" hreflang="en" data-lang-target="en">USB CDC-ACM 桥接</a></span><span class="code-sample-description">使用 USB CDC-ACM 驱动实现串口桥接。</span></li>
+</ul>
+</div>
+<section id="polling-api">
+<span id="uart-polling-api"></span><h3>轮询接口（Polling API）<a class="headerlink" href="#polling-api" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__uart__polling.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Polling</span> <span class="pre">UART</span> <span class="pre">API</span></a></dt>
+</dl>
+
+</section>
+<section id="interrupt-driven-api">
+<span id="uart-interrupt-api"></span><h3>中断驱动 API<a class="headerlink" href="#interrupt-driven-api" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__uart__interrupt.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Interrupt-driven</span> <span class="pre">UART</span> <span class="pre">API</span></a></dt>
+</dl>
+
+</section>
+<section id="asynchronous-api">
+<span id="uart-async-api"></span><h3>异步 API<a class="headerlink" href="#asynchronous-api" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__uart__async.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Async</span> <span class="pre">UART</span> <span class="pre">API</span></a></dt>
+</dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2024-09-10。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../H-sources.txt">本批来源与素材说明</a> · <a href="../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

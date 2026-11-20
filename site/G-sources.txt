@@ -1,0 +1,33 @@
+﻿译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+G01 Memory Management
+https://docs.zephyrproject.org/latest/kernel/memory_management/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/397c0011811fa660faf845be8de82d62afd77872/doc/kernel/memory_management/index.rst
+英文 HTML SHA-256：1c9dccf8dcd5261368c16017addd141515bcdb31653d177e6f8d7aaed391996a
+
+G02 Memory Slabs
+https://docs.zephyrproject.org/latest/kernel/memory_management/slabs.html
+https://github.com/zephyrproject-rtos/zephyr/blob/6493305b09b8224fbf5669f6e670d6efc122559d/doc/kernel/memory_management/slabs.rst
+英文 HTML SHA-256：76e683035612ad9b79871d16008c66fb845ada377b23f29e15e99dd35bed47ee
+
+G03 Memory Blocks Allocator
+https://docs.zephyrproject.org/latest/kernel/memory_management/sys_mem_blocks.html
+https://github.com/zephyrproject-rtos/zephyr/blob/7b840b124dbc6375c69bcf69c73580cf22b6f6d7/doc/kernel/memory_management/sys_mem_blocks.rst
+英文 HTML SHA-256：dd3e6438e96b4c23e4cbe091101eb200243c8ad4c23974d8ecb676e5ae337c48
+
+G04 Memory Heaps
+https://docs.zephyrproject.org/latest/kernel/memory_management/heap.html
+https://github.com/zephyrproject-rtos/zephyr/blob/5289f97277077134939b16adc9dd92de8a54972f/doc/kernel/memory_management/heap.rst
+英文 HTML SHA-256：1636665724c61eeaa803760023b3751f4d888dc2388de184f0558404074e72b3
+
+G05 Shared Multi Heap
+https://docs.zephyrproject.org/latest/kernel/memory_management/shared_multi_heap.html
+https://github.com/zephyrproject-rtos/zephyr/blob/788cf0ceab88a3efa2d013bbd9c17a401271329e/doc/kernel/memory_management/shared_multi_heap.rst
+英文 HTML SHA-256：84df2b68355f777f288ccccc9c07a8d634b799b20e5d71b3a4c3b36f9b464f2d
+
+G06 Ring Buffers
+https://docs.zephyrproject.org/latest/kernel/data_structures/ring_buffers.html
+https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/doc/kernel/data_structures/ring_buffers.rst
+英文 HTML SHA-256：05f047bfd052dc88b6a2ca38cb293e83cb74f18da61cf5dba5887bd5a633c1e2

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAN 控制器（CAN Controller） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/can/controller.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="CAN 收发器（CAN Transceiver）" href="transceiver.html">
+    <link rel="prev" title="CAN 外设总览（Controller Area Network (CAN)）" href="index.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/hardware/peripherals/can/controller.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/can/controller.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="controller.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">架构相关指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/barriers/index.html" hreflang="en" data-lang-target="en" title="英文原文">屏障（barrier）API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/cache/index.html" hreflang="en" data-lang-target="en" title="英文原文">缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 设备仿真器与模拟器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/bus_emulators.html" hreflang="en" data-lang-target="en" title="英文原文">外部总线及总线外设仿真器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/analog.html" hreflang="en" data-lang-target="en" title="英文原文">模拟外设</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/audio/index.html" hreflang="en" data-lang-target="en" title="英文原文">音频</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">CAN 外设总览（Controller Area Network (CAN)）</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">CAN 控制器（CAN Controller）</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#overview">概述</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#sending">发送</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#receiving">接收</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#setting-the-bitrate">设置位速率</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#socketcan">SocketCAN</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#samples">示例</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#can-controller-api-reference">CAN 控制器 API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="transceiver.html">CAN 收发器（CAN Transceiver）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="shell.html">CAN 命令行（CAN Shell）</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i2c.html" hreflang="en" data-lang-target="en" title="英文原文">集成电路互连（I2C）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i3c.html" hreflang="en" data-lang-target="en" title="英文原文">改进型集成电路互连（I3C）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/spi.html" hreflang="en" data-lang-target="en" title="英文原文">串行外设接口（SPI）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pcie.html" hreflang="en" data-lang-target="en" title="英文原文">高速外设互连（PCIe）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../uart.html">串口接口（Universal Asynchronous Receiver-Transmitter (UART)）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/espi.html" hreflang="en" data-lang-target="en" title="英文原文">增强型串行外设接口（eSPI）总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mdio.html" hreflang="en" data-lang-target="en" title="英文原文">管理数据输入／输出（MDIO）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mspi.html" hreflang="en" data-lang-target="en" title="英文原文">多位 SPI 总线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/smbus.html" hreflang="en" data-lang-target="en" title="英文原文">系统管理总线（SMBus）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/ipm.html" hreflang="en" data-lang-target="en" title="英文原文">处理器间邮箱（IPM）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/lin.html" hreflang="en" data-lang-target="en" title="英文原文">局部互连网络（LIN）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/mbox.html" hreflang="en" data-lang-target="en" title="英文原文">多通道处理器间邮箱（MBOX）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/w1.html" hreflang="en" data-lang-target="en" title="英文原文">单总线（1-Wire）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/pulse_io.html" hreflang="en" data-lang-target="en" title="英文原文">脉冲 I/O</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/gpio_input.html" hreflang="en" data-lang-target="en" title="英文原文">GPIO 与输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html" hreflang="en" data-lang-target="en" title="英文原文">内存与存储</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/power.html" hreflang="en" data-lang-target="en" title="英文原文">电源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/sensors.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/motion_actuation.html" hreflang="en" data-lang-target="en" title="英文原文">运动与执行机构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/system_diagnostics.html" hreflang="en" data-lang-target="en" title="英文原文">系统与诊断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/timing.html" hreflang="en" data-lang-target="en" title="英文原文">定时</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../pinctrl/index.html">引脚控制（Pin Control）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html" hreflang="en" data-lang-target="en" title="英文原文">移植</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a> »</li>
+  
+     <li><a href="index.html">CAN 外设总览（Controller Area Network (CAN)）</a> »</li>
+  
+  <li>CAN 控制器（CAN Controller）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/hardware/peripherals/can/controller.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27hardware%2Fperipherals%2Fcan%2Fcontroller%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+CAN&amp;env=-+Page%3A+hardware%2Fperipherals%2Fcan%2Fcontroller%0A-+Version%3A+main%0A-+SHA-1%3A+b857d3a766a38a4637ce1517fee4e0368a7a70ca&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="can-controller">
+<span id="can-api"></span><h1>CAN 控制器（CAN Controller）<a class="headerlink" href="#can-controller" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · I02 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（79 篇）</a> · <a href="../../../../index.html#batch-i">I 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/peripherals/can/controller.html" hreflang="en">本页英文原文</a></p><nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">概述</a></p></li>
+<li><p><a class="reference internal" href="#sending" id="id2">发送</a></p></li>
+<li><p><a class="reference internal" href="#receiving" id="id3">接收</a></p></li>
+<li><p><a class="reference internal" href="#setting-the-bitrate" id="id4">设置位速率</a></p></li>
+<li><p><a class="reference internal" href="#socketcan" id="id5">SocketCAN</a></p></li>
+<li><p><a class="reference internal" href="#samples" id="id6">示例</a></p></li>
+<li><p><a class="reference internal" href="#can-controller-api-reference" id="id7">CAN 控制器 API 参考</a></p></li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">概述</a><a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p>控制器局域网（CAN）是一种双线串行总线，见 Bosch CAN 规范、Bosch 可变数据速率 CAN（CAN FD）规范及 ISO 11898-1:2003 标准。CAN 最为人熟知的用途是车载通信，也用于家庭自动化、工业自动化等产品。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>只有检测到连续至少 11 个隐性位的总线空闲状态，CAN 控制器才能初始化。因此务必使 CAN RX 至少短时间保持高电平；环回模式同样需要满足此条件。</p>
+</div>
+<p>ISO 11898-1:2003 中定义的位时序如下：</p>
+<a href="https://docs.zephyrproject.org/latest/_images/timing.svg" hreflang="en" class="original-figure" data-lang-target="en">官方原图：CAN 位时序：同步段、传播段、相位段与采样点</a>
+<p>一个位分成四段。</p>
+<ul class="simple">
+<li><p>Sync_Seg（同步段）：节点在同步段的边沿同步。此段固定为一个时间量子（TQ）。</p></li>
+<li><p>Prop_Seg（传播段）：补偿总线信号传播延迟，以及收发器和节点带来的其他延迟。</p></li>
+<li><p>Phase_Seg1 和 Phase_Seg2（相位段 1、2）：二者确定采样点。采样在 Phase_Seg1 结束时进行。</p></li>
+</ul>
+<p>位时间等于（Sync_Seg + Prop_Seg + Phase_Seg1 + Phase_Seg2）乘以单个时间量子的时长。位速率是位时间的倒数。</p>
+<p>采样点位于 Phase_Seg1 与 Phase_Seg2 之间，需要由用户选择。原文给出的 CiA 建议值是一个位时间的 87.5%。</p>
+<p>再同步跳转宽度（SJW）以时间量子为单位，规定因再同步而移动采样点时最多可移动多少。</p>
+<p>初始时序由设备树设置，可以在运行时用时序 API 修改。参数可以用 SJW、位速率和采样点表示，也可用位速率、Prop_Seg、Phase_Seg1 和 Phase_Seg2 表示。</p>
+<p>CAN 用标识符标记帧，而非用地址标记节点。标准（基本）帧的标识符为 11 位，扩展帧为 29 位；Zephyr 可同时支持二者。帧以显性的帧起始位开头，之后发送标识符，进入仲裁。此时允许多个节点同时发送：显性位会覆盖隐性位。节点一边发送一边监测总线，发现自己的位被覆盖便退出本轮发送，因此数值较小的标识符具有较高的仲裁优先级。</p>
+<p>过滤器只放行本节点关心的标识符，不匹配任何过滤器的帧会被忽略。利用掩码可要求全部或部分位匹配。标准标识符 11 位或扩展标识符 29 位的掩码若全部为 1，就必须完全匹配；掩码为 0 的位不参与比较。多数控制器的硬件过滤器数量有限，Kconfig 也设置数量上限以节约内存。</p>
+<p>节点发现帧错误时，会用错误帧覆盖当前帧的一部分。控制器根据状态发送被动或主动错误帧。错误主动状态的节点会发送连续六个显性位，这违反位填充规则，所有节点都能检测到；发送者随后可以重发。</p>
+<p>初始化后，节点可能处于以下状态之一：</p>
+<ul class="simple">
+<li><p>错误主动（error-active）</p></li>
+<li><p>错误被动（error-passive）</p></li>
+<li><p>总线关闭（bus-off）</p></li>
+</ul>
+<p>初始化后，节点处于错误主动状态，可以发送主动错误帧、ACK 和过载帧。每个节点都有接收和发送错误计数器；任一计数超过 127，就进入错误被动状态，不能再发送主动错误帧。冻结英文页将发送错误计数进一步增大至 255 描述为进入总线关闭状态；此时节点不得在总线上发送显性位。检测到 128 次「连续 11 个隐性位」后，处于总线关闭状态的节点可恢复。<span class="translator-note">【译校注】英文页此处写作「增至 255」。请区分寄存器能显示的最大值和进入 bus-off 的判据：例如 Microchip 控制器文档规定发送错误计数 TEC 超过 255 才进入 bus-off。参见<a href="https://onlinedocs.microchip.com/oxy/GUID-0C0B825F-9C9F-446F-AFDD-2324B355B920-en-US-12/GUID-EF89A342-C3A3-4AFD-82E5-DF9BC1C77759.html" hreflang="en">厂商错误处理说明（英文）</a>。</span></p>
+<p>进一步介绍请参见<a class="reference external" href="https://en.wikipedia.org/wiki/CAN_bus">维基百科 CAN 条目</a>。</p>
+<p>Zephyr 支持以下 CAN 功能：</p>
+<ul class="simple">
+<li><p>标准和扩展标识符</p></li>
+<li><p>带掩码的过滤器</p></li>
+<li><p>环回模式和静默模式</p></li>
+<li><p>远程请求</p></li>
+</ul>
+</section>
+<section id="sending">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">发送</a><a class="headerlink" href="#sending" title="链接到此标题"></a></h2>
+<p>以下代码片段演示如何发送数据。</p>
+<p>下例发送标识符为 0x123、携带 8 字节数据的标准帧。回调传 NULL 时，发送函数会阻塞，直到帧已发出并被至少一个其他节点确认，或发生错误。超时只影响获取发送邮箱的等待；一旦分配邮箱，发送就不能取消。</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">can_frame</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x123</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">dlc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">}</span>
+<span class="p">};</span>
+<span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">can_dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEVICE_DT_GET</span><span class="p">(</span><span class="n">DT_CHOSEN</span><span class="p">(</span><span class="n">zephyr_canbus</span><span class="p">));</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">can_send</span><span class="p">(</span><span class="n">can_dev</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="n">K_MSEC</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Sending failed [%d]"</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>本例发送标识符为 0x1234567、含 2 字节数据的扩展帧。发送完成或发生错误时调用提供的回调。将超时设为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__clock__apis.html#ga0bb4b83f0222193b21a8910311bab0ca" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">K_FOREVER</span></code></a> 会一直等待分配发送邮箱或出错，但不像上例那样等到消息发出才返回。</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">tx_callback</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">sender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">user_data</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Sending failed [%d]</span><span class="se">\n</span><span class="s">Sender: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="n">sender</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">send_function</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">can_dev</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">can_frame</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_FRAME_IDE</span><span class="p">,</span>
+<span class="w">                </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1234567</span><span class="p">,</span>
+<span class="w">                </span><span class="p">.</span><span class="n">dlc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">        </span><span class="p">};</span>
+
+<span class="w">        </span><span class="n">frame</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">frame</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">can_send</span><span class="p">(</span><span class="n">can_dev</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="n">K_FOREVER</span><span class="p">,</span><span class="w"> </span><span class="n">tx_callback</span><span class="p">,</span><span class="w"> </span><span class="s">"Sender 1"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="receiving">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">接收</a><a class="headerlink" href="#receiving" title="链接到此标题"></a></h2>
+<p>只接收匹配过滤器的帧。以下代码演示如何添加过滤器并接收帧。</p>
+<p>以下是配合 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html#gae9dd69a13b960f773ab07bb0bb13b5e9" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">can_add_rx_filter()</span></code></a> 使用的接收回调。用户数据参数在添加过滤器时提供。</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">rx_callback_function</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">can_frame</span><span class="w"> </span><span class="o">*</span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="p">...</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="n">something</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>下例添加带回调的过滤器。这是最高效、但对时序要求也最严格的接收方式：回调在中断上下文中执行，必须尽量简短，且绝不能阻塞。用户空间不能添加回调函数。</p>
+<p>本例过滤器精确匹配标识符 0x123。</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">can_filter</span><span class="w"> </span><span class="n">my_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0U</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x123</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_STD_ID_MASK</span>
+<span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">filter_id</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">can_dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEVICE_DT_GET</span><span class="p">(</span><span class="n">DT_CHOSEN</span><span class="p">(</span><span class="n">zephyr_canbus</span><span class="p">));</span>
+
+<span class="n">filter_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">can_add_rx_filter</span><span class="p">(</span><span class="n">can_dev</span><span class="p">,</span><span class="w"> </span><span class="n">rx_callback_function</span><span class="p">,</span><span class="w"> </span><span class="n">callback_arg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my_filter</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filter_id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Unable to add rx filter [%d]"</span><span class="p">,</span><span class="w"> </span><span class="n">filter_id</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>下例用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html#gaaac20a068b7f32d2f38d1601d588b35c" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">can_add_rx_filter_msgq()</span></code></a> 同步接收帧。用户空间也可调用此函数；消息队列容量应足以容纳预计积压的帧数。</p>
+<p>本例过滤器精确匹配扩展标识符 0x1234567。</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">can_filter</span><span class="w"> </span><span class="n">my_filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_FILTER_IDE</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1234567</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CAN_EXT_ID_MASK</span>
+<span class="p">};</span>
+<span class="n">CAN_MSGQ_DEFINE</span><span class="p">(</span><span class="n">my_can_msgq</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">can_frame</span><span class="w"> </span><span class="n">rx_frame</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">filter_id</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">can_dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEVICE_DT_GET</span><span class="p">(</span><span class="n">DT_CHOSEN</span><span class="p">(</span><span class="n">zephyr_canbus</span><span class="p">));</span>
+
+<span class="n">filter_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">can_add_rx_filter_msgq</span><span class="p">(</span><span class="n">can_dev</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my_can_msgq</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my_filter</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filter_id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Unable to add rx msgq [%d]"</span><span class="p">,</span><span class="w"> </span><span class="n">filter_id</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">k_msgq_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_can_msgq</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rx_frame</span><span class="p">,</span><span class="w"> </span><span class="n">K_FOREVER</span><span class="p">);</span>
+<span class="w">  </span><span class="p">...</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="n">something</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html#ga822aa3142ea01582d5cfb8b478fb2847" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">can_remove_rx_filter()</span></code></a> 移除指定的过滤器。</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">can_remove_rx_filter</span><span class="p">(</span><span class="n">can_dev</span><span class="p">,</span><span class="w"> </span><span class="n">filter_id</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-the-bitrate">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">设置位速率</a><a class="headerlink" href="#setting-the-bitrate" title="链接到此标题"></a></h2>
+<p>运行时设置初始位速率与采样点。应用可用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html#ga1b134af5d6286ea0fee130b6da5217da" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">can_set_timing()</span></code></a> 修改，或用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html#gac27fe64142603f0d32d422594356b2d7" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">can_calc_timing()</span></code></a> 根据位速率和以千分数表示的采样点计算时序。下例设置为 250 kbit/s，采样点为 87.5%。</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">can_timing</span><span class="w"> </span><span class="n">timing</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">can_dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEVICE_DT_GET</span><span class="p">(</span><span class="n">DT_CHOSEN</span><span class="p">(</span><span class="n">zephyr_canbus</span><span class="p">));</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">can_calc_timing</span><span class="p">(</span><span class="n">can_dev</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timing</span><span class="p">,</span><span class="w"> </span><span class="mi">250000</span><span class="p">,</span><span class="w"> </span><span class="mi">875</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LOG_INF</span><span class="p">(</span><span class="s">"Sample-Point error: %d"</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to calc a valid timing"</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">can_stop</span><span class="p">(</span><span class="n">can_dev</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to stop CAN controller"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">can_set_timing</span><span class="p">(</span><span class="n">can_dev</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timing</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to set timing"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">can_start</span><span class="p">(</span><span class="n">can_dev</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to start CAN controller"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>支持 CAN FD 的控制器也有计算和设置数据相位时序的接口，见 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html#ga606cf9fda4c66a0f4abf74e1d357eac2" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">can_set_timing_data()</span></code></a>、<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html#ga358cd73ed59c2099f4b2c6ceb397ca11" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">can_calc_timing_data()</span></code></a>。</p>
+</section>
+<section id="socketcan">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">SocketCAN</a><a class="headerlink" href="#socketcan" title="链接到此标题"></a></h2>
+<p>Zephyr 还提供 SocketCAN，即 Zephyr CAN API 的 BSD 套接字实现，可通过熟悉的 BSD Socket API 访问 CAN。它兼容 Linux SocketCAN，后者是许多高层 CAN 项目的基础。注意：帧经网络协议栈转发，而非直接递交，因此有一定计算和内存开销。</p>
+</section>
+<section id="samples">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">示例</a><a class="headerlink" href="#samples" title="链接到此标题"></a></h2>
+<p>以下两个示例可直接构建，分别演示 Zephyr CAN API 的用法：<a class="reference internal" href="../../../samples/drivers/can/counter/README.html#can-counter" title="发送和接收 CAN 消息。"><span class="xref zephyr zephyr-code-sample">Zephyr CAN 计数器示例</span></a>、<a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/net/sockets/can/README.html#socket-can" title="英文原文" hreflang="en" data-lang-target="en"><span class="xref zephyr zephyr-code-sample">SocketCAN 示例</span></a>。</p>
+</section>
+<section id="can-controller-api-reference">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">CAN 控制器 API 参考</a><a class="headerlink" href="#can-controller-api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__controller.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">CAN</span> <span class="pre">Controller</span></a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/can/babbling/README.html#can-babbling" title="英文原文" hreflang="en" data-lang-target="en">CAN 持续发送节点示例（babbling node）</a></span><span class="code-sample-description">模拟持续发送的 CAN 节点。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="../../../samples/drivers/can/counter/README.html#can-counter" title="发送和接收 CAN 消息。">CAN 计数器示例（Controller Area Network (CAN) counter）</a></span><span class="code-sample-description">发送和接收 CAN 消息。</span></li>
+</ul>
+</div>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__can__fake.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Fake</span> <span class="pre">CAN</span> <span class="pre">controller</span></a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-09-01。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../I-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

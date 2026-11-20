@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LED 驱动接口（Light-Emitting Diode (LED)） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/led.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="DALI" href="https://docs.zephyrproject.org/latest/hardware/peripherals/dali.html">
+    <link rel="prev" title="视频" href="https://docs.zephyrproject.org/latest/hardware/peripherals/video.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/hardware/peripherals/led.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/led.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="led.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">架构相关指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/barriers/index.html" hreflang="en" data-lang-target="en" title="英文原文">屏障（barrier）API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/cache/index.html" hreflang="en" data-lang-target="en" title="英文原文">缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 设备仿真器与模拟器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/bus_emulators.html" hreflang="en" data-lang-target="en" title="英文原文">外部总线及总线外设仿真器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/analog.html" hreflang="en" data-lang-target="en" title="英文原文">模拟外设</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/audio/index.html" hreflang="en" data-lang-target="en" title="英文原文">音频</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/display/index.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/auxdisplay.html" hreflang="en" data-lang-target="en" title="英文原文">辅助显示器（auxdisplay）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/video.html" hreflang="en" data-lang-target="en" title="英文原文">视频</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">LED 驱动接口（Light-Emitting Diode (LED)）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#overview">概述</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#led-operations">LED 操作</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#led-indexing">LED 索引</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#device-tree-configuration">设备树配置</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#usage-examples">用法示例</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#configuration-options">配置选项</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-reference">API 参考</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#led">LED</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#led-strip">LED 灯带（LED Strip）</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#fake-led-controller">模拟 LED 控制器</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/dali.html" hreflang="en" data-lang-target="en" title="英文原文">DALI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/gpio_input.html" hreflang="en" data-lang-target="en" title="英文原文">GPIO 与输入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html" hreflang="en" data-lang-target="en" title="英文原文">内存与存储</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/power.html" hreflang="en" data-lang-target="en" title="英文原文">电源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/sensors.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/motion_actuation.html" hreflang="en" data-lang-target="en" title="英文原文">运动与执行机构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/system_diagnostics.html" hreflang="en" data-lang-target="en" title="英文原文">系统与诊断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/timing.html" hreflang="en" data-lang-target="en" title="英文原文">定时</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pinctrl/index.html">引脚控制（Pin Control）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html" hreflang="en" data-lang-target="en" title="英文原文">移植</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a> »</li>
+  
+  <li>LED 驱动接口（Light-Emitting Diode (LED)）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/hardware/peripherals/led.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27hardware%2Fperipherals%2Fled%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+LED&amp;env=-+Page%3A+hardware%2Fperipherals%2Fled%0A-+Version%3A+main%0A-+SHA-1%3A+aaa539718728001172f135ef16ba4ef6ccee6939&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="light-emitting-diode-led">
+<span id="led-api"></span><h1>LED 驱动接口（Light-Emitting Diode (LED)）<a class="headerlink" href="#light-emitting-diode-led" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · H04 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../index.html#batch-h">H 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/peripherals/led.html" hreflang="en">本页英文原文</a></p><section id="overview">
+<h2>概述<a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p>LED API 可访问独立 LED 和灯带，用一组通用操作屏蔽 GPIO 直接驱动、PWM 调光、专用控制芯片和可寻址灯带之间的差异。</p>
+<p>提供两个相关子系统：</p>
+<ul class="simple">
+<li><p><strong>LED</strong>：控制独立或经控制器驱动的 LED，支持开关、亮度、颜色和闪烁。</p></li>
+<li><p><strong>LED 灯带（LED Strip）</strong>：面向 WS2812、APA102 等可寻址灯串，每个像素有独立颜色值。</p></li>
+</ul>
+</section>
+<section id="led-operations">
+<h2>LED 操作<a class="headerlink" href="#led-operations" title="链接到此标题"></a></h2>
+<p>各驱动可实现下列操作的一个子集。底层不支持某项可选操作时，调用返回 <code class="docutils literal notranslate"><span class="pre">-ENOSYS</span></code>。</p>
+<p>必选操作（至少实现其中一种）：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#gad4daafd7fcab22d1d68745b7264d0f73" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_on()</span></code></a>／<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga22c9dbe76f06fec327aebe06448d1542" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_off()</span></code></a>：将 LED 完全点亮或熄灭。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#gaca479fd77518331f4fc84f788e345882" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_set_brightness()</span></code></a>：亮度范围为 0 至 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga7bb18ca9f746ebcfbfc397886643f16d" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">LED_BRIGHTNESS_MAX</span></code></a>（100）；如实现，<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#gad4daafd7fcab22d1d68745b7264d0f73" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_on()</span></code></a> 和 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga22c9dbe76f06fec327aebe06448d1542" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_off()</span></code></a> 也会自动使用它。</p></li>
+</ul>
+<p>可选操作：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga4f31fecd215e5597999be4d16b0d2dd5" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_blink()</span></code></a>：按指定的点亮／熄灭时长开始闪烁。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga94dd46cc96f6ade5cebaa46a5f7ca5ea" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_set_color()</span></code></a>：设置多色 LED 各通道的颜色值。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga9925483b97073354f7be6b40aa2dad1a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_get_info()</span></code></a>：获取指定 LED 的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structled__info.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">led_info</span></code></a>，其中包括标签、索引和颜色映射。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga24d4007f81483d0fe8b9988288adf59a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_write_channels()</span></code></a>：写入一段连续的原始通道值，供将 LED 暴露为通道数组的驱动使用。</p></li>
+</ul>
+</section>
+<section id="led-indexing">
+<h2>LED 索引<a class="headerlink" href="#led-indexing" title="链接到此标题"></a></h2>
+<p>驱动通过从零开始的 <code class="docutils literal notranslate"><span class="pre">led</span></code> 索引寻址每个 LED。多色 LED 只占一个索引，各通道的值一起传给 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html#ga94dd46cc96f6ade5cebaa46a5f7ca5ea" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">led_set_color()</span></code></a>。</p>
+<p>多色 LED 的通道顺序由 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structled__info.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">led_info</span></code></a> 的 <code class="docutils literal notranslate"><span class="pre">color_mapping</span></code> 字段描述。每项均为 <code class="file docutils literal notranslate"><span class="pre">include/zephyr/dt-bindings/led/led.h</span></code> 中定义的一个 <code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_*</span></code> 值：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_WHITE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_RED</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_GREEN</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_BLUE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_AMBER</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_VIOLET</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_YELLOW</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_IR</span></code></p></li>
+</ul>
+</section>
+<section id="device-tree-configuration">
+<h2>设备树配置<a class="headerlink" href="#device-tree-configuration" title="链接到此标题"></a></h2>
+<p>简单 LED 通常表示为 LED 控制器的子节点，可以用设备树别名引用：</p>
+<div class="highlight-dts notranslate"><div class="highlight"><pre><span></span><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">aliases</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">led0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">status_led</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nf">leds</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"gpio-leds"</span><span class="p">;</span>
+<span class="w">        </span><span class="nl">status_led</span><span class="p">:</span><span class="w"> </span><span class="nf">led_0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">gpios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">gpio0</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="na">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">            </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Status LED"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>多色 LED 通过 <code class="docutils literal notranslate"><span class="pre">color-mapping</span></code> 属性表示颜色信息，使用 <code class="file docutils literal notranslate"><span class="pre">include/zephyr/dt-bindings/led/led.h</span></code> 定义的 <code class="docutils literal notranslate"><span class="pre">LED_COLOR_ID_*</span></code> 值。</p>
+</section>
+<section id="usage-examples">
+<h2>用法示例<a class="headerlink" href="#usage-examples" title="链接到此标题"></a></h2>
+<p>通过设备树别名进行基本开关控制：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/drivers/led.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/devicetree.h&gt;</span>
+
+<span class="cp">#define LED_NODE DT_ALIAS(led0)</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">led_dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEVICE_DT_GET</span><span class="p">(</span><span class="n">DT_PARENT</span><span class="p">(</span><span class="n">LED_NODE</span><span class="p">));</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">led_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DT_NODE_CHILD_IDX</span><span class="p">(</span><span class="n">LED_NODE</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">turn_on_status_led</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">device_is_ready</span><span class="p">(</span><span class="n">led_dev</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">led_on</span><span class="p">(</span><span class="n">led_dev</span><span class="p">,</span><span class="w"> </span><span class="n">led_idx</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>设置亮度（0–100）：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Dim the LED to 25% brightness */</span>
+<span class="n">led_set_brightness</span><span class="p">(</span><span class="n">led_dev</span><span class="p">,</span><span class="w"> </span><span class="n">led_idx</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>以亮 500 ms、灭 500 ms 的节奏闪烁：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">led_blink</span><span class="p">(</span><span class="n">led_dev</span><span class="p">,</span><span class="w"> </span><span class="n">led_idx</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="n">ENOSYS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Driver does not implement blink natively */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>设置多色（RGB）LED 的颜色：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Order of the values must match the color_mapping reported by</span>
+<span class="cm"> * led_get_info(); for a standard RGB mapping the order is R, G, B.</span>
+<span class="cm"> */</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">purple</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0x00</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="w"> </span><span class="p">};</span>
+
+<span class="n">led_set_color</span><span class="p">(</span><span class="n">led_dev</span><span class="p">,</span><span class="w"> </span><span class="n">led_idx</span><span class="p">,</span><span class="w"> </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">purple</span><span class="p">),</span><span class="w"> </span><span class="n">purple</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-options">
+<h2>配置选项<a class="headerlink" href="#configuration-options" title="链接到此标题"></a></h2>
+<p>相关配置选项：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_LED" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_LED</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_LED_STRIP" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_LED_STRIP</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_LED_SHELL" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_LED_SHELL</span></code></a></p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_LED_INIT_PRIORITY" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_LED_INIT_PRIORITY</span></code></a></p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<section id="led">
+<h3>LED<a class="headerlink" href="#led" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__interface.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">LED</span></a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/xec/README.html#led-xec" title="英文原文" hreflang="en" data-lang-target="en">呼吸／闪烁 LED（BBLED）</a></span><span class="code-sample-description">使用 Microchip XEC 驱动控制呼吸／闪烁 LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/ht16k33/README.html#ht16k33" title="英文原文" hreflang="en" data-lang-target="en">带按键扫描的 HT16K33 LED 驱动</a></span><span class="code-sample-description">控制连接至 HT16K33 的最多 128 个 LED，并记录按键扫描事件。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/is31fl319x/README.html#is31fl319x" title="英文原文" hreflang="en" data-lang-target="en">IS31FL319x RGB LED</a></span><span class="code-sample-description">使用 LED API 让接到 IS31FL3193、IS31FL3194 或 IS31FL3197 的 RGB LED 循环变色。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/is31fl3216a/README.html#is31fl3216a" title="英文原文" hreflang="en" data-lang-target="en">IS31FL3216A LED</a></span><span class="code-sample-description">控制接至 IS31FL3216A 的最多 16 个 PWM LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/is31fl3733/README.html#is31fl3733" title="英文原文" hreflang="en" data-lang-target="en">IS31FL3733 LED 矩阵</a></span><span class="code-sample-description">控制接至 IS31FL3733 的最多 192 个 LED 组成的矩阵。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/pwm/README.html#led-pwm" title="英文原文" hreflang="en" data-lang-target="en">PWM 型 LED</a></span><span class="code-sample-description">使用 LED API 控制 PWM LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/lp3943/README.html#lp3943" title="英文原文" hreflang="en" data-lang-target="en">LP3943 RGBW LED</a></span><span class="code-sample-description">控制接至 LP3943 的最多 16 个 RGBW LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/lp50xx/README.html#lp50xx" title="英文原文" hreflang="en" data-lang-target="en">LP50XX RGB LED</a></span><span class="code-sample-description">控制接至 LP50xx 的最多 12 个 RGB LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/lp5562/README.html#lp5562" title="英文原文" hreflang="en" data-lang-target="en">LP5562 RGB LED</a></span><span class="code-sample-description">控制接至 LP5562 的 4 个 RGB LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/lp5569/README.html#lp5569" title="英文原文" hreflang="en" data-lang-target="en">LP5569 九通道 LED 控制器</a></span><span class="code-sample-description">控制接至 LP5569 的 9 个 LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/lp586x/README.html#lp586x" title="英文原文" hreflang="en" data-lang-target="en">LP586x LED 矩阵</a></span><span class="code-sample-description">控制 LP586x LED 矩阵控制器上的发光点。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/pca9633/README.html#pca9633" title="英文原文" hreflang="en" data-lang-target="en">PCA9633 LED</a></span><span class="code-sample-description">控制接至 PCA9633 的 4 个 LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/sct2024/README.html#sct2024" title="英文原文" hreflang="en" data-lang-target="en">SCT2024 LED 控制器</a></span><span class="code-sample-description">控制接至 SCT2024 的最多 16 个 LED。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/sx1509b_intensity/README.html#sx1509b" title="英文原文" hreflang="en" data-lang-target="en">SX1509B RGB LED</a></span><span class="code-sample-description">控制接至 SX1509B 的 RGB LED。</span></li>
+</ul>
+</div>
+</section>
+<section id="led-strip">
+<h3>LED 灯带（LED Strip）<a class="headerlink" href="#led-strip" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__strip__interface.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">LED</span> <span class="pre">Strip</span></a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/led/led_strip/README.html#led-strip" title="英文原文" hreflang="en" data-lang-target="en">LED 灯带</a></span><span class="code-sample-description">控制一条 LED 灯带。</span></li>
+</ul>
+</div>
+</section>
+<section id="fake-led-controller">
+<h3>模拟 LED 控制器<a class="headerlink" href="#fake-led-controller" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__led__fake.html" title="英文原文" hreflang="en" data-lang-target="en"><span class="pre">Fake</span> <span class="pre">LED</span> <span class="pre">controller</span></a></dt>
+</dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-09-01。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../H-sources.txt">本批来源与素材说明</a> · <a href="../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
