@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配置持久化子系统（Settings） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/settings/index.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="流式写入闪存（Stream Flash）" href="../stream/stream_flash.html">
+    <link rel="prev" title="安全存储（Secure Storage）" href="https://docs.zephyrproject.org/latest/services/storage/secure_storage/index.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/services/storage/settings/index.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/settings/index.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="index.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/connectivity/index.html" hreflang="en" data-lang-target="en" title="英文原文">连接与通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/io.html" hreflang="en" data-lang-target="en" title="英文原文">输入／输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/messaging.html" hreflang="en" data-lang-target="en" title="英文原文">进程间通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/observability.html" hreflang="en" data-lang-target="en" title="英文原文">日志、跟踪与调试</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">存储与配置总览（Storage &amp; Configuration）</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/disk/access.html" hreflang="en" data-lang-target="en" title="英文原文">磁盘访问（Disk Access）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/fcb/fcb.html" hreflang="en" data-lang-target="en" title="英文原文">闪存环形缓冲区（Flash Circular Buffer，FCB）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/file_system/index.html" hreflang="en" data-lang-target="en" title="英文原文">文件系统</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flash_map/flash_map.html">闪存分区映射（Flash map）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/nvmem/index.html" hreflang="en" data-lang-target="en" title="英文原文">非易失性存储器（Non-Volatile Memory，NVMEM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nvs/nvs.html">非易失性存储（Non-Volatile Storage，NVS）：原理与约束</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/retention/index.html" hreflang="en" data-lang-target="en" title="英文原文">数据保持系统（Retention System）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/secure_storage/index.html" hreflang="en" data-lang-target="en" title="英文原文">安全存储（Secure Storage）</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">配置持久化子系统（Settings）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#handlers">处理程序（Handlers）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#backends">存储后端（Backends）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zephyr-storage-backends">Zephyr 提供的存储后端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#storage-location">存储位置（Storage Location）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#loading-data-from-persistent-storage">从持久化存储加载数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#storing-data-to-persistent-storage">向持久化存储写入数据</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#garbage-collection">垃圾回收（garbage collection）</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#secure-domain-settings">安全域中的配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-device-configuration">示例：保存设备配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-persist-runtime-state">示例：持久化运行状态</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-custom-backend-implementation">示例：实现自定义后端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API 参考</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#api-for-general-settings-usage">配置子系统的通用 API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-for-key-name-processing">键名处理 API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-for-runtime-settings-manipulation">运行时配置操作 API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#api-of-backend-interface">后端接口 API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../stream/stream_flash.html">流式写入闪存（Stream Flash）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/zms/zms.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 存储系统（Zephyr Memory Storage，ZMS）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/memory_management.html" hreflang="en" data-lang-target="en" title="英文原文">内存管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/power_management.html" hreflang="en" data-lang-target="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/security.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device_mgmt/index.html">设备管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/algorithms.html" hreflang="en" data-lang-target="en" title="英文原文">算法与数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/frameworks.html" hreflang="en" data-lang-target="en" title="英文原文">框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/portability/index.html" hreflang="en" data-lang-target="en" title="英文原文">操作系统抽象层</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a> »</li>
+  
+     <li><a href="../index.html">存储与配置总览（Storage &amp; Configuration）</a> »</li>
+  
+  <li>配置持久化子系统（Settings）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/services/storage/settings/index.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27services%2Fstorage%2Fsettings%2Findex%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Settings%2Carea%3A+Storage&amp;env=-+Page%3A+services%2Fstorage%2Fsettings%2Findex%0A-+Version%3A+main%0A-+SHA-1%3A+280171076e229b4064eec2b9a049b7eea588ae74&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="settings">
+<span id="settings-api"></span><h1>配置持久化子系统（Settings）<a class="headerlink" href="#settings" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · J06 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（94 篇）</a> · <a href="../../../../index.html#batch-j">J 批目录</a> · <a href="https://docs.zephyrproject.org/latest/services/storage/settings/index.html" hreflang="en">本页英文原文</a></p><p>配置子系统（Settings）让各模块可以按设备保存配置和运行状态，在重启后仍然可用。它通过统一的 API 提供 FCB、NVS、ZMS 和文件系统等存储实现。应用开发者可以选择合适的介质，也可以在需求改变时更换介质。多个 Zephyr 组件都使用该子系统，用户应用也可以与它们同时使用。</p>
+<p>配置项以键值对（key-value pair）的形式存储，键名用字符串表示。按照惯例，键名可按软件包和子树分层。例如，键 <code class="docutils literal notranslate"><span class="pre">id/serial</span></code> 表示软件包 <code class="docutils literal notranslate"><span class="pre">id</span></code> 的配置项 <code class="docutils literal notranslate"><span class="pre">serial</span></code>。</p>
+<p>子系统提供辅助函数，可在配置值与字符串表示之间进行转换。</p>
+<p>配置子系统的用法见 <a class="reference internal" href="../../../samples/subsys/settings/README.html#settings" title="使用设置 API 加载和保存配置值。">Settings API 示例：加载与保存配置（Settings API）</a> 示例。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>自 Zephyr 4.1 起，不使用文件系统时，推荐的存储后端是 <a class="reference internal" href="../nvs/nvs.html#nvs-api"><span class="std std-ref">NVS</span></a> 和 <a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/zms/zms.html#zms-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">ZMS</span></a>。</p>
+</div>
+<section id="handlers">
+<h2>处理程序（Handlers）<a class="headerlink" href="#handlers" title="链接到此标题"></a></h2>
+<p>每棵子树的配置处理程序实现一组回调函数。动态处理程序通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gab2043a6d799202e177cc3dfa0cbfa531" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_register()</span></code></a> 注册；静态处理程序通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga2098bcfc32c6daa13292d937712e476e" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SETTINGS_STATIC_HANDLER_DEFINE()</span></code></a> 定义。</p>
+<dl class="simple">
+<dt><strong>h_get</strong></dt><dd><p>通过运行时后端调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings__rt.html#ga99a4714ba8c184afc659c43ec2020844" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_runtime_get()</span></code></a> 按名查询配置值时，会调用此函数。</p>
+</dd>
+<dt><strong>h_set</strong></dt><dd><p>通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga89c6d618df81f197cc5c1a2018b00648" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_load()</span></code></a> 从持久化存储加载配置值，或通过运行时后端调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings__rt.html#gae1b95c47c49774d53b4745af810e881e" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_runtime_set()</span></code></a> 设置配置值时，会调用此函数。</p>
+</dd>
+<dt><strong>h_commit</strong></dt><dd><p>在这次完整加载流程中，加载结束后调用 h_commit。若多项配置互相依赖，可以等相关值就绪后再统一应用。</p>
+</dd>
+<dt><strong>h_export</strong></dt><dd><p>需要写出全部当前配置时调用此函数。例如，<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga789410aa059398d6c8a7851ea6945b55" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save()</span></code></a> 尝试保存配置，或需要把配置交给用户实现的后端时。</p>
+</dd>
+</dl>
+<p>处理程序还可以设置提交优先级 <code class="docutils literal notranslate"><span class="pre">cprio</span></code>，以确定各个 <code class="docutils literal notranslate"><span class="pre">h_commit</span></code> 回调的调用次序。例如，若某个子系统需要先初始化一项服务，其他 <code class="docutils literal notranslate"><span class="pre">h_commit</span></code> 回调才能使用它，就可以让该子系统先提交。</p>
+<p>默认情况下，配置处理程序的 <code class="docutils literal notranslate"><span class="pre">h_commit</span></code> 回调使用 <code class="docutils literal notranslate"><span class="pre">cprio</span> <span class="pre">=</span> <span class="pre">0</span></code>。如需指定其他优先级，动态处理程序使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gadf612631e30119ff688f83f16ad5aa89" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_register_with_cprio()</span></code></a>，静态处理程序使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga2ab4b85d30c5f6c19e505fdd8cc8f437" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">SETTINGS_STATIC_HANDLER_DEFINE_WITH_CPRIO()</span></code></a>。<code class="docutils literal notranslate"><span class="pre">cprio</span></code> 为整数，数值越小，优先级越高。</p>
+</section>
+<section id="backends">
+<h2>存储后端（Backends）<a class="headerlink" href="#backends" title="链接到此标题"></a></h2>
+<p>存储后端负责在存储介质与配置处理程序之间加载和保存数据，并为此实现一组回调。可读后端用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings__backend.html#gad16bb70588cf69873f8872d7bf90e1c6" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_src_register()</span></code></a> 注册为数据源，可写后端用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings__backend.html#ga37bcada0be44b023cd3759e519e69d01" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_dst_register()</span></code></a> 注册为写入目的地；同一后端也可兼任两者。当前实现支持多个读取源，但只允许一个写入目的地。</p>
+<dl class="simple">
+<dt><strong>csi_load</strong></dt><dd><p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga89c6d618df81f197cc5c1a2018b00648" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_load()</span></code></a> 从持久化存储加载配置值时调用。</p>
+</dd>
+<dt><strong>csi_load_one</strong></dt><dd><p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga6ada8f687dcd3f3374a766ca173fdf27" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_load_one()</span></code></a> 从持久化存储只加载一个配置项时调用。</p>
+</dd>
+<dt><strong>csi_get_val_len</strong></dt><dd><p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gacadb36d1cd5f6c7c6cbaf46e0e81ac7c" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_get_val_len()</span></code></a> 查询持久化存储中某个值的长度时调用。</p>
+</dd>
+<dt><strong>csi_save</strong></dt><dd><p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gaf22356f0dd01d4cf43a6297fafa86e30" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save_one()</span></code></a> 将单个配置项保存到持久化存储时调用。</p>
+</dd>
+<dt><strong>csi_save_start</strong></dt><dd><p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga789410aa059398d6c8a7851ea6945b55" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save()</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga988b9cb22e256c87ac99d8007ff54a13" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save_subtree()</span></code></a> 开始保存所选范围内的全部当前配置时调用。</p>
+</dd>
+<dt><strong>csi_save_end</strong></dt><dd><p>使用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga789410aa059398d6c8a7851ea6945b55" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save()</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga988b9cb22e256c87ac99d8007ff54a13" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save_subtree()</span></code></a> 保存完所选范围内的全部当前配置后调用。</p>
+</dd>
+</dl>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J06-U02" id="zh-note-j06-u02" aria-labelledby="zh-note-j06-u02-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j06-u02-label">译校注 · J06-U02</p><p><strong>后端可以不实现这两个专用回调</strong></p><p>对单键读取和值长查询，后端若实现 <code>csi_load_one</code> 或 <code>csi_get_val_len</code>，就使用相应的专用回调；未实现时，所核版本可以通过 <code>csi_load</code> 和筛选回调完成操作。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/subsys/settings/src/settings_store.c#L142-L161">该页 RST 修订 · settings_store.c:142-161 · 280171076e22</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/subsys/settings/src/settings_store.c#L175-L199">该页 RST 修订 · settings_store.c:175-199 · 280171076e22</a></li></ul></details></div>
+</section>
+<section id="zephyr-storage-backends">
+<h2>Zephyr 提供的存储后端<a class="headerlink" href="#zephyr-storage-backends" title="链接到此标题"></a></h2>
+<p>Zephyr 提供以下存储后端：</p>
+<ul class="simple">
+<li><p>闪存环形缓冲区（FCB，<a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SETTINGS_FCB" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SETTINGS_FCB</span></code></a>）。</p></li>
+<li><p>文件系统中的文件（<a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SETTINGS_FILE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SETTINGS_FILE</span></code></a>）。</p></li>
+<li><p>非易失性存储（NVS，<a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SETTINGS_NVS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SETTINGS_NVS</span></code></a>）。</p></li>
+<li><p>Zephyr 存储系统（ZMS，<a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SETTINGS_ZMS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SETTINGS_ZMS</span></code></a>）。</p></li>
+</ul>
+<p>可以为配置声明多个读取源。调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga89c6d618df81f197cc5c1a2018b00648" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_load()</span></code></a> 时，子系统会从所有已声明的源恢复配置。</p>
+<p>写入配置只能有一个目的地。调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga789410aa059398d6c8a7851ea6945b55" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save()</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gaf22356f0dd01d4cf43a6297fafa86e30" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save_one()</span></code></a> 时，数据都写入该处。</p>
+<p>用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_fcb_src()</span></code> 注册 FCB 读取源，用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_fcb_dst()</span></code> 注册写入目的地。由于 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_fcb_src()</span></code> 还负责初始化 FCB 区域，它必须在 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_fcb_dst()</span></code> 之前调用。文件后端用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_file_src()</span></code> 注册读取源，用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_file_dst()</span></code> 注册写入目的地。</p>
+<p>NVS 后端用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_nvs_src()</span></code> 注册读取源，用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_nvs_dst()</span></code> 注册写入目的地。</p>
+<p>Zephyr 存储系统（ZMS）用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_zms_src()</span></code> 注册读取源，用 <code class="xref c c-func docutils literal notranslate"><span class="pre">settings_zms_dst()</span></code> 注册写入目的地。</p>
+<p>ZMS 后端在将配置写入持久化存储之前，会先对键名求哈希（hash）。如果保存的不同键很多，可能有多个键得到相同的哈希值，即发生碰撞；发生碰撞的可能性与所选哈希函数有关。</p>
+<p>ZMS 后端最多能处理 <span class="math notranslate nohighlight" aria-label="2 的 n 次方" data-tex="\(2^n\)">2<sup>n</sup></span> 次碰撞，其中 n 由 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SETTINGS_ZMS_MAX_COLLISIONS_BITS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SETTINGS_ZMS_MAX_COLLISIONS_BITS</span></code></a> 指定。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J06-U03" id="zh-note-j06-u03" aria-labelledby="zh-note-j06-u03-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j06-u03-label">译校注 · J06-U03</p><p><strong>槽位数包含首个键</strong></p><p><code>n</code> 位能为同一哈希编码 2ⁿ 个槽位，首个键也占一个。例如 <code>n = 2</code> 时共 4 个槽位，首键之外最多还能容纳 3 个同哈希的不同键，而不是再容纳 4 个。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/subsys/settings/include/settings/settings_zms.h#L55-L65">该页 RST 修订 · settings_zms.h:55-65 · 280171076e22</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/subsys/settings/src/settings_zms.c#L427-L438">该页 RST 修订 · settings_zms.c:427-438 · 280171076e22</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/subsys/settings/src/settings_zms.c#L465-L478">该页 RST 修订 · settings_zms.c:465-478 · 280171076e22</a></li></ul></details></div>
+</section>
+<section id="storage-location">
+<h2>存储位置（Storage Location）<a class="headerlink" href="#storage-location" title="链接到此标题"></a></h2>
+<p>FCB、非易失性存储（NVS）和 ZMS 后端默认查找标签为 “storage” 的固定分区。要选择其他分区，可在设备树的 chosen 节点中设置 <code class="docutils literal notranslate"><span class="pre">zephyr,settings-partition</span></code> 属性。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J06-U04" id="zh-note-j06-u04" aria-labelledby="zh-note-j06-u04-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j06-u04-label">译校注 · J06-U04</p><p><strong>默认查找的是节点标签</strong></p><p>FCB、NVS 和 ZMS 后端的默认选择引用设备树节点标签 <code>storage_partition</code>；仅给某个节点写上 <code>label = &quot;storage&quot;</code> 并不会使它被选中。要指定其他分区，可使用 <code>chosen</code> 的 <code>zephyr,settings-partition</code>。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/subsys/settings/src/settings_nvs.c#L17-L25">该页 RST 修订 · settings_nvs.c:17-25 · 280171076e22</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/subsys/settings/src/settings_fcb.c#L19-L25">独立固定实现 · settings_fcb.c:19-25 · 1b1b2e0cdca4</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/subsys/settings/src/settings_zms.c#L19-L26">独立固定实现 · settings_zms.c:19-26 · 1b1b2e0cdca4</a></li></ul></details></div>
+<p>文件后端保存配置所用的文件路径由 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SETTINGS_FILE_PATH" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SETTINGS_FILE_PATH</span></code></a> 选项指定。</p>
+</section>
+<section id="loading-data-from-persistent-storage">
+<h2>从持久化存储加载数据<a class="headerlink" href="#loading-data-from-persistent-storage" title="链接到此标题"></a></h2>
+<p>调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga89c6d618df81f197cc5c1a2018b00648" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_load()</span></code></a> 时，子系统通过 <code class="docutils literal notranslate"><span class="pre">h_set</span></code> 回调把配置从存储介质加载到易失性内存。加载全部数据后，子系统调用 <code class="docutils literal notranslate"><span class="pre">h_commit</span></code>，通知应用配置已成功取回。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J06-U05" id="zh-note-j06-u05" aria-labelledby="zh-note-j06-u05-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j06-u05-label">译校注 · J06-U05</p><p><strong>提交回调不是逐键成功回执</strong></p><p>在所核加载路径中，子系统遍历各读取源后进入提交，并不以每个 <code>csi_load</code> 的返回值作为进入条件。<code>h_commit</code> 可用来应用已经加载的配置，但被调用本身不能证明每个必需键都已成功读取。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/subsys/settings/src/settings_store.c#L41-L62">该页 RST 修订 · settings_store.c:41-62 · 280171076e22</a></li></ul></details></div>
+<p>如果只需要一项配置，可调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga6ada8f687dcd3f3374a766ca173fdf27" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_load_one()</span></code></a> 将其读入调用者提供的缓冲区。</p>
+<p>若只想知道某个配置项的值有多长，可调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gacadb36d1cd5f6c7c6cbaf46e0e81ac7c" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_get_val_len()</span></code></a>。例如，动态分配缓冲区的应用可以先查出所需大小，再调用 settings_load_one() 读取数据。</p>
+<p>FCB 和文件后端可能保留同一配置项的历史记录，新值追加在旧值之后。自 Zephyr 2.1 起，后端必须滤除旧记录，只把最新记录交给回调。</p>
+</section>
+<section id="storing-data-to-persistent-storage">
+<h2>向持久化存储写入数据<a class="headerlink" href="#storing-data-to-persistent-storage" title="链接到此标题"></a></h2>
+<p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gaf22356f0dd01d4cf43a6297fafa86e30" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save_one()</span></code></a> 通过存储后端将单项配置写入介质。调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga789410aa059398d6c8a7851ea6945b55" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save()</span></code></a> 时，<code class="docutils literal notranslate"><span class="pre">h_export</span></code> 的实现可以在一次导出中通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#gaf22356f0dd01d4cf43a6297fafa86e30" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save_one()</span></code></a> 写出多个配置项。只有需要随 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga789410aa059398d6c8a7851ea6945b55" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_save()</span></code></a> 一起保存的键，才必须由 <code class="docutils literal notranslate"><span class="pre">h_export</span></code> 导出。</p>
+<p>对于 FCB 和文件后端，只有写入请求的值与该键当前的值不同时，后端才追加记录，因此应用无需自行检查值是否有变化。同一个键在介质上可能有多条赋值记录，只有最后一条是当前值。</p>
+<section id="garbage-collection">
+<h3>垃圾回收（garbage collection）<a class="headerlink" href="#garbage-collection" title="链接到此标题"></a></h3>
+<p>FCB 空间已满或文件占用过多空间时，后端会移除过时的键值对记录，以及不再需要的键删除记录。</p>
+</section>
+</section>
+<section id="secure-domain-settings">
+<h2>安全域中的配置<a class="headerlink" href="#secure-domain-settings" title="链接到此标题"></a></h2>
+<p>当前不支持让同一个 Settings 实例同时充当安全域与非安全域的配置存储。建议安全域使用独立的 Settings 实例；如果确有需要，可按具体场景通过专用接口向非安全域提供数据。</p>
+</section>
+<section id="example-device-configuration">
+<h2>示例：保存设备配置<a class="headerlink" href="#example-device-configuration" title="链接到此标题"></a></h2>
+<p>本例中的配置处理程序只实现 <code class="docutils literal notranslate"><span class="pre">h_set</span></code> 和 <code class="docutils literal notranslate"><span class="pre">h_export</span></code>。从存储恢复值或首次设置值时，子系统调用 <code class="docutils literal notranslate"><span class="pre">h_set</span></code>；写回时则由 <code class="docutils literal notranslate"><span class="pre">h_export</span></code> 借助 <code class="docutils literal notranslate"><span class="pre">storage_func()</span></code> 将值写入存储。也可以实现其他导出方式，例如将配置输出到 shell 控制台。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define DEFAULT_FOO_VAL_VALUE 1</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">int8</span><span class="w"> </span><span class="n">foo_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_FOO_VAL_VALUE</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">foo_settings_set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">settings_read_cb</span><span class="w"> </span><span class="n">read_cb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">cb_arg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">settings_name_steq</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s">"bar"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo_val</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_cb</span><span class="p">(</span><span class="n">cb_arg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">foo_val</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo_val</span><span class="p">));</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cm">/* key-value pair was properly read.</span>
+<span class="cm">             * rc contains value length.</span>
+<span class="cm">             */</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="cm">/* read-out error */</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENOENT</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">foo_settings_export</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">storage_func</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">,</span>
+<span class="w">                                                   </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">,</span>
+<span class="w">                                                   </span><span class="kt">size_t</span><span class="w"> </span><span class="n">val_len</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">storage_func</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">foo_val</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo_val</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">settings_handler</span><span class="w"> </span><span class="n">my_conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"foo"</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">h_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo_settings_set</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">h_export</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo_settings_export</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J06-U06" id="zh-note-j06-u06" aria-labelledby="zh-note-j06-u06-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j06-u06-label">译校注 · J06-U06</p><p><strong>复制示例前核对类型名</strong></p><p>示例原样写作 <code>int8</code>。若目标项目没有定义这个类型别名，应核对头文件并使用目标支持的标准定宽类型 <code>int8_t</code>（<code>&lt;stdint.h&gt;</code>）。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/doc/services/storage/settings/index.rst#L216-L216">冻结示例：RST 216–216 · 280171076e22</a></li></ul></details></div>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J06-U07" id="zh-note-j06-u07" aria-labelledby="zh-note-j06-u07-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j06-u07-label">译校注 · J06-U07</p><p><strong>检查实际读回的字节数</strong></p><p>本页两个单字节恢复示例都检查了声明长度，但 <code>read_cb</code> 的返回值才是实际读数。正值表示读回的字节数，<code>0</code> 可表示该键值对已删除；要确认读回一个字节，应检查返回值为 <code>1</code>，而不只是 <code>rc &gt;= 0</code>。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/include/zephyr/settings/settings.h#L53-L65">该页 RST 修订 · settings.h:53-65 · 280171076e22</a></li></ul></details></div>
+</section>
+<section id="example-persist-runtime-state">
+<h2>示例：持久化运行状态<a class="headerlink" href="#example-persist-runtime-state" title="链接到此标题"></a></h2>
+<p>本例演示如何持久化运行状态。处理程序只定义 <code class="docutils literal notranslate"><span class="pre">h_set</span></code>，用于从持久化存储恢复值。</p>
+<p>本例中，<code class="docutils literal notranslate"><span class="pre">main</span></code> 函数递增 <code class="docutils literal notranslate"><span class="pre">foo_val</span></code>，随后保存最新值。系统重启后，应用在初始化时调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html#ga89c6d618df81f197cc5c1a2018b00648" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">settings_load()</span></code></a>，这样 <code class="docutils literal notranslate"><span class="pre">foo_val</span></code> 就能从重启前的值继续计数。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/kernel.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/sys/reboot.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/settings/settings.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zephyr/sys/printk.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;inttypes.h&gt;</span>
+
+<span class="cp">#define DEFAULT_FOO_VAL_VALUE 0</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">foo_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_FOO_VAL_VALUE</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">foo_settings_set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">settings_read_cb</span><span class="w"> </span><span class="n">read_cb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">cb_arg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">settings_name_steq</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s">"bar"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo_val</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_cb</span><span class="p">(</span><span class="n">cb_arg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">foo_val</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo_val</span><span class="p">));</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENOENT</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">settings_handler</span><span class="w"> </span><span class="n">my_conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"foo"</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">h_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo_settings_set</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">settings_subsys_init</span><span class="p">();</span>
+<span class="w">    </span><span class="n">settings_register</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_conf</span><span class="p">);</span>
+<span class="w">    </span><span class="n">settings_load</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">foo_val</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="n">settings_save_one</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">foo_val</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo_val</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="s">"foo: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">foo_val</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">k_msleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sys_reboot</span><span class="p">(</span><span class="n">SYS_REBOOT_COLD</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J06-U08" id="zh-note-j06-u08" aria-labelledby="zh-note-j06-u08-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j06-u08-label">译校注 · J06-U08</p><p><strong>计数回绕与持久化的前提</strong></p><p><code>foo_val</code> 是 <code>uint8_t</code>，值为 255 时再加一会回到 0。示例没有检查加载和保存的返回值；只有保存及随后恢复都成功，重启后才能从保存的值继续计数。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/doc/services/storage/settings/index.rst#L278-L319">冻结示例：RST 278–319 · 280171076e22</a></li></ul></details></div>
+</section>
+<section id="example-custom-backend-implementation">
+<h2>示例：实现自定义后端<a class="headerlink" href="#example-custom-backend-implementation" title="链接到此标题"></a></h2>
+<p>本例演示如何注册一个简单的自定义后端处理程序（<a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_SETTINGS_CUSTOM" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_SETTINGS_CUSTOM</span></code></a>）。</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">settings_custom_load</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">settings_store</span><span class="w"> </span><span class="o">*</span><span class="n">cs</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">settings_load_arg</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">settings_custom_save</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">settings_store</span><span class="w"> </span><span class="o">*</span><span class="n">cs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">val_len</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+
+<span class="cm">/* custom backend interface */</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">settings_store_itf</span><span class="w"> </span><span class="n">settings_custom_itf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">csi_load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">settings_custom_load</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">csi_save</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">settings_custom_save</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="cm">/* custom backend node */</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">settings_store</span><span class="w"> </span><span class="n">settings_custom_store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">cs_itf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">settings_custom_itf</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">settings_backend_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/* register custom backend */</span>
+<span class="w">    </span><span class="n">settings_dst_register</span><span class="p">(</span><span class="o">&amp;</span><span class="n">settings_custom_store</span><span class="p">);</span>
+<span class="w">    </span><span class="n">settings_src_register</span><span class="p">(</span><span class="o">&amp;</span><span class="n">settings_custom_store</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<p>配置子系统的 API 由 <a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/main/include/zephyr/settings/settings.h">include/zephyr/settings/settings.h</a> 提供。</p>
+<section id="api-for-general-settings-usage">
+<h3>配置子系统的通用 API<a class="headerlink" href="#api-for-general-settings-usage" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings.html" title="英文原文" hreflang="en" data-lang-target="en">配置接口（Settings）</a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="../../../samples/subsys/settings/README.html#settings" title="使用设置 API 加载和保存配置值。">Settings API 示例：加载与保存配置（Settings API）</a></span><span class="code-sample-description">使用设置 API 加载和保存配置值。</span></li>
+</ul>
+</div>
+</section>
+<section id="api-for-key-name-processing">
+<h3>键名处理 API<a class="headerlink" href="#api-for-key-name-processing" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings__name__proc.html" title="英文原文" hreflang="en" data-lang-target="en">配置键名处理（Settings name processing）</a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="../../../samples/subsys/settings/README.html#settings" title="使用设置 API 加载和保存配置值。">Settings API 示例：加载与保存配置（Settings API）</a></span><span class="code-sample-description">使用设置 API 加载和保存配置值。</span></li>
+</ul>
+</div>
+</section>
+<section id="api-for-runtime-settings-manipulation">
+<h3>运行时配置操作 API<a class="headerlink" href="#api-for-runtime-settings-manipulation" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings__rt.html" title="英文原文" hreflang="en" data-lang-target="en">运行时配置接口（Settings subsystem runtime）</a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="../../../samples/subsys/settings/README.html#settings" title="使用设置 API 加载和保存配置值。">Settings API 示例：加载与保存配置（Settings API）</a></span><span class="code-sample-description">使用设置 API 加载和保存配置值。</span></li>
+</ul>
+</div>
+</section>
+<section id="api-of-backend-interface">
+<h3>后端接口 API<a class="headerlink" href="#api-of-backend-interface" title="链接到此标题"></a></h3>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__settings__backend.html" title="英文原文" hreflang="en" data-lang-target="en">配置存储后端接口（Settings backend interface）</a></dt>
+</dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2025-05-22。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../J-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

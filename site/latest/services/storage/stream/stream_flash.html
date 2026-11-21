@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>流式写入闪存（Stream Flash） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/stream/stream_flash.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="Zephyr 存储系统（Zephyr Memory Storage，ZMS）" href="https://docs.zephyrproject.org/latest/services/storage/zms/zms.html">
+    <link rel="prev" title="配置子系统（Settings）" href="../settings/index.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/services/storage/stream/stream_flash.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/stream/stream_flash.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="stream_flash.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/connectivity/index.html" hreflang="en" data-lang-target="en" title="英文原文">连接与通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/io.html" hreflang="en" data-lang-target="en" title="英文原文">输入／输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/messaging.html" hreflang="en" data-lang-target="en" title="英文原文">进程间通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/observability.html" hreflang="en" data-lang-target="en" title="英文原文">日志、跟踪与调试</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">存储与配置总览（Storage &amp; Configuration）</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/disk/access.html" hreflang="en" data-lang-target="en" title="英文原文">磁盘访问（Disk Access）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/fcb/fcb.html" hreflang="en" data-lang-target="en" title="英文原文">闪存环形缓冲区（Flash Circular Buffer，FCB）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/file_system/index.html" hreflang="en" data-lang-target="en" title="英文原文">文件系统</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flash_map/flash_map.html">闪存分区映射（Flash map）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/nvmem/index.html" hreflang="en" data-lang-target="en" title="英文原文">非易失性存储器（Non-Volatile Memory，NVMEM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nvs/nvs.html">非易失性存储（Non-Volatile Storage，NVS）：原理与约束</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/retention/index.html" hreflang="en" data-lang-target="en" title="英文原文">数据保持系统（Retention System）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/secure_storage/index.html" hreflang="en" data-lang-target="en" title="英文原文">安全存储（Secure Storage）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../settings/index.html">配置持久化子系统（Settings）</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">流式写入闪存（Stream Flash）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#persistent-stream-write-progress">持久化流写入进度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/zms/zms.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 存储系统（Zephyr Memory Storage，ZMS）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/memory_management.html" hreflang="en" data-lang-target="en" title="英文原文">内存管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/power_management.html" hreflang="en" data-lang-target="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/security.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device_mgmt/index.html">设备管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/algorithms.html" hreflang="en" data-lang-target="en" title="英文原文">算法与数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/frameworks.html" hreflang="en" data-lang-target="en" title="英文原文">框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/portability/index.html" hreflang="en" data-lang-target="en" title="英文原文">操作系统抽象层</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a> »</li>
+  
+     <li><a href="../index.html">存储与配置总览（Storage &amp; Configuration）</a> »</li>
+  
+  <li>流式写入闪存（Stream Flash）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/services/storage/stream/stream_flash.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27services%2Fstorage%2Fstream%2Fstream_flash%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Storage&amp;env=-+Page%3A+services%2Fstorage%2Fstream%2Fstream_flash%0A-+Version%3A+main%0A-+SHA-1%3A+6fe0a373fc1ea78e3c752cb778bdae3067493a26&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="stream-flash">
+<span id="id1"></span><h1>流式写入闪存（Stream Flash）<a class="headerlink" href="#stream-flash" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · J08 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（94 篇）</a> · <a href="../../../../index.html#batch-j">J 批目录</a> · <a href="https://docs.zephyrproject.org/latest/services/storage/stream/stream_flash.html" hreflang="en">本页英文原文</a></p><p>流式闪存写入（Stream Flash）模块接收数据流中相邻的片段（例如来自无线数据包），按调用顺序将它们汇入调用方提供的缓冲区。缓冲区写满或数据流结束时，模块才将数据写入原始闪存分区。模块还可以把回读缓冲区交给调用方，用于校验实际写入的数据流内容。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J08-U01" id="zh-note-j08-u01" aria-labelledby="zh-note-j08-u01-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j08-u01-label">译校注 · J08-U01</p><p><strong>还有尾部数据时须显式刷新</strong></p><p>若数据流结束时缓冲区未满，最后一次调用应传入 <code>flush=true</code>，将剩余数据写入闪存。停止接收数据本身不会触发刷新；此时不能把仍留在 RAM 中的尾部当作已落盘。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/6fe0a373fc1ea78e3c752cb778bdae3067493a26/include/storage/stream_flash.h#L95-L114">该页 RST 修订 · stream_flash.h:95-114 · 6fe0a373fc1e</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/6fe0a373fc1ea78e3c752cb778bdae3067493a26/subsys/storage/stream/stream_flash.c#L204-L220">该页 RST 修订 · stream_flash.c:204-220 · 6fe0a373fc1e</a></li></ul></details></div>
+<p>一个典型用途是接收设备固件升级（DFU）所需的新固件镜像。</p>
+<p>为什么不在每次收到数据时立即写入？有些器件受硬件限制，写闪存不能与无线收发（RX/TX）等操作并行。缓冲可以减少实际写入的次数，从而缩短应用感受到的响应时间；若必须错开时序，仍需由应用或驱动安排。</p>
+<section id="persistent-stream-write-progress">
+<h2>持久化流写入进度<a class="headerlink" href="#persistent-stream-write-progress" title="链接到此标题"></a></h2>
+<p>某些流写入操作（如 DFU）可能持续较长时间。将写入进度保存到持久化存储，可以在意外中断后从原来的位置续写，而不必从头开始。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J08-U02" id="zh-note-j08-u02" aria-labelledby="zh-note-j08-u02-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j08-u02-label">译校注 · J08-U02</p><p><strong>续传从已保存的写入进度开始</strong></p><p>进度 API 保存的是 <code>bytes_written</code>，即已写入的字节数，而不是上层已经接收的字节数。应用需要显式保存进度并在恢复时加载；不能把未刷写的缓冲尾部或尚未保存的新进度当作续传起点。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/6fe0a373fc1ea78e3c752cb778bdae3067493a26/include/storage/stream_flash.h#L132-L157">该页 RST 修订 · stream_flash.h:132-157 · 6fe0a373fc1e</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/6fe0a373fc1ea78e3c752cb778bdae3067493a26/subsys/storage/stream/stream_flash.c#L323-L346">该页 RST 修订 · stream_flash.c:323-346 · 6fe0a373fc1e</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/subsys/storage/stream/stream_flash.c#L193-L202">独立固定实现 · stream_flash.c:193-202 · 1b1b2e0cdca4</a></li></ul></details></div>
+<p>Stream Flash 提供一组 API，通过 <a class="reference internal" href="../settings/index.html#settings-api"><span class="std std-ref">配置子系统（Settings）</span></a> 模块加载、保存或清除持久化存储中的流写入进度。设置 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_STREAM_FLASH_PROGRESS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_STREAM_FLASH_PROGRESS</span></code></a> 可启用这组 API。</p>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__stream__flash.html" title="英文原文" hreflang="en" data-lang-target="en">流式闪存写入接口（Stream to flash interface）</a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2022-04-05。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../J-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

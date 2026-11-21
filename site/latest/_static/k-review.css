@@ -1,0 +1,2 @@
+/* K 批：限制宽表在自身容器内滚动，不改变列序；窄屏允许标签文字自然换行。 */
+.wy-table-responsive{max-width:100%;overflow-x:auto}.rst-content .sphinx-tabs-tab{white-space:normal;overflow-wrap:anywhere}.rst-content p,.rst-content td{overflow-wrap:anywhere}

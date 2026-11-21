@@ -1,0 +1,49 @@
+﻿译文来源：© The Zephyr Project Contributors；非官方简体中文译本。正文按 CC BY 4.0 翻译。代码保持原样；引入的代码按其源文件许可。导航、检索与窄屏显示作适配。
+https://creativecommons.org/licenses/by/4.0/
+正文范围依据：https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+
+J01 Storage & Configuration
+https://docs.zephyrproject.org/latest/services/storage/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/ecf93f117c3048e7a3ae18a58d0b49d0f51b3182/doc/services/storage/index.rst
+英文 HTML SHA-256：f46cfc7ac89524d2bfe1ee05c112b1720cbecb809531493ee64d34d4472700b6
+
+J02 Flash
+https://docs.zephyrproject.org/latest/hardware/peripherals/flash.html
+https://github.com/zephyrproject-rtos/zephyr/blob/6f9364c14e4796c9362194939bea0aacfe81d5dd/doc/hardware/peripherals/flash.rst
+英文 HTML SHA-256：e9a9dce75a12413f80cdbf203d4d38d36cce6f56b47a6da0beecf0736fe33e3e
+
+J03 Flash map
+https://docs.zephyrproject.org/latest/services/storage/flash_map/flash_map.html
+https://github.com/zephyrproject-rtos/zephyr/blob/ecf93f117c3048e7a3ae18a58d0b49d0f51b3182/doc/services/storage/flash_map/flash_map.rst
+英文 HTML SHA-256：a93a1dc89bff0d7e5ee4a089d982c7b7da8de1bf7e52840cdb654510ed930cee
+
+J04 Non-Volatile Storage (NVS)
+https://docs.zephyrproject.org/latest/services/storage/nvs/nvs.html
+https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/doc/services/storage/nvs/nvs.rst
+英文 HTML SHA-256：781955038e3c259592991fc962e53980c8c1cf129d3a254526335826c4c25fcc
+
+J05 Non-Volatile Storage (NVS)
+https://docs.zephyrproject.org/latest/samples/subsys/kvss/nvs/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/b9fcb5efa42acd1587cb1eba1ac74e9d96ff3855//samples/subsys/kvss/nvs/README.rst
+英文 HTML SHA-256：5ae304648db305fd052c9a86133bc539e044c88e4cd7023cf524083733d70f0b
+
+J06 Settings
+https://docs.zephyrproject.org/latest/services/storage/settings/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/280171076e229b4064eec2b9a049b7eea588ae74/doc/services/storage/settings/index.rst
+英文 HTML SHA-256：c9184814deaafe8782d402f60d7fdaf401d1bd32f3bdd2b61af23f929d2d43c2
+
+J07 Settings API
+https://docs.zephyrproject.org/latest/samples/subsys/settings/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/3bd604d819c12a5fb712fa24036dff7908531967//samples/subsys/settings/README.rst
+英文 HTML SHA-256：3c9c08d5e5a877e643b03871497ae2ad4b68aa538e51fbdbad51e5d550ea6d66
+
+J08 Stream Flash
+https://docs.zephyrproject.org/latest/services/storage/stream/stream_flash.html
+https://github.com/zephyrproject-rtos/zephyr/blob/6fe0a373fc1ea78e3c752cb778bdae3067493a26/doc/services/storage/stream/stream_flash.rst
+英文 HTML SHA-256：b5be21c21f019bf4aa3a4931e15d18cd6c052f8940e870f99ba9578252befd08
+J03 的设备树示例原样引用，自 example_fragment.dts（Copyright (c) 2020–2022 Nordic Semiconductor ASA）。原文件没有独立 SPDX 标记，随仓库附 Apache-2.0 LICENSE；保留出处与完整 Apache 许可文本。
+https://github.com/zephyrproject-rtos/zephyr/blob/8fab581bb43e7d30b0969b5123984c7b41f726ba/doc/services/storage/flash_map/example_fragment.dts
+https://github.com/zephyrproject-rtos/zephyr/blob/8fab581bb43e7d30b0969b5123984c7b41f726ba/LICENSE
+J04 图为 Zephyr 项目贡献者在该页 RST 中内嵌的 Mermaid 位域示意图（CC BY 4.0）；本站译字段名，保留各字段位范围，使用上游绘图器预渲染为 SVG，可点开放大。J06 将原公式用上标在本地呈现，不依赖远程数学库。
+
+译校：保留经审校译文，独立标识译校注（22 项），注明固定版本依据。统一目录、搜索及已译页面之间的链接作适配。

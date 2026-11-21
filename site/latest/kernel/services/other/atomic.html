@@ -261,7 +261,7 @@
              
   <section id="atomic-services">
 <span id="atomic-v2"></span><h1>原子操作（Atomic Services）<a class="headerlink" href="#atomic-services" title="链接到此标题"></a></h1>
-<p class="zh-edition">非官方简体中文译本 · F01 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（79 篇）</a> · <a href="../../../../index.html#batch-f">F 批目录</a> · <a href="https://docs.zephyrproject.org/latest/kernel/services/other/atomic.html" hreflang="en">本页英文原文</a></p><p>线程和中断服务程序（ISR）对<em class="dfn">原子变量（atomic variable）</em>的读改操作不可分割。它在 32 位机器上占 32 位，在 64 位机器上占 64 位。</p>
+<p class="zh-edition">非官方简体中文译本 · F01 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（94 篇）</a> · <a href="../../../../index.html#batch-f">F 批目录</a> · <a href="https://docs.zephyrproject.org/latest/kernel/services/other/atomic.html" hreflang="en">本页英文原文</a></p><p>线程和中断服务程序（ISR）对<em class="dfn">原子变量（atomic variable）</em>的读改操作不可分割。它在 32 位机器上占 32 位，在 64 位机器上占 64 位。</p>
 <div class="admonition note zh-tech-note" role="note" aria-labelledby="zh-note-f01-01-label" id="zh-note-f01-01" data-zh-note="F01-01" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-f01-01-label">译校注 · F01-01</p><p class="zh-note-text">不可分割的保证针对单次原子 API 调用。对 atomic_t 直接写 counter++ 不受这一保证保护；先 atomic_get() 再 atomic_set() 是两次操作，也不能替代一次原子读改写。</p><details class="zh-note-evidence"><summary>固定版本依据：Zephyr 1b1b2e0cdca4</summary><p><a class="reference external" href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/include/zephyr/sys/atomic_types.h#L25-L35" hreflang="en" title="include/zephyr/sys/atomic_types.h">atomic_types.h：25–35</a></p></details></div>
 <nav class="contents local" id="contents">
 <ul class="simple">

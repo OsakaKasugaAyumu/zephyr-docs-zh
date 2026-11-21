@@ -1,0 +1,41 @@
+K 批 · 设备管理与固件镜像升级 · 非官方简体中文译本。
+原文 © The Zephyr Project Contributors，文档正文 CC BY 4.0，适用范围见 https://github.com/zephyrproject-rtos/zephyr/blob/a119dbf957230ca334f020a7aae3d301e28e8772/REUSE.toml
+https://creativecommons.org/licenses/by/4.0/
+改动：翻译正文、界面、表格、全部标签内容；保留代码、CBOR 和命令。正文无嵌入图片。沿用本站已有主题资产，署名及许可见 THIRD-PARTY-NOTICES.txt；外链不镜像。每页提交为该 RST 修订，不代表全站单一构建提交。
+
+K01 Device Management
+https://docs.zephyrproject.org/latest/services/device_mgmt/index.html
+https://github.com/zephyrproject-rtos/zephyr/blob/ba0f4e1be09dd56387b6a492c3fbab2b96e936f7/doc/services/device_mgmt/index.rst
+英文 HTML SHA-256：aa272f0b986b94a802a47ebef020fe5a306a4b5ef20ff163764dca3192bab239
+
+K02 MCUmgr
+https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr.html
+https://github.com/zephyrproject-rtos/zephyr/blob/0ae9770be52dc51ea286b8ca672a9bf58a0abb38/doc/services/device_mgmt/mcumgr.rst
+英文 HTML SHA-256：e3393e10154260364986c6e8e8115643a8a4ee8929b0cb1b578ca31d4c0a7836
+
+K03 SMP Protocol Specification
+https://docs.zephyrproject.org/latest/services/device_mgmt/smp_protocol.html
+https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/doc/services/device_mgmt/smp_protocol.rst
+英文 HTML SHA-256：8355e91166ea6253731b8126ff71f5008984c2a179a4a194bdece67e08c950f7
+
+K04 SMP Transport Specification
+https://docs.zephyrproject.org/latest/services/device_mgmt/smp_transport.html
+https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/doc/services/device_mgmt/smp_transport.rst
+英文 HTML SHA-256：b413a787a6c3e189fa6b5d48f511da59e525a7efd2e9bdbe4762f1f4cd90d9f0
+
+K05 Default/OS Management Group
+https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_0.html
+https://github.com/zephyrproject-rtos/zephyr/blob/a5c6d164bf88a9c9652e1722a4ffeaa6f338d87c/doc/services/device_mgmt/smp_groups/smp_group_0.rst
+英文 HTML SHA-256：c916f8e6d434658618d9af7c2aa1a9a2d5e0fbd96e6f1af3779fd23c3e037a47
+
+K06 Application/software image management group
+https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_1.html
+https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/doc/services/device_mgmt/smp_groups/smp_group_1.rst
+英文 HTML SHA-256：e04de7869f3ded39bd359b6b4434a4cb7bd5d270e2860be3fa19b83d3c9791c9
+
+K07 SMP server
+https://docs.zephyrproject.org/latest/samples/subsys/mgmt/mcumgr/smp_svr/README.html
+https://github.com/zephyrproject-rtos/zephyr/blob/4671da12806ddd50a01332d153ef7917467a0240/samples/subsys/mgmt/mcumgr/smp_svr/README.rst
+英文 HTML SHA-256：80708e84d72b89c22b1b1da5def4c43be4ae5273a441aef9ec875b433ee20297
+
+译校：保留经审校译文，独立标识译校注（29 项），注明固定版本依据。统一目录、搜索及已译页面之间的链接作适配。

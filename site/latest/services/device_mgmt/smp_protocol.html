@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简单管理协议规范（SMP Protocol Specification） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/device_mgmt/smp_protocol.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="默认／操作系统管理组（Default/OS Management Group）" href="smp_groups/smp_group_0.html">
+    <link rel="prev" title="MCUmgr 回调" href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr_callbacks.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_protocol.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/device_mgmt/smp_protocol.html"><link rel="stylesheet" href="../../_static/k-review.css"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="smp_protocol.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" data-lang-target="en" hreflang="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" data-lang-target="en" hreflang="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" data-lang-target="en" hreflang="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" data-lang-target="en" hreflang="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" data-lang-target="en" hreflang="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" data-lang-target="en" hreflang="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" data-lang-target="en" hreflang="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" data-lang-target="en" hreflang="en" title="英文原文">系统服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/connectivity/index.html" data-lang-target="en" hreflang="en" title="英文原文">连接与通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/io.html" data-lang-target="en" hreflang="en" title="英文原文">输入／输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/messaging.html" data-lang-target="en" hreflang="en" title="英文原文">进程间通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/observability.html" data-lang-target="en" hreflang="en" title="英文原文">日志、跟踪与调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">存储与配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/memory_management.html" data-lang-target="en" hreflang="en" title="英文原文">内存管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/power_management.html" data-lang-target="en" hreflang="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/security.html" data-lang-target="en" hreflang="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">设备管理总览（Device Management）</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="mcumgr.html">设备管理子系统（MCUmgr）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr_handlers.html" data-lang-target="en" hreflang="en" title="英文原文">MCUmgr 处理程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr_callbacks.html" data-lang-target="en" hreflang="en" title="英文原文">MCUmgr 回调</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">简单管理协议规范（SMP Protocol Specification）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#frame-the-envelope">帧：消息的封装（Frame）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#management-group-id-s">管理组标识符（<code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code>）</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#minimal-response">最小响应</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#minimal-response-smp-data">最小响应的 SMP 数据</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#specifications-of-management-groups-supported-by-zephyr">Zephyr 支持的管理组规范</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="smp_groups/smp_group_0.html">默认／操作系统管理组（Default/OS Management Group）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="smp_groups/smp_group_1.html">应用／软件镜像管理组（Application/software image management group）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_2.html" data-lang-target="en" hreflang="en" title="英文原文">统计信息管理</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_3.html" data-lang-target="en" hreflang="en" title="英文原文">配置管理组（Settings / Config）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_8.html" data-lang-target="en" hreflang="en" title="英文原文">文件系统管理</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_9.html" data-lang-target="en" hreflang="en" title="英文原文">Shell 管理</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_10.html" data-lang-target="en" hreflang="en" title="英文原文">枚举管理组</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_11.html" data-lang-target="en" hreflang="en" title="英文原文">传输管理组</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_63.html" data-lang-target="en" hreflang="en" title="英文原文">Zephyr 管理组</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="smp_transport.html">SMP 传输规范（SMP Transport Specification）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dfu.html">设备固件升级（DFU）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/ota.html" data-lang-target="en" hreflang="en" title="英文原文">无线更新（OTA）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/fota_http.html" data-lang-target="en" hreflang="en" title="英文原文">通过 HTTP 进行固件无线更新</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/ec_host_cmd.html" data-lang-target="en" hreflang="en" title="英文原文">EC 主机命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/binary_descriptors/index.html" data-lang-target="en" hreflang="en" title="英文原文">二进制描述符</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/algorithms.html" data-lang-target="en" hreflang="en" title="英文原文">算法与数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/frameworks.html" data-lang-target="en" hreflang="en" title="英文原文">框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/portability/index.html" data-lang-target="en" hreflang="en" title="英文原文">操作系统抽象层</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" data-lang-target="en" hreflang="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" data-lang-target="en" hreflang="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" data-lang-target="en" hreflang="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" data-lang-target="en" hreflang="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" data-lang-target="en" hreflang="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" data-lang-target="en" hreflang="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" data-lang-target="en" hreflang="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" data-lang-target="en" hreflang="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" data-lang-target="en" hreflang="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" data-lang-target="en" hreflang="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" data-lang-target="en" hreflang="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" data-lang-target="en" hreflang="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" data-lang-target="en" hreflang="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" data-lang-target="en" hreflang="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" data-lang-target="en" hreflang="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/services/index.html" data-lang-target="en" hreflang="en" title="英文原文">系统服务</a> »</li>
+  
+     <li><a href="index.html">设备管理总览（Device Management）</a> »</li>
+  
+  <li>简单管理协议规范（SMP Protocol Specification）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/services/device_mgmt/smp_protocol.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27services%2Fdevice_mgmt%2Fsmp_protocol%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+mcumgr&amp;env=-+Page%3A+services%2Fdevice_mgmt%2Fsmp_protocol%0A-+Version%3A+main%0A-+SHA-1%3A+a2fcb6cf3e393808e89fba62a250d8305480d9bd&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="smp-protocol-specification">
+<span id="mcumgr-smp-protocol-specification"></span><h1>简单管理协议规范（SMP Protocol Specification）<a class="headerlink" href="#smp-protocol-specification" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · K03 · 英文基线 4.5.99 · <a href="../../../index.html#batch-k">K 批目录</a> · <a href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_protocol.html" hreflang="en">本页英文原文</a></p><p>本文描述简单管理协议（Simple Management Protocol，SMP）。MCUmgr 用它向设备发送请求并接收设备的响应。</p>
+<p>SMP 是应用层协议。本文不涉及底层传输层。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>此处的 SMP 是 MCUmgr 的简单管理协议，与蓝牙的安全管理器协议（Security Manager Protocol，同样缩写为 SMP）无关。MCUmgr 的 SMP 可以通过蓝牙传输。</p>
+</div>
+<section id="frame-the-envelope">
+<h2>帧：消息的封装（Frame）<a class="headerlink" href="#frame-the-envelope" title="链接到此标题"></a></h2>
+<p>每帧由帧头和数据组成。如果底层传输支持分片，帧头中的<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Length</span></code>字段可用于重组。多字节字段采用大端字节序（即网络字节序），帧格式如下：</p>
+<table class="docutils align-center" id="mcumgr-smp-protocol-frame">
+<tbody>
+<tr class="row-odd"><td colspan="8"><p>3</p></td>
+<td colspan="8"><p>2</p></td>
+<td colspan="8"><p>1</p></td>
+<td colspan="8"><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>6</p></td>
+<td><p>5</p></td>
+<td><p>4</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>7</p></td>
+<td><p>6</p></td>
+<td><p>5</p></td>
+<td><p>4</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>7</p></td>
+<td><p>6</p></td>
+<td><p>5</p></td>
+<td><p>4</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>7</p></td>
+<td><p>6</p></td>
+<td><p>5</p></td>
+<td><p>4</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p>保留位（Res）</p></td>
+<td colspan="2"><p>版本（Ver）</p></td>
+<td colspan="3"><p>操作码（OP）</p></td>
+<td colspan="8"><p>标志（Flags）</p></td>
+<td colspan="16"><p>数据长度（Data Length）</p></td>
+</tr>
+<tr class="row-even"><td colspan="16"><p>组标识符（Group ID）</p></td>
+<td colspan="8"><p>序列号（Sequence Num）</p></td>
+<td colspan="8"><p>命令标识符（Command ID）</p></td>
+</tr>
+<tr class="row-odd"><td colspan="32"><p>数据（Data）…</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>原始规范要求 SMP 应能接收小端和大端两种帧；实际上，MCUmgr 库的实现固定按大端字节序解释网络侧数据。</p>
+</div>
+<p>数据是可选的；<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Length</span></code>为零时，帧中不含数据。数据编码取决于目标管理组及命令 ID。</p>
+<p>各字段及其含义如下：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>字段</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Res</span></code></p></td>
+<td><p>保留字段，当前未使用，必须始终设为 0。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ver</span></code>（版本）</p></td>
+<td><p>表示使用的协议版本。设为 0b01 表示使用新版 SMP，其错误码更详细，并在映射中返回；否则保持 0b00，以使用旧版 SMP。0b10 和 0b11 留作将来使用，不应使用。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#gae06a618f492f18e856742b4affab80dd" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_op_t</span></code></a>，用于区分向设备写入信息还是从设备读取信息，以及数据包是发给 SMP 服务端的请求还是服务端给出的响应。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Flags</span></code></p></td>
+<td><p>预留作标志位。目前尚未定义任何标志，此字段应设为 0。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Length</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Data</span></code>字段的长度。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ga81f98b9a0c3810f7d607b783f8e259b5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_group_t</span></code></a>，详见<a class="reference internal" href="#mcumgr-smp-protocol-group-ids"><span class="std std-ref">管理组标识符</span></a>。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Sequence</span> <span class="pre">Num</span></code></p></td>
+<td><p>帧序列号，每发一个请求帧就加一。响应的序列号应与对应请求的序列号相同。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Group</span></code>内的命令。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Data</span></code></p></td>
+<td><p>数据载荷的大小由<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Length</span></code>指定。载荷是可选的：<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Length</span></code>可为零，表示帧头之后没有数据。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p><code class="docutils literal notranslate"><span class="pre">Data</span></code>的内容取决于 <code class="docutils literal notranslate"><span class="pre">OP</span></code>、<code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code> 的值。</p>
+</div>
+<section id="management-group-id-s">
+<span id="mcumgr-smp-protocol-group-ids"></span><h3>管理组标识符（<code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code>）<a class="headerlink" href="#management-group-id-s" title="链接到此标题"></a></h3>
+<p>SMP 既支持预定义的通用管理组，也允许用户自定义组。下表列出通用组：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>十进制 ID</p></th>
+<th class="head"><p>管理组说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><a class="reference internal" href="smp_groups/smp_group_0.html#mcumgr-smp-group-0"><span class="std std-ref">默认／操作系统管理组（Default/OS Management Group）</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><a class="reference internal" href="smp_groups/smp_group_1.html#mcumgr-smp-group-1"><span class="std std-ref">应用／软件镜像管理组（Application/software image management group）</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_2.html#mcumgr-smp-group-2" data-lang-target="en" hreflang="en" title="英文原文"><span class="std std-ref">统计信息管理</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_3.html#mcumgr-smp-group-3" data-lang-target="en" hreflang="en" title="英文原文"><span class="std std-ref">配置管理组（Settings / Config）</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<td><p>应用／系统日志管理（Zephyr 目前未使用）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+<td><p>使应用崩溃的测试（Zephyr 未使用）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+<td><p>拆分镜像管理（Zephyr 未使用）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">7</span></code></p></td>
+<td><p>运行时测试（Zephyr 未使用）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">8</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_8.html#mcumgr-smp-group-8" data-lang-target="en" hreflang="en" title="英文原文"><span class="std std-ref">文件系统管理</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">9</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_9.html#mcumgr-smp-group-9" data-lang-target="en" hreflang="en" title="英文原文"><span class="std std-ref">Shell 管理</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_10.html#mcumgr-smp-group-10" data-lang-target="en" hreflang="en" title="英文原文"><span class="std std-ref">枚举管理组</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">11</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_11.html#mcumgr-smp-group-11" data-lang-target="en" hreflang="en" title="英文原文"><span class="std std-ref">传输管理组</span></a>（实验性）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">63</span></code></p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_63.html#mcumgr-smp-group-63" data-lang-target="en" hreflang="en" title="英文原文"><span class="std std-ref">Zephyr 管理组</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">64</span></code></p></td>
+<td><p>应用专用管理组从此组号起定义。</p></td>
+</tr>
+</tbody>
+</table>
+<p>除用户组（编号 <code class="docutils literal notranslate"><span class="pre">64</span></code> 及以上）外，上述各组的载荷一律使用 CBOR 编码。编号 <code class="docutils literal notranslate"><span class="pre">64</span></code> 及以上的组可自行定义数据通信格式。</p>
+</section>
+</section>
+<section id="minimal-response">
+<h2>最小响应<a class="headerlink" href="#minimal-response" title="链接到此标题"></a></h2>
+<p>无论发出什么命令，只要请求的另一端有 SMP 客户端，就应给出响应，内容依次为帧头和一个 CBOR 映射。只有没有 SMP 服务或设备不响应时，才允许没有响应。</p><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k03-u01" data-zh-note="K03-U01" aria-labelledby="zh-note-k03-u01-label"><p id="zh-note-k03-u01-label"><strong>K03-U01 · 谁应对请求作出响应</strong></p><p>这次交互由客户端发出请求，由服务端处理并返回响应。原句把处理请求的对端称为“客户端”，与同页对操作码的说明不一致。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/subsys/mgmt/mcumgr/smp/src/smp.c#L75-L94">smp.c · L75–94 · <code style="white-space:normal">a2fcb6cf3e39</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/subsys/mgmt/mcumgr/smp/src/smp.c#L478-L495">smp.c · L478–495 · <code style="white-space:normal">a2fcb6cf3e39</code></a></li></ul></details></div></div><!--/K-R2:note--><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k03-u02" data-zh-note="K03-U02" aria-labelledby="zh-note-k03-u02-label"><p id="zh-note-k03-u02-label"><strong>K03-U02 · 先确定管理组，再解释载荷</strong></p><p>标准管理组的响应按 CBOR 映射解释；若用户自定义管理组采用了自己的载荷格式，就要按该组的约定解码，不能无条件按 CBOR 映射解析。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/subsys/mgmt/mcumgr/smp/src/smp.c#L197-L214">smp.c · L197–214 · <code style="white-space:normal">a2fcb6cf3e39</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/subsys/mgmt/mcumgr/smp/src/smp.c#L313-L326">smp.c · L313–326 · <code style="white-space:normal">a2fcb6cf3e39</code></a></li></ul></details></div></div><!--/K-R2:note-->
+<section id="minimal-response-smp-data">
+<h3>最小响应的 SMP 数据<a class="headerlink" href="#minimal-response-smp-data" title="链接到此标题"></a></h3>
+<p>最小响应如下：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="标签页内容" class="closeable" role="tablist"><button aria-controls="panel-0-U01QIHZlcnNpb24gMg==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tab" tabindex="0">SMP 版本 2</button><button aria-controls="panel-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tab" tabindex="-1">SMP 版本 1（以及 SMP 版本 2 的非组专属错误）</button></div><div aria-labelledby="tab-0-U01QIHZlcnNpb24gMg==" class="sphinx-tabs-panel group-tab" id="panel-0-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"err" : {
+        (str)"group"    : (uint)
+        (str)"rc"       : (uint)
+    }
+}
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"rc"       : (int)
+}
+</pre></div>
+</div>
+</div></div>
+<p>其中：</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>“err” -&gt; “group”</p></td>
+<td><p>组专属错误码所属的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ga81f98b9a0c3810f7d607b783f8e259b5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_group_t</span></code></a> 管理组。仅在使用 SMP 版本 2 且返回错误时出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“err” -&gt; “rc”</p></td>
+<td><p>组专属错误码的索引。在 SMP 版本 2 中，仅当该值非零（表示错误）时出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“rc”</p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#gac5d8757a7ca945c77f405764b85ad5c5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_err_t</span></code></a>，仅在值非零（表示错误）时出现；适用于 SMP 版本 1，或 SMP 版本 2 中 SMP 自身的错误。</p></td>
+</tr>
+</tbody>
+</table>
+<p>原文称，命令成功时会返回空映射。仅在出错时才返回 <code class="docutils literal notranslate"><span class="pre">rc</span></code> 或 <code class="docutils literal notranslate"><span class="pre">err</span></code>；因此，只返回空映射或响应中没有这两个字段时，可将请求视为成功。对于 SMP 版本 2，与协议本身有关、而非特定管理组的错误仍以 <code class="docutils literal notranslate"><span class="pre">rc</span></code> 错误返回，客户端必须能处理这两种错误。</p><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k03-m01" data-zh-note="K03-M01" aria-labelledby="zh-note-k03-m01-label"><p id="zh-note-k03-m01-label"><strong>K03-M01 · 成功响应不一定是空映射</strong></p><p>这里描述的是没有结果字段的最小成功响应，不能把“映射为空”当成成功的必备条件。例如，回显命令成功时会在映射中返回 <code style="white-space:normal;overflow-wrap:anywhere">r</code> 字段。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a5c6d164bf88a9c9652e1722a4ffeaa6f338d87c/subsys/mgmt/mcumgr/grp/os_mgmt/src/os_mgmt.c#L1212-L1215">os_mgmt.c · L1212–1215 · <code style="white-space:normal">a5c6d164bf88</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a5c6d164bf88a9c9652e1722a4ffeaa6f338d87c/doc/services/device_mgmt/smp_groups/smp_group_0.rst#L88-L93">smp_group_0.rst · L88–93 · <code style="white-space:normal">a5c6d164bf88</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a5c6d164bf88a9c9652e1722a4ffeaa6f338d87c/subsys/mgmt/mcumgr/grp/os_mgmt/src/os_mgmt.c#L186-L194">os_mgmt.c · L186–194 · <code style="white-space:normal">a5c6d164bf88</code></a></li></ul></details></div></div><!--/K-R2:note-->
+</section>
+</section>
+<section id="specifications-of-management-groups-supported-by-zephyr">
+<h2>Zephyr 支持的管理组规范<a class="headerlink" href="#specifications-of-management-groups-supported-by-zephyr" title="链接到此标题"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smp_groups/smp_group_0.html">默认／操作系统管理组（Default/OS Management Group）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smp_groups/smp_group_1.html">应用／软件镜像管理组（Application/software image management group）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_2.html" data-lang-target="en" hreflang="en" title="英文原文">统计信息管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_3.html" data-lang-target="en" hreflang="en" title="英文原文">配置管理组（Settings / Config）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_8.html" data-lang-target="en" hreflang="en" title="英文原文">文件系统管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_9.html" data-lang-target="en" hreflang="en" title="英文原文">Shell 管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_10.html" data-lang-target="en" hreflang="en" title="英文原文">枚举管理组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_11.html" data-lang-target="en" hreflang="en" title="英文原文">传输管理组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_63.html" data-lang-target="en" hreflang="en" title="英文原文">Zephyr 管理组</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-10-14。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../K-sources.txt">本批来源与改动说明</a> · <a href="https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/doc/services/device_mgmt/smp_protocol.rst">本页 RST 固定修订</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

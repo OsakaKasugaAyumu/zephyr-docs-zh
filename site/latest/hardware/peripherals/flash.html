@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>闪存设备接口（Flash） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/flash.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="电可擦可编程只读存储器（EEPROM）" href="https://docs.zephyrproject.org/latest/hardware/peripherals/eeprom/index.html">
+    <link rel="prev" title="内存与存储" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/hardware/peripherals/flash.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/hardware/peripherals/flash.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="flash.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">架构相关指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/barriers/index.html" hreflang="en" data-lang-target="en" title="英文原文">屏障（barrier）API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/cache/index.html" hreflang="en" data-lang-target="en" title="英文原文">缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 设备仿真器与模拟器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/emulator/bus_emulators.html" hreflang="en" data-lang-target="en" title="英文原文">外部总线及总线外设仿真器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/firmware/index.html" hreflang="en" data-lang-target="en" title="英文原文">固件</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/analog.html" hreflang="en" data-lang-target="en" title="英文原文">模拟外设</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/audio/index.html" hreflang="en" data-lang-target="en" title="英文原文">音频</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/communication.html" hreflang="en" data-lang-target="en" title="英文原文">通信</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/gpio_input.html" hreflang="en" data-lang-target="en" title="英文原文">GPIO 与输入</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html" hreflang="en" data-lang-target="en" title="英文原文">内存与存储</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">闪存设备接口（Flash）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#overview">概述</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#flash-simulator">闪存模拟器（Flash Simulator）</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id2">概述</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#configuration">配置</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#user-api-reference">用户 API 参考</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#implementation-interface-api-reference">驱动实现接口 API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/eeprom/index.html" hreflang="en" data-lang-target="en" title="英文原文">电可擦可编程只读存储器（EEPROM）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/sdhc.html" hreflang="en" data-lang-target="en" title="英文原文">安全数字卡（SD 卡）接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/bbram.html" hreflang="en" data-lang-target="en" title="英文原文">电池后备 RAM（BBRAM）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/retained_mem.html" hreflang="en" data-lang-target="en" title="英文原文">掉电保持内存（Retained Memory）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/i2c_eeprom_target.html" hreflang="en" data-lang-target="en" title="英文原文">I2C EEPROM 目标设备（Target）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/memc.html" hreflang="en" data-lang-target="en" title="英文原文">存储控制器（MEMC）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/otp/index.html" hreflang="en" data-lang-target="en" title="英文原文">一次性可编程（OTP）存储器件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/power.html" hreflang="en" data-lang-target="en" title="英文原文">电源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/sensors.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/motion_actuation.html" hreflang="en" data-lang-target="en" title="英文原文">运动与执行机构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/system_diagnostics.html" hreflang="en" data-lang-target="en" title="英文原文">系统与诊断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/peripherals/timing.html" hreflang="en" data-lang-target="en" title="英文原文">定时</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pinctrl/index.html">引脚控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/porting/index.html" hreflang="en" data-lang-target="en" title="英文原文">移植</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/virtualization/index.html" hreflang="en" data-lang-target="en" title="英文原文">虚拟化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/index.html" hreflang="en" data-lang-target="en" title="英文原文">外设</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/hardware/peripherals/memory_storage.html" hreflang="en" data-lang-target="en" title="英文原文">内存与存储</a> »</li>
+  
+  <li>闪存设备接口（Flash）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/hardware/peripherals/flash.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27hardware%2Fperipherals%2Fflash%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Flash&amp;env=-+Page%3A+hardware%2Fperipherals%2Fflash%0A-+Version%3A+main%0A-+SHA-1%3A+6f9364c14e4796c9362194939bea0aacfe81d5dd&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="flash">
+<span id="flash-api"></span><h1>闪存设备接口（Flash）<a class="headerlink" href="#flash" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · J02 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（94 篇）</a> · <a href="../../../index.html#batch-j">J 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/peripherals/flash.html" hreflang="en">本页英文原文</a></p><section id="overview">
+<h2>概述<a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p><strong>闪存偏移量（flash offset）的基准</strong></p>
+<p>用户 API 的偏移量均相对于闪存的起始地址。对于闪存控制器管理的常规存储区，只要可以通过页布局 API 查询其布局（见 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_PAGE_LAYOUT" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_PAGE_LAYOUT</span></code></a>），就应遵守这条规则。</p>
+<p>厂商为特定用途预留的闪存区域可以例外；页布局 API 本身就不涵盖这类区域。</p>
+</section>
+<section id="flash-simulator">
+<span id="id1"></span><h2>闪存模拟器（Flash Simulator）<a class="headerlink" href="#flash-simulator" title="链接到此标题"></a></h2>
+<section id="id2">
+<h3>概述<a class="headerlink" href="#id2" title="链接到此标题"></a></h3>
+<p>闪存模拟器以 RAM 模拟闪存设备，主要用于在没有物理闪存的目标上开发和测试，例如 <code class="docutils literal notranslate"><span class="pre">native_sim</span></code> 和 <code class="docutils literal notranslate"><span class="pre">qemu_x86</span></code>。</p>
+<p>模拟器实现了 Zephyr 标准闪存 API，应用可以像操作实际硬件控制器一样读取、写入和擦除数据。</p>
+</section>
+<section id="configuration">
+<h3>配置<a class="headerlink" href="#configuration" title="链接到此标题"></a></h3>
+<section id="devicetree">
+<h4>设备树（Devicetree）<a class="headerlink" href="#devicetree" title="链接到此标题"></a></h4>
+<p>要使用闪存模拟器，请在设备树（devicetree）中定义一个与 <code class="docutils literal notranslate"><span class="pre">zephyr,sim-flash</span></code> 兼容的节点。</p>
+<p>使用标准设备树属性描述模拟闪存的物理特性，例如容量和块大小：</p>
+<div class="highlight-devicetree notranslate"><div class="highlight"><pre><span></span><span class="nl">flash0</span><span class="p">:</span><span class="w"> </span><span class="nf">flash_simulator</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">         </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"zephyr,sim-flash"</span><span class="p">;</span>
+<span class="w">         </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x00000000</span><span class="w"> </span><span class="na">DT_SIZE_K</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">         </span><span class="n">erase-block-size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1024</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">         </span><span class="n">write-block-size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">         </span><span class="n">erase-value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0xff</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J02-U01" id="zh-note-j02-u01" aria-labelledby="zh-note-j02-u01-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j02-u01-label">译校注 · J02-U01</p><p><strong>模拟器的设备树层级</strong></p><p>在所核驱动中，模拟器实例提供 <code>erase-value</code>；闪存的基址、容量、<code>erase-block-size</code> 和 <code>write-block-size</code> 则取自闪存子节点。上例把这些属性写在同一节点，使用时应对照目标板的设备树层级。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/6f9364c14e4796c9362194939bea0aacfe81d5dd/drivers/flash/flash_simulator.c#L554-L559">该页 RST 修订 · flash_simulator.c:554-559 · 6f9364c14e47</a></li></ul></details></div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">reg</span></code>：模拟闪存的基地址及总容量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">erase-block-size</span></code>：一个可擦除块的大小，以字节为单位。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">write-block-size</span></code>：写入操作的最小对齐要求，以字节为单位。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">erase-value</span></code>：存储单元擦除后的值，通常是 <code class="docutils literal notranslate"><span class="pre">0xff</span></code> 或 <code class="docutils literal notranslate"><span class="pre">0x00</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">memory-region</span></code>（可选）：指向某个内存区域的节点句柄（phandle）。指定后，启动时不会清空这片内存。</p></li>
+</ul>
+</section>
+<section id="kconfig-options">
+<h4>Kconfig 选项<a class="headerlink" href="#kconfig-options" title="链接到此标题"></a></h4>
+<p>模拟器提供以下 Kconfig 选项，用于模拟实际硬件的行为：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_SIMULATOR" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_SIMULATOR</span></code></a>：启用闪存模拟器驱动。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_SIMULATOR_EXPLICIT_ERASE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_SIMULATOR_EXPLICIT_ERASE</span></code></a>：要求写入前显式擦除，用来模拟必须先擦除才能翻转相应数据位的实际闪存。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_SIMULATOR_SIMULATE_TIMING" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_SIMULATOR_SIMULATE_TIMING</span></code></a>：模拟硬件访问时序。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_SIMULATOR_MIN_READ_TIME_US" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_SIMULATOR_MIN_READ_TIME_US</span></code></a>：一次读取操作的模拟延迟。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_SIMULATOR_MIN_WRITE_TIME_US" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_SIMULATOR_MIN_WRITE_TIME_US</span></code></a>：一次写入操作的模拟延迟。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_SIMULATOR_MIN_ERASE_TIME_US" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_SIMULATOR_MIN_ERASE_TIME_US</span></code></a>：一次擦除操作的模拟延迟。</p></li>
+<li><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_FLASH_SIMULATOR_STATS" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_FLASH_SIMULATOR_STATS</span></code></a>：通过 Zephyr 统计子系统收集操作统计信息。</p></li>
+</ul>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J02-U02" id="zh-note-j02-u02" aria-labelledby="zh-note-j02-u02-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j02-u02-label">译校注 · J02-U02</p><p><strong>显式擦除的前提</strong></p><p>显式擦除约束的是目标编程单元的状态，不是每调用一次写入就要先擦一次。单元已处于擦除态时可以编程；能否重复写入、允许改变哪些位，还取决于模拟器的擦除值和配置。擦除按块进行，可能影响同块内的其他数据。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/6f9364c14e4796c9362194939bea0aacfe81d5dd/drivers/flash/Kconfig.simulator#L33-L58">该页 RST 修订 · Kconfig.simulator:33-58 · 6f9364c14e47</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/drivers/flash/flash_simulator.c#L218-L240">独立固定实现 · flash_simulator.c:218-240 · 1b1b2e0cdca4</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/drivers/flash/flash_simulator.c#L274-L286">独立固定实现 · flash_simulator.c:274-286 · 1b1b2e0cdca4</a></li></ul></details></div>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J02-U03" id="zh-note-j02-u03" aria-labelledby="zh-note-j02-u03-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j02-u03-label">译校注 · J02-U03</p><p><strong>微秒延迟不是超时</strong></p><p>启用 <code>CONFIG_FLASH_SIMULATOR_SIMULATE_TIMING</code> 后，上述三个 <code>MIN_*_TIME_US</code> 选项分别设置读、写、擦除的模拟最短耗时，单位是微秒（µs）。它们不是请求超时，也不是最长完成时间。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/6f9364c14e4796c9362194939bea0aacfe81d5dd/drivers/flash/Kconfig.simulator#L60-L79">该页 RST 修订 · Kconfig.simulator:60-79 · 6f9364c14e47</a></li></ul></details></div>
+</section>
+</section>
+</section>
+<section id="user-api-reference">
+<h2>用户 API 参考<a class="headerlink" href="#user-api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__interface.html" title="英文原文" hreflang="en" data-lang-target="en">闪存接口（Flash）</a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/mspi/mspi_timing_scan/README.html#mspi-timing-scan" title="英文原文" hreflang="en" data-lang-target="en">Ambiq MSPI 时序扫描</a></span><span class="code-sample-description">为指定开发板上的指定设备查找合适的时序。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/spi_flash_at45/README.html#spi-flash-at45" title="英文原文" hreflang="en" data-lang-target="en">AT45 DataFlash 驱动</a></span><span class="code-sample-description">通过 AT45 系列 DataFlash 驱动使用 SPI 访问闪存。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/shields/b_m2mem_pack1/README.html#b-m2mem-pack1" title="英文原文" hreflang="en" data-lang-target="en">B-M2MEM-PACK1 扩展板</a></span><span class="code-sample-description">将 B-M2MEM-PACK1 存储模块与其标识 EEPROM 中存储的数据进行核对。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/flash_shell/README.html#flash-shell" title="英文原文" hreflang="en" data-lang-target="en">闪存命令行</a></span><span class="code-sample-description">通过命令行查看并操作闪存设备。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/mspi/mspi_flash/README.html#mspi-flash" title="英文原文" hreflang="en" data-lang-target="en">JEDEC MSPI-NOR 闪存</a></span><span class="code-sample-description">通过闪存 API 访问 MSPI NOR 串行闪存设备。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/spi_flash/README.html#spi-nor" title="英文原文" hreflang="en" data-lang-target="en">JEDEC SPI-NOR 闪存</a></span><span class="code-sample-description">用闪存 API 访问 SPI NOR 串行闪存。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/jesd216/README.html#jesd216" title="英文原文" hreflang="en" data-lang-target="en">JESD216 闪存</a></span><span class="code-sample-description">用 JESD216 闪存 API 从兼容的串行存储设备中提取信息。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/espressif/flash_memory_mapped/README.html#esp32-flash-memory-mapped" title="英文原文" hreflang="en" data-lang-target="en">内存映射闪存（Memory-Mapped Flash）</a></span><span class="code-sample-description">将数据写入存储分区，再分别使用闪存 API 和内存映射指针读取。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/nordic/flash/README.html#nordic-flash" title="英文原文" hreflang="en" data-lang-target="en">Nordic：在低功耗蓝牙（Bluetooth LE）通信期间写闪存</a></span><span class="code-sample-description">在低功耗蓝牙无线电收发单元工作时写入闪存。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/soc_flash_nrf/README.html#soc-flash-nrf" title="英文原文" hreflang="en" data-lang-target="en">nRF SoC 内部存储</a></span><span class="code-sample-description">通过闪存 API 访问 SoC 内的闪存。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/nxp/frdm_rw612/pm_flash_check/README.html#rw612_pm_flash_check" title="英文原文" hreflang="en" data-lang-target="en">RW612 低功耗模式下的闪存检查</a></span><span class="code-sample-description">检查 RW612 在不同低功耗模式下的外部 NOR 闪存是否正常。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/shields/x_nucleo_pgeez1/README.html#x-nucleo-pgeez1" title="英文原文" hreflang="en" data-lang-target="en">X-NUCLEO-PGEEZ1 上的 M95P32 扩展操作</a></span><span class="code-sample-description">访问 M95P32 的标识页，并使用缓冲页编程功能。</span></li>
+</ul>
+</div>
+</section>
+<section id="implementation-interface-api-reference">
+<h2>驱动实现接口 API 参考<a class="headerlink" href="#implementation-interface-api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__internal__interface.html" title="英文原文" hreflang="en" data-lang-target="en">闪存驱动内部接口（Flash Internal）</a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-10-05。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../J-sources.txt">本批来源与素材说明</a> · <a href="../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非易失性存储（Non-Volatile Storage，NVS）：原理与约束 — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/nvs/nvs.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="数据保持系统（Retention System）" href="https://docs.zephyrproject.org/latest/services/storage/retention/index.html">
+    <link rel="prev" title="非易失性存储器（Non-Volatile Memory，NVMEM）" href="https://docs.zephyrproject.org/latest/services/storage/nvmem/index.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/services/storage/nvs/nvs.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/nvs/nvs.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="nvs.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/connectivity/index.html" hreflang="en" data-lang-target="en" title="英文原文">连接与通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/io.html" hreflang="en" data-lang-target="en" title="英文原文">输入／输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/messaging.html" hreflang="en" data-lang-target="en" title="英文原文">进程间通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/observability.html" hreflang="en" data-lang-target="en" title="英文原文">日志、跟踪与调试</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">存储与配置总览（Storage &amp; Configuration）</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/disk/access.html" hreflang="en" data-lang-target="en" title="英文原文">磁盘访问（Disk Access）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/fcb/fcb.html" hreflang="en" data-lang-target="en" title="英文原文">闪存环形缓冲区（Flash Circular Buffer，FCB）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/file_system/index.html" hreflang="en" data-lang-target="en" title="英文原文">文件系统</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flash_map/flash_map.html">闪存分区映射（Flash map）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/nvmem/index.html" hreflang="en" data-lang-target="en" title="英文原文">非易失性存储器（Non-Volatile Memory，NVMEM）</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">非易失性存储（Non-Volatile Storage，NVS）：原理与约束</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#flash-wear">闪存磨损（flash wear）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#calculating-expected-device-lifetime">估算设备使用寿命</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#flash-write-block-size-migration">写入块大小变化时的迁移</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sample">示例（Sample）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">故障排查</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/retention/index.html" hreflang="en" data-lang-target="en" title="英文原文">数据保持系统（Retention System）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/secure_storage/index.html" hreflang="en" data-lang-target="en" title="英文原文">安全存储（Secure Storage）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../settings/index.html">配置持久化子系统（Settings）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stream/stream_flash.html">流式写入闪存（Stream Flash）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/zms/zms.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 存储系统（Zephyr Memory Storage，ZMS）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/memory_management.html" hreflang="en" data-lang-target="en" title="英文原文">内存管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/power_management.html" hreflang="en" data-lang-target="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/security.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device_mgmt/index.html">设备管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/algorithms.html" hreflang="en" data-lang-target="en" title="英文原文">算法与数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/frameworks.html" hreflang="en" data-lang-target="en" title="英文原文">框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/portability/index.html" hreflang="en" data-lang-target="en" title="英文原文">操作系统抽象层</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a> »</li>
+  
+     <li><a href="../index.html">存储与配置总览（Storage &amp; Configuration）</a> »</li>
+  
+  <li>非易失性存储（Non-Volatile Storage，NVS）：原理与约束</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/services/storage/nvs/nvs.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27services%2Fstorage%2Fnvs%2Fnvs%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Storage&amp;env=-+Page%3A+services%2Fstorage%2Fnvs%2Fnvs%0A-+Version%3A+main%0A-+SHA-1%3A+0eb8902dd7311a1c7cd086c95f763097625fb2ea&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="non-volatile-storage-nvs">
+<span id="nvs-api"></span><h1>非易失性存储（Non-Volatile Storage，NVS）：原理与约束<a class="headerlink" href="#non-volatile-storage-nvs" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · J04 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（94 篇）</a> · <a href="../../../../index.html#batch-j">J 批目录</a> · <a href="https://docs.zephyrproject.org/latest/services/storage/nvs/nvs.html" hreflang="en">本页英文原文</a></p><p>每条记录由标识符和数据组成。NVS 将这些记录存入闪存中按先进先出（FIFO）方式管理的环形缓冲区。闪存区域划分为多个扇区（sector），记录在当前扇区内依次追加；空间用尽后，NVS 会擦除另一个扇区，以备使用。擦除前，NVS 先检查要保留的记录在其他在用扇区中是否仍有副本；如果没有，就先复制记录。</p>
+<p>标识符（id）是 16 位无符号数。对于每个仍在使用的 id，NVS 确保闪存中始终至少保留一份对应的记录。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J04-U01" id="zh-note-j04-u01" aria-labelledby="zh-note-j04-u01-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j04-u01-label">译校注 · J04-U01</p><p><strong>不要用 0xFFFF 分配业务 ID</strong></p><p>所核 NVS 实现用 <code>0xFFFF</code> 标记扇区关闭和垃圾回收等内部记录。ID 的类型是 16 位无符号整数，不表示每个取值都适合作业务 ID；不要依赖写入 API 一定会拒绝这个值。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/subsys/kvss/nvs/nvs.c#L232-L240">该页 RST 修订 · nvs.c:232-240 · 0eb8902dd731</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/subsys/kvss/nvs/nvs.c#L700-L710">该页 RST 修订 · nvs.c:700-710 · 0eb8902dd731</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/subsys/kvss/nvs/nvs.c#L724-L735">该页 RST 修订 · nvs.c:724-735 · 0eb8902dd731</a></li></ul></details></div>
+<p>NVS 可以保存二进制数据块、字符串、整型、长整型，以及这些类型的任意组合。</p>
+<p>每条记录由数据及 8 字节的元数据（metadata）组成。数据从扇区开头依次写入，元数据表则从扇区末尾向前增长。元数据包含标识符、数据在扇区内的偏移量、数据长度、part 字段（未使用）和循环冗余校验码（CRC）。这个 CRC 只覆盖元数据，用于确认写入是否完成，不校验实际数据。要保护数据本身，可以启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_NVS_DATA_CRC" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_NVS_DATA_CRC</span></code></a>，另行计算可选的 CRC-32。</p>
+<figure class="align-default" id="id1">
+<pre class="zh-frozen-diagram-source" hidden="hidden">
+        packet
+  0-15: "id"
+  16-31: "Data offset"
+  32-47: "Data length"
+  48-55: "part (unused)"
+  56-63: "CRC-8"
+    </pre><a href="../../../_images/j-nvs-metadata-zh.svg" title="打开原尺寸位图，可放大阅读" class="zh-nvs-zoom"><img src="../../../_images/j-nvs-metadata-zh.svg" alt="64 位元数据：0–15 标识符，16–31 扇区内偏移，32–47 数据长度，48–55 未使用的 part，56–63 元数据 CRC-8。" style="width:100%;height:auto;background:white"></a><figcaption>
+<p><span class="caption-text">NVS 元数据条目布局（点击放大）</span> · 图源：Zephyr 项目贡献者，CC BY 4.0；字段名汉化，位范围不变。<a class="headerlink" href="#id1" title="链接到此图"></a></p>
+</figcaption>
+<details class="zh-bit-table"><summary>逐字段阅读：位范围与含义</summary><dl style="text-align:left; margin:0.6em 0"><dt>位 0–15</dt><dd>标识符（id）</dd><dt>位 16–31</dt><dd>数据在扇区内的偏移量（Data offset）</dd><dt>位 32–47</dt><dd>数据长度（Data length）</dd><dt>位 48–55</dt><dd>part 字段，未使用</dd><dt>位 56–63</dt><dd>元数据校验码（CRC-8），不覆盖数据本身</dd></dl></details></figure>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>仅在读取一条记录的全部数据时才校验其数据 CRC。部分读取不作此检查，因为数据 CRC 存放在该记录数据区的末尾。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>如果已有 NVS 数据是在未启用数据 CRC 的情况下写入的，直接启用该功能会导致所有旧数据被判为无效。</p>
+</div>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J04-U02" id="zh-note-j04-u02" aria-labelledby="zh-note-j04-u02-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j04-u02-label">译校注 · J04-U02</p><p><strong>旧数据不兼容不等于每次读取都报错</strong></p><p>开启数据 CRC 后，旧记录会按含尾部 CRC 的格式解释；部分读取又不校验数据 CRC。因此，不能用“一次读取没有报错”来判断旧区兼容。切换格式前应先安排旧数据迁移。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/subsys/kvss/nvs/nvs.c#L1511-L1549">该页 RST 修订 · nvs.c:1511-1549 · 0eb8902dd731</a></li></ul></details></div>
+<p>写入 NVS 时始终先写数据，再写元数据。初始化时，NVS 会忽略那些已写入闪存却没有对应元数据的数据。</p>
+<p>初始化期间，NVS 会核验闪存中的记录；若元数据缺失或不正确，就忽略对应的数据。</p>
+<p>写入闪存前，NVS 先比较标识符及其对应的数据。如果记录没有变化，就不执行写入。</p>
+<p>要避免频繁擦除闪存，必须留足空闲空间。空间不足可能使回收反复发生。NVS 检测到回收再也腾不出所需空间时，停止此次操作并报告空间不足。</p>
+<p>NVS 存储实例的声明如下：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">nvs_fs</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="p">.</span><span class="n">flash_device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NVS_FLASH_DEVICE</span><span class="p">,</span>
+<span class="p">.</span><span class="n">sector_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NVS_SECTOR_SIZE</span><span class="p">,</span>
+<span class="p">.</span><span class="n">sector_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NVS_SECTOR_COUNT</span><span class="p">,</span>
+<span class="p">.</span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NVS_STORAGE_OFFSET</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>其中：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NVS_FLASH_DEVICE</span></code> 是对所用闪存设备的引用；该设备必须已可用。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NVS_SECTOR_SIZE</span></code> 是扇区大小，必须既是闪存擦除页大小的整数倍，又是 2 的幂。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NVS_SECTOR_COUNT</span></code> 是扇区数，至少为 2。始终留一个空扇区，以便复制仍需保留的数据。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NVS_STORAGE_OFFSET</span></code> 是这片存储区域在闪存内的偏移量。</p></li>
+</ul>
+<section id="flash-wear">
+<h2>闪存磨损（flash wear）<a class="headerlink" href="#flash-wear" title="链接到此标题"></a></h2>
+<p>将数据写入闪存时，需要考虑磨损。闪存寿命受可擦除次数限制，每次以页为单位擦除，页大小由硬件决定。以 nRF51822 为例，页大小为 1024 字节，每页约可擦除 20,000 次。</p>
+<section id="calculating-expected-device-lifetime">
+<h3>估算设备使用寿命<a class="headerlink" href="#calculating-expected-device-lifetime" title="链接到此标题"></a></h3>
+<p>假设有一个 4 字节的状态变量，每分钟更新一次，重启后需要恢复。为 NVS 分配两个扇区，每个扇区与一个擦除页一样大（1024 字节）。</p>
+<p>每次保存这个变量占用 12 字节：8 字节元数据加 4 字节数据。按此估算，经过 1024/12 = 85.33 分钟，第一个扇区写满；再过 85.33 分钟，第二个也写满。由于只有两个扇区，运行约 171 分钟后，要擦除第一个扇区以便再次使用。按每页能擦除 20,000 次、约每 171 分钟轮到同一页擦除一次估算，寿命约为 171 × 20,000 分钟，即约 6.5 年。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J04-U04" id="zh-note-j04-u04" aria-labelledby="zh-note-j04-u04-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j04-u04-label">译校注 · J04-U04</p><p><strong>6.5 年估算的适用条件</strong></p><p>示例按每次 4 字节数据加 8 字节元数据估算，没有把全部空间开销计入。扇区保留空间、写对齐、回收时搬移仍有效的数据，以及启用数据 CRC 时的额外字节，都会影响实际擦除间隔。约 6.5 年是示例估值，不是设备寿命保证。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/subsys/kvss/nvs/nvs.c#L1576-L1587">该页 RST 修订 · nvs.c:1576-1587 · 0eb8902dd731</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/subsys/kvss/nvs/nvs.c#L1629-L1639">该页 RST 修订 · nvs.c:1629-1639 · 0eb8902dd731</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/0eb8902dd7311a1c7cd086c95f763097625fb2ea/subsys/kvss/nvs/nvs_priv.h#L35-L44">该页 RST 修订 · nvs_priv.h:35-44 · 0eb8902dd731</a></li></ul></details></div>
+<p>更一般地，设：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NS</span></code> 为每分钟的存储请求数；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DS</span></code> 为每次的数据大小，以字节为单位；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SECTOR_SIZE</span></code> 为扇区大小，以字节为单位；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PAGE_ERASES</span></code> 为每页可擦除的次数；</p></li>
+</ul>
+<p>则预期寿命（以分钟为单位）可按下式估算：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>SECTOR_COUNT * SECTOR_SIZE * PAGE_ERASES / (NS * (DS+8)) minutes
+</pre></div>
+</div>
+<p>由公式可见，若预计寿命过短，可以增加 <code class="docutils literal notranslate"><span class="pre">SECTOR_COUNT</span></code> 或 <code class="docutils literal notranslate"><span class="pre">SECTOR_SIZE</span></code>。</p>
+</section>
+</section>
+<section id="flash-write-block-size-migration">
+<h2>写入块大小变化时的迁移<a class="headerlink" href="#flash-write-block-size-migration" title="链接到此标题"></a></h2>
+<p>设备固件升级（DFU）可能会更换 NVS 使用的闪存驱动，从而改变所支持的最小写入块大小。只要分配表条目（ATE）在闪存中实际占用的大小不变，原有 NVS 存储格式就仍然兼容。在这一前提下，可以在 1、2、4、8 字节的写入块大小之间迁移。</p>
+</section>
+<section id="sample">
+<h2>示例（Sample）<a class="headerlink" href="#sample" title="链接到此标题"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">samples/subsys/kvss/nvs</span></code> 中有一个演示如何使用 NVS 的示例。</p>
+</section>
+<section id="troubleshooting">
+<h2>故障排查<a class="headerlink" href="#troubleshooting" title="链接到此标题"></a></h2>
+<dl class="simple">
+<dt>使用 NVS 时发生 MPU 故障，或返回 <code class="docutils literal notranslate"><span class="pre">-ETIMEDOUT</span></code> 错误</dt><dd><p>NVS 可以使用片上系统（SoC）的内部闪存。启用内存保护单元（MPU）时，闪存驱动要求 MPU 允许对闪存进行读、写和执行（RWX）；通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MPU_ALLOW_FLASH_WRITE" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MPU_ALLOW_FLASH_WRITE</span></code></a> 配置该权限。若禁用该选项，且使用 SoC 内部闪存的 NVS 应用是唯一运行的线程，就会发生 MPU 故障。在多线程应用中，故障可能被其他线程截获，此时 NVS API 会返回 <code class="docutils literal notranslate"><span class="pre">-ETIMEDOUT</span></code> 错误。</p>
+</dd>
+</dl>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<p>NVS 子系统 API 由 <code class="docutils literal notranslate"><span class="pre">nvs.h</span></code> 提供：</p>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__nvs__data__structures.html" title="英文原文" hreflang="en" data-lang-target="en">NVS 数据结构（Non-volatile Storage Data Structures）</a></dt>
+</dl>
+
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__nvs__high__level__api.html" title="英文原文" hreflang="en" data-lang-target="en">NVS 接口（Non-volatile Storage APIs）</a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="../../../samples/subsys/kvss/nvs/README.html#nvs" title="使用 NVS API 在闪存中保存和读取数据。">NVS 示例：保存重启计数（Non-Volatile Storage）</a></span><span class="code-sample-description">使用 NVS API 在闪存中保存和读取数据。</span></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-10-06。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../J-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

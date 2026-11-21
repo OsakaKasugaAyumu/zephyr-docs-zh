@@ -237,7 +237,7 @@
              
   <section id="tracing-values-to-their-source">
 <span id="kconfig-traceconfig"></span><h1>追溯配置值的来源<a class="headerlink" href="#tracing-values-to-their-source" title="链接到此标题"></a></h1>
-<p class="zh-edition">非官方简体中文译本 · 英文基线 4.5.99 · C11 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../c-index.html">C 批目录</a> · <a href="https://docs.zephyrproject.org/latest/build/kconfig/tracing.html" hreflang="en">本页英文原文</a></p><p>保存在 <code class="file docutils literal notranslate"><span class="pre">zephyr/.config</span></code> 中的合并配置，是把用户配置应用到整棵 Kconfig 定义树后的结果。有些值很难追踪，尤其是定义树中其他位置隐式选中了不可见符号时。可使用 <code class="docutils literal notranslate"><span class="pre">traceconfig</span></code> 目标，在构建目录生成报告，逐个说明各符号为何取得最终值。</p>
+<p class="zh-edition">非官方简体中文译本 · 英文基线 4.5.99 · C11 · <a href="../../../index.html">全站目录（94 篇）</a> · <a href="../../../c-index.html">C 批目录</a> · <a href="https://docs.zephyrproject.org/latest/build/kconfig/tracing.html" hreflang="en">本页英文原文</a></p><p>保存在 <code class="file docutils literal notranslate"><span class="pre">zephyr/.config</span></code> 中的合并配置，是把用户配置应用到整棵 Kconfig 定义树后的结果。有些值很难追踪，尤其是定义树中其他位置隐式选中了不可见符号时。可使用 <code class="docutils literal notranslate"><span class="pre">traceconfig</span></code> 目标，在构建目录生成报告，逐个说明各符号为何取得最终值。</p>
 <p>照常构建 Zephyr 项目后，运行下面任一命令即可生成 Kconfig 追踪报告：</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>traceconfig

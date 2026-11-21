@@ -4,7 +4,7 @@
 
 [📖 在线阅读 Zephyr 中文文档](https://osakakasugaayumu.github.io/zephyr-docs-zh/)
 
-从这里进入总目录：入门指南 1 篇，A–D 批 39 篇，E 批内核服务 9 篇，F–I 批 30 篇，共 79 篇。手机和电脑使用同一网址，无需登录或下载仓库。未翻译的页面链接到英文原文。
+从这里进入总目录：入门指南 1 篇，A–D 批 39 篇，E 批内核服务 9 篇，F–I 批 30 篇，J 批 8 篇，K 批 7 篇，共 94 篇。手机和电脑使用同一网址，无需登录或下载仓库。未翻译的页面链接到英文原文。
 
 第一次使用 Zephyr？从[入门指南（Getting Started Guide）](https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/develop/getting_started/index.html)开始。
 

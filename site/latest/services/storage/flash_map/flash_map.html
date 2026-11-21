@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>闪存分区映射（Flash map） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/flash_map/flash_map.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="非易失性存储器（Non-Volatile Memory，NVMEM）" href="https://docs.zephyrproject.org/latest/services/storage/nvmem/index.html">
+    <link rel="prev" title="文件系统" href="https://docs.zephyrproject.org/latest/services/storage/file_system/index.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/services/storage/flash_map/flash_map.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/storage/flash_map/flash_map.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="flash_map.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/connectivity/index.html" hreflang="en" data-lang-target="en" title="英文原文">连接与通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/io.html" hreflang="en" data-lang-target="en" title="英文原文">输入／输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/messaging.html" hreflang="en" data-lang-target="en" title="英文原文">进程间通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/observability.html" hreflang="en" data-lang-target="en" title="英文原文">日志、跟踪与调试</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">存储与配置总览（Storage &amp; Configuration）</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/disk/access.html" hreflang="en" data-lang-target="en" title="英文原文">磁盘访问（Disk Access）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/fcb/fcb.html" hreflang="en" data-lang-target="en" title="英文原文">闪存环形缓冲区（Flash Circular Buffer，FCB）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/file_system/index.html" hreflang="en" data-lang-target="en" title="英文原文">文件系统</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">闪存分区映射（Flash map）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#relationship-with-devicetree">与设备树（Devicetree）的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/nvmem/index.html" hreflang="en" data-lang-target="en" title="英文原文">非易失性存储器（Non-Volatile Memory，NVMEM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nvs/nvs.html">非易失性存储（Non-Volatile Storage，NVS）：原理与约束</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/retention/index.html" hreflang="en" data-lang-target="en" title="英文原文">数据保持系统（Retention System）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/secure_storage/index.html" hreflang="en" data-lang-target="en" title="英文原文">安全存储（Secure Storage）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../settings/index.html">配置持久化子系统（Settings）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stream/stream_flash.html">流式写入闪存（Stream Flash）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/zms/zms.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 存储系统（Zephyr Memory Storage，ZMS）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/memory_management.html" hreflang="en" data-lang-target="en" title="英文原文">内存管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/power_management.html" hreflang="en" data-lang-target="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/security.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../device_mgmt/index.html">设备管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/algorithms.html" hreflang="en" data-lang-target="en" title="英文原文">算法与数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/frameworks.html" hreflang="en" data-lang-target="en" title="英文原文">框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/portability/index.html" hreflang="en" data-lang-target="en" title="英文原文">操作系统抽象层</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a> »</li>
+  
+     <li><a href="../index.html">存储与配置总览（Storage &amp; Configuration）</a> »</li>
+  
+  <li>闪存分区映射（Flash map）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/services/storage/flash_map/flash_map.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27services%2Fstorage%2Fflash_map%2Fflash_map%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Storage&amp;env=-+Page%3A+services%2Fstorage%2Fflash_map%2Fflash_map%0A-+Version%3A+main%0A-+SHA-1%3A+ecf93f117c3048e7a3ae18a58d0b49d0f51b3182&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="flash-map">
+<span id="flash-map-api"></span><h1>闪存分区映射（Flash map）<a class="headerlink" href="#flash-map" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · J03 · 英文基线 4.5.99 · <a href="../../../../index.html">全站目录（94 篇）</a> · <a href="../../../../index.html#batch-j">J 批目录</a> · <a href="https://docs.zephyrproject.org/latest/services/storage/flash_map/flash_map.html" hreflang="en">本页英文原文</a></p><p><code class="docutils literal notranslate"><span class="pre">&lt;zephyr/storage/flash_map.h&gt;</span></code> API 通过 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 结构体提供设备闪存分区的信息。</p>
+<p>每个 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 描述一个闪存分区。API 提供一份闪存分区映射（flash map），其中预定义的闪存区域都可通过全局唯一的数字 ID 访问。映射由 DTS 文件中与 “fixed-partitions” 或 “zephyr,mapped-partition” 兼容的条目生成。应用也可以在运行时创建自己的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 对象。</p>
+<p>本文用“闪存区域”（flash area）指代由 “fixed-partitions” 或 “zephyr,mapped-partition” 描述的单个分区。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J03-U01" id="zh-note-j03-u01" aria-labelledby="zh-note-j03-u01-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j03-u01-label">译校注 · J03-U01</p><p><strong>分区容器和分区节点</strong></p><p>在 <code>fixed-partitions</code> 布局中，容器下面的每个分区子节点才对应一个闪存区域；选择单个区域时用分区子节点的标签，不用容器的标签。另一种布局中，<code>zephyr,mapped-partition</code> 节点本身描述分区。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1b1b2e0cdca45b5c1fa46c319da3b717e80fa60b/dts/bindings/mtd/fixed-partitions.yaml#L1-L17">独立固定实现 · fixed-partitions.yaml:1-17 · 1b1b2e0cdca4</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/ecf93f117c3048e7a3ae18a58d0b49d0f51b3182/dts/bindings/mtd/zephyr,mapped-partition.yaml#L1-L12">该页 RST 修订 · zephyr,mapped-partition.yaml:1-12 · ecf93f117c30</a></li></ul></details></div>
+<p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 包含一个指向 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structdevice.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">device</span></code></a> 的指针，可借助 <a class="reference internal" href="../../../hardware/peripherals/flash.html#flash-api"><span class="std std-ref">闪存 API（flash API）</span></a> 直接访问该区域所在的闪存设备。每个区域由三个量描述：所在设备、相对设备起始地址的偏移量，以及区域大小。<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#ga6fe2593210688eb85e03bea5f96ea2f7" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">flash_area_open()</span></code></a> 还使用一个标识符在映射中查找相应区域。</p>
+<p>flash_map.h 提供操作 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 的函数，主要包括 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#ga7c55704b0c0061a4715470676114b127" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">flash_area_read()</span></code></a> 和 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#gaa56052f8d6bf4f6966752bc21f5cceb8" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">flash_area_write()</span></code></a>。它们封装了闪存 API，并额外检查偏移量和大小，确保操作不超出预定义区域。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;zephyr/storage/flash_map.h&gt;</span></code> 中大多数 API 函数都需要一个 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 对象指针，以确定操作的区域。有两种获取方式：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>调用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#ga6fe2593210688eb85e03bea5f96ea2f7" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">flash_area_open()</span></code></a> 获取指针；</p></li>
+<li><p>自行定义一个 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 对象，提供有效的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structdevice.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">device</span></code></a> 对象指针，以及该区域在闪存设备内的偏移量和大小。</p></li>
+</ul>
+</div></blockquote>
+<p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#ga6fe2593210688eb85e03bea5f96ea2f7" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">flash_area_open()</span></code></a> 按数字标识符在映射中查找 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 对象；如果找到，就返回指向该区域对象的指针。将 “fixed-partitions” 或 “zephyr,mapped-partition” 的 DTS 节点标签传给 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#gafbc907db76aec2702eff9e5265323560" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PARTITION_ID()</span></code></a>，即可获得区域 ID。下文说明这些标签如何由设备树定义。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J03-U02" id="zh-note-j03-u02" aria-labelledby="zh-note-j03-u02-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j03-u02-label">译校注 · J03-U02</p><p><strong>状态码和输出指针</strong></p><p>调用 <code>flash_area_open(id, &amp;area)</code> 时，函数返回的是状态码。返回 <code>0</code> 表示成功，区域指针经输出参数写入 <code>area</code>；返回错误时，不要把它当作已打开的区域使用。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/ecf93f117c3048e7a3ae18a58d0b49d0f51b3182/include/zephyr/storage/flash_map.h#L114-L127">该页 RST 修订 · flash_map.h:114-127 · ecf93f117c30</a></li></ul></details></div>
+<section id="relationship-with-devicetree">
+<h2>与设备树（Devicetree）的关系<a class="headerlink" href="#relationship-with-devicetree" title="链接到此标题"></a></h2>
+<p>flash_map.h API 使用由 <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/api.html#devicetree-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">设备树 API</span></a> 生成的数据，尤其是其中的<a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/api.html#devicetree-flash-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">固定与映射闪存分区</span></a>。Zephyr 还约定了通过 MCUboot 引导程序（bootloader）进行<a class="reference internal" href="../../device_mgmt/dfu.html#dfu"><span class="std std-ref">设备固件升级（DFU）</span></a>时使用的分区，并允许为<a class="reference internal" href="https://docs.zephyrproject.org/latest/services/storage/file_system/index.html#file-system-api" hreflang="en" data-lang-target="en" title="英文原文"><span class="std std-ref">文件系统（file systems）</span></a>或其他非易失性<a class="reference internal" href="../index.html#storage-services"><span class="std std-ref">存储（storage）</span></a>定义分区。</p>
+<p>以下设备树片段使用固定闪存分区，为 MCUboot 和数据存储划分空间。为便于阅读，示例省略了部分细节。【译校注】冻结英文示例的 compatible 写作 “zephyr.mapped-partition”（点），与本页正文的 “zephyr,mapped-partition”（逗号）不同。下方代码按原样保留，不要把这个拼写差异当作两种兼容字符串。</p>
+<div class="highlight-DTS notranslate"><div class="highlight"><pre><span></span><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nf">soc</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nl">flashctrl</span><span class="p">:</span><span class="w"> </span><span class="nf">flash-controller</span><span class="o">@</span><span class="mi">deadbeef</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nl">flash0</span><span class="p">:</span><span class="w"> </span><span class="nf">flash</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">				</span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"soc-nv-flash"</span><span class="p">;</span>
+<span class="w">				</span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="w"> </span><span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">				</span><span class="kr">ranges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="w"> </span><span class="mh">0x0</span><span class="w"> </span><span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">				</span><span class="nf">partitions</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">					</span><span class="kr">ranges</span><span class="p">;</span>
+<span class="w">					</span><span class="kr">#address-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">					</span><span class="kr">#size-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">					</span><span class="nl">boot_partition</span><span class="p">:</span><span class="w"> </span><span class="nf">partition</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">						</span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"zephyr.mapped-partition"</span><span class="p">;</span>
+<span class="w">						</span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="w"> </span><span class="mh">0x10000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">						</span><span class="n">read-only</span><span class="p">;</span>
+<span class="w">					</span><span class="p">};</span>
+
+<span class="w">					</span><span class="nl">storage_partition</span><span class="p">:</span><span class="w"> </span><span class="nf">partition</span><span class="o">@</span><span class="mi">1e000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">						</span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"zephyr.mapped-partition"</span><span class="p">;</span>
+<span class="w">						</span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x1e000</span><span class="w"> </span><span class="mh">0x2000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">					</span><span class="p">};</span>
+
+<span class="w">					</span><span class="nl">slot0_partition</span><span class="p">:</span><span class="w"> </span><span class="nf">partition</span><span class="o">@</span><span class="mi">20000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">						</span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"zephyr.mapped-partition"</span><span class="p">;</span>
+<span class="w">						</span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x20000</span><span class="w"> </span><span class="mh">0x60000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">					</span><span class="p">};</span>
+
+<span class="w">					</span><span class="nl">slot1_partition</span><span class="p">:</span><span class="w"> </span><span class="nf">partition</span><span class="o">@</span><span class="mi">80000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">						</span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"zephyr.mapped-partition"</span><span class="p">;</span>
+<span class="w">						</span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x80000</span><span class="w"> </span><span class="mh">0x60000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">					</span><span class="p">};</span>
+
+<span class="w">					</span><span class="nl">scratch_partition</span><span class="p">:</span><span class="w"> </span><span class="nf">partition</span><span class="o">@</span><span class="mi">e0000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">						</span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"zephyr.mapped-partition"</span><span class="p">;</span>
+<span class="w">						</span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0xe0000</span><span class="w"> </span><span class="mh">0x20000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">					</span><span class="p">};</span>
+<span class="w">				</span><span class="p">};</span>
+<span class="w">			</span><span class="p">};</span>
+<span class="w">		</span><span class="p">};</span>
+<span class="w">	</span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>分区偏移量以该分区所属闪存的起始地址为基准。</p>
+<p><code class="docutils literal notranslate"><span class="pre">boot_partition</span></code>、<code class="docutils literal notranslate"><span class="pre">slot0_partition</span></code>、<code class="docutils literal notranslate"><span class="pre">slot1_partition</span></code> 和 <code class="docutils literal notranslate"><span class="pre">scratch_partition</span></code> 都是为 MCUboot 定义的节点标签，但并非每种 MCUboot 配置都需要定义全部四个。详见<a class="reference external" href="https://docs.mcuboot.com">MCUboot 文档（英文）</a>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">storage_partition</span></code> 节点供文件系统或其他非易失性存储 API 使用。</p>
+<p>将 DTS 节点标签传给 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#gafbc907db76aec2702eff9e5265323560" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PARTITION_ID()</span></code></a> 即可取得闪存区域的数字 ID。例如，要取得 <code class="docutils literal notranslate"><span class="pre">slot0_partition</span></code> 的 ID，可调用 <code class="docutils literal notranslate"><span class="pre">PARTITION_ID(slot0_partition)</span></code>。</p>
+<p>所有 <code class="code docutils literal notranslate"><span class="pre">PARTITION_*</span></code> 宏都以 DTS 节点标签作为分区标识符。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J03-U04" id="zh-note-j03-u04" aria-labelledby="zh-note-j03-u04-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j03-u04-label">译校注 · J03-U04</p><p><strong>节点标签与节点标识符</strong></p><p>宏的实参要看具体变体：<code>PARTITION_ID(label)</code> 接受分区的设备树节点标签，而 <code>PARTITION_NODE_SIZE(node)</code> 等接口接受节点标识符。不能只凭 <code>PARTITION_</code> 前缀就把两者互换。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/ecf93f117c3048e7a3ae18a58d0b49d0f51b3182/include/zephyr/storage/flash_map.h#L383-L393">该页 RST 修订 · flash_map.h:383-393 · ecf93f117c30</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/ecf93f117c3048e7a3ae18a58d0b49d0f51b3182/include/zephyr/storage/flash_map.h#L470-L484">该页 RST 修订 · flash_map.h:470-484 · ecf93f117c30</a></li></ul></details></div>
+<p>如果区域已在 DTS 文件中定义，查询其偏移量、大小或所在设备，并不需要先通过 <code class="xref c c-func docutils literal notranslate"><span class="pre">flash_map_open()</span></code> 取得 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 对象指针。只要知道节点标签，就可以分别用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#gaee5fe6581a477b83157d00155e150980" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PARTITION_OFFSET()</span></code></a> 查询偏移量、<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#gab5234434a7f106e4b3f2b79f2087279a" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PARTITION_SIZE()</span></code></a> 查询大小、<a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#ga565f24a138c217bdbe8f42afe8b664e0" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-macro docutils literal notranslate"><span class="pre">PARTITION_DEVICE()</span></code></a> 查询设备。例如，要查 <code class="docutils literal notranslate"><span class="pre">storage_partition</span></code> 的偏移量，只需使用 <code class="docutils literal notranslate"><span class="pre">PARTITION_OFFSET(storage_partition)</span></code>。【译校注】本句保留了英文原文的函数名；本页实际演示的打开函数是 flash_area_open()。</p>
+<p>下面演示如何将 DTS 节点标签与 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html#ga6fe2593210688eb85e03bea5f96ea2f7" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-func docutils literal notranslate"><span class="pre">flash_area_open()</span></code></a> 配合使用，取得 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/structflash__area.html" title="英文原文" hreflang="en" data-lang-target="en"><code class="xref c c-struct docutils literal notranslate"><span class="pre">flash_area</span></code></a> 对象指针：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">flash_area</span><span class="w"> </span><span class="o">*</span><span class="n">my_area</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flash_area_open</span><span class="p">(</span><span class="n">PARTITION_ID</span><span class="p">(</span><span class="n">slot0_partition</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">my_area</span><span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">handle_the_error</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">flash_area_read</span><span class="p">(</span><span class="n">my_area</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__flash__area__api.html" title="英文原文" hreflang="en" data-lang-target="en">闪存区域接口（flash area Interface）</a></dt>
+</dl>
+
+<div class="related-code-samples dropdown toggle-shown admonition">
+<p class="admonition-title">相关代码示例</p>
+<ul class="code-sample-list">
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/fs/littlefs/README.html#littlefs" title="英文原文" hreflang="en" data-lang-target="en">LittleFS 文件系统</a></span><span class="code-sample-description">在 LittleFS 上使用文件系统 API。</span></li>
+<li><span class="code-sample-name"><a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/soc_flash_nrf/README.html#soc-flash-nrf" title="英文原文" hreflang="en" data-lang-target="en">nRF SoC 内部存储</a></span><span class="code-sample-description">通过闪存 API 访问 SoC 内的闪存。</span></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-07-14。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../J-sources.txt">本批来源与素材说明</a> · <a href="../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

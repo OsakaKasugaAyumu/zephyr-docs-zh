@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>应用／软件镜像管理组（Application/software image management group） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e">
+      <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/device_mgmt/smp_groups/smp_group_1.html">
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="统计信息管理" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_2.html">
+    <link rel="prev" title="默认／操作系统管理组（Default/OS Management Group）" href="smp_group_0.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../_static/zh-pilot.css"><script src="../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_1.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/device_mgmt/smp_groups/smp_group_1.html"><link rel="stylesheet" href="../../../_static/k-review.css"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="smp_group_1.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" data-lang-target="en" hreflang="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" data-lang-target="en" hreflang="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" data-lang-target="en" hreflang="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" data-lang-target="en" hreflang="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" data-lang-target="en" hreflang="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" data-lang-target="en" hreflang="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" data-lang-target="en" hreflang="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" data-lang-target="en" hreflang="en" title="英文原文">系统服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/connectivity/index.html" data-lang-target="en" hreflang="en" title="英文原文">连接与通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/io.html" data-lang-target="en" hreflang="en" title="英文原文">输入／输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/messaging.html" data-lang-target="en" hreflang="en" title="英文原文">进程间通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/observability.html" data-lang-target="en" hreflang="en" title="英文原文">日志、跟踪与调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../storage/index.html">存储与配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/memory_management.html" data-lang-target="en" hreflang="en" title="英文原文">内存管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/power_management.html" data-lang-target="en" hreflang="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/security.html" data-lang-target="en" hreflang="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">设备管理总览（Device Management）</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../mcumgr.html">设备管理子系统（MCUmgr）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr_handlers.html" data-lang-target="en" hreflang="en" title="英文原文">MCUmgr 处理程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr_callbacks.html" data-lang-target="en" hreflang="en" title="英文原文">MCUmgr 回调</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../smp_protocol.html">简单管理协议规范（SMP Protocol Specification）</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../smp_protocol.html#frame-the-envelope">帧：消息的封装（Frame）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../smp_protocol.html#minimal-response">最小响应</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../smp_protocol.html#specifications-of-management-groups-supported-by-zephyr">Zephyr 支持的管理组规范</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="smp_group_0.html">默认／操作系统管理组（Default/OS Management Group）</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">应用／软件镜像管理组（Application/software image management group）</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#notion-of-slots-and-images-in-zephyr">Zephyr 中的“槽位”和“镜像”</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#state-of-images">镜像状态</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#image-upload">上传镜像</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#image-erase">擦除镜像</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#slot-info">槽位信息</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_2.html" data-lang-target="en" hreflang="en" title="英文原文">统计信息管理</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_3.html" data-lang-target="en" hreflang="en" title="英文原文">配置管理组（Settings / Config）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_8.html" data-lang-target="en" hreflang="en" title="英文原文">文件系统管理</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_9.html" data-lang-target="en" hreflang="en" title="英文原文">Shell 管理</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_10.html" data-lang-target="en" hreflang="en" title="英文原文">枚举管理组</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_11.html" data-lang-target="en" hreflang="en" title="英文原文">传输管理组</a></li>
+<li class="toctree-l5"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_63.html" data-lang-target="en" hreflang="en" title="英文原文">Zephyr 管理组</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../smp_transport.html">SMP 传输规范（SMP Transport Specification）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dfu.html">设备固件升级（DFU）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/ota.html" data-lang-target="en" hreflang="en" title="英文原文">无线更新（OTA）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/fota_http.html" data-lang-target="en" hreflang="en" title="英文原文">通过 HTTP 进行固件无线更新</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/ec_host_cmd.html" data-lang-target="en" hreflang="en" title="英文原文">EC 主机命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/binary_descriptors/index.html" data-lang-target="en" hreflang="en" title="英文原文">二进制描述符</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/algorithms.html" data-lang-target="en" hreflang="en" title="英文原文">算法与数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/frameworks.html" data-lang-target="en" hreflang="en" title="英文原文">框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/portability/index.html" data-lang-target="en" hreflang="en" title="英文原文">操作系统抽象层</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" data-lang-target="en" hreflang="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" data-lang-target="en" hreflang="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" data-lang-target="en" hreflang="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" data-lang-target="en" hreflang="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" data-lang-target="en" hreflang="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" data-lang-target="en" hreflang="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" data-lang-target="en" hreflang="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" data-lang-target="en" hreflang="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" data-lang-target="en" hreflang="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" data-lang-target="en" hreflang="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" data-lang-target="en" hreflang="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" data-lang-target="en" hreflang="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" data-lang-target="en" hreflang="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" data-lang-target="en" hreflang="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" data-lang-target="en" hreflang="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/services/index.html" data-lang-target="en" hreflang="en" title="英文原文">系统服务</a> »</li>
+  
+     <li><a href="../index.html">设备管理总览（Device Management）</a> »</li>
+  
+     <li><a href="../smp_protocol.html">简单管理协议规范（SMP Protocol Specification）</a> »</li>
+  
+  <li>应用／软件镜像管理组（Application/software image management group）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/services/device_mgmt/smp_groups/smp_group_1.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27services%2Fdevice_mgmt%2Fsmp_groups%2Fsmp_group_1%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+mcumgr&amp;env=-+Page%3A+services%2Fdevice_mgmt%2Fsmp_groups%2Fsmp_group_1%0A-+Version%3A+main%0A-+SHA-1%3A+1fc916a2b607848892c456b7974bce2f130ff0f5&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="application-software-image-management-group">
+<span id="mcumgr-smp-group-1"></span><h1>应用／软件镜像管理组（Application/software image management group）<a class="headerlink" href="#application-software-image-management-group" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · K06 · 英文基线 4.5.99 · <a href="../../../../index.html#batch-k">K 批目录</a> · <a href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_1.html" hreflang="en">本页英文原文</a></p><p>应用／软件镜像管理组定义了以下命令：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p>命令说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>镜像状态</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>上传镜像</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>File（已保留，Zephyr 不支持）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>Corelist（已保留，Zephyr 不支持）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<td><p>Coreload（已保留，Zephyr 不支持）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+<td><p>擦除镜像</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+<td><p>槽位信息</p></td>
+</tr>
+</tbody>
+</table>
+<section id="notion-of-slots-and-images-in-zephyr">
+<h2>Zephyr 中的“槽位”和“镜像”<a class="headerlink" href="#notion-of-slots-and-images-in-zephyr" title="链接到此标题"></a></h2>
+<p>“槽位”（slot）与“镜像”（image）的术语来自 MCUboot。这里一个镜像对应两个槽位：主槽位（primary）和次槽位（secondary）。在这里描述的布局中，应用按设计从主槽位运行，升级镜像按设计上传至次槽位；启动时由 MCUboot 负责交换两个槽位。也就是说，每对槽位用于一个可升级的应用。Zephyr 的设备树命名容易混淆：专供一个应用的 <code class="docutils literal notranslate"><span class="pre">fixed-partitions</span></code> 或 <code class="docutils literal notranslate"><span class="pre">zephyr,mapped-partition</span></code> 分区，节点标签分别为“slot0_partition”和“slot1_partition”，名称却分别是“image-0”和“image-1”。</p>
+<p>目前 Zephyr 最多支持两个镜像，此时映射关系如下：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>镜像</p></th>
+<th class="head"><p>槽位标签</p></th>
+<th class="head"><p>槽位名称</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>“slot0_partition”
+“slot1_partition”</p></td>
+<td><p>“image-0”
+“image-1”</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>“slot2_partition”
+“slot3_partition”</p></td>
+<td><p>“image-2”
+“image-3”</p></td>
+</tr>
+</tbody>
+</table><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u01" data-zh-note="K06-U01" aria-labelledby="zh-note-k06-u01-label"><p id="zh-note-k06-u01-label"><strong>K06-U01 · 镜像数量不是协议编号</strong></p><p>表中列举的是两对槽位，不是通用上限。所核 <code style="white-space:normal;overflow-wrap:anywhere">CONFIG_MCUMGR_GRP_IMG_UPDATABLE_IMAGE_NUMBER</code> 范围为 1–3，实际数量还须与引导程序及分区匹配。状态响应中的 <code style="white-space:normal;overflow-wrap:anywhere">image</code> 从 0 编号，不要将表中“第 1、2 个镜像”直接编码成 1、2。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/Kconfig#L47-L58">Kconfig · L47–58 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt_state.c#L490-L496">img_mgmt_state.c · L490–496 · <code style="white-space:normal">1fc916a2b607</code></a></li></ul></details></div></div><!--/K-R2:note-->
+</section>
+<section id="state-of-images">
+<h2>镜像状态<a class="headerlink" href="#state-of-images" title="链接到此标题"></a></h2>
+<p>此命令用于设置镜像状态，或列出镜像及各自的当前状态。</p>
+<section id="get-state-of-images-request">
+<h3>获取镜像状态的请求<a class="headerlink" href="#get-state-of-images-request" title="链接到此标题"></a></h3>
+<p>获取镜像状态的请求帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>此命令发送一个空的 CBOR 映射作为数据。</p>
+</section>
+<section id="get-state-of-images-response">
+<span id="mcumgr-smp-protocol-op-1-grp-1-cmd-0"></span><h3>获取镜像状态的响应<a class="headerlink" href="#get-state-of-images-response" title="链接到此标题"></a></h3>
+<p>获取镜像状态的响应帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>在下面的响应定义中，“image”标为可选（opt）。若目标应用仅支持一个镜像，响应可不含此字段；若支持多个应用镜像，此字段必填，以标识列出的是哪个镜像的信息。</p>
+</div>
+<p>响应仅含有效镜像的信息；无法识别为有效的镜像会被跳过。</p>
+<p>成功响应的 CBOR 数据：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"images" : [
+        {
+            (str,opt)"image"        : (uint)
+            (str)"slot"             : (uint)
+            (str)"version"          : (str)
+            (str,opt*)"hash"        : (byte str)
+            (str,opt)"bootable"     : (bool)
+            (str,opt)"pending"      : (bool)
+            (str,opt)"confirmed"    : (bool)
+            (str,opt)"active"       : (bool)
+            (str,opt)"permanent"    : (bool)
+        }
+        ...
+    ]
+    (str,opt)"splitStatus" : (int)
+}
+</pre></div>
+</div>
+<p>出错时，CBOR 数据采用以下格式：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="标签页内容" class="closeable" role="tablist"><button aria-controls="panel-0-U01QIHZlcnNpb24gMg==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tab" tabindex="0">SMP 版本 2</button><button aria-controls="panel-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tab" tabindex="-1">SMP 版本 1（以及 SMP 版本 2 的非组专属错误）</button></div><div aria-labelledby="tab-0-U01QIHZlcnNpb24gMg==" class="sphinx-tabs-panel group-tab" id="panel-0-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"err" : {
+        (str)"group"    : (uint)
+        (str)"rc"       : (uint)
+    }
+}
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"rc"       : (int)
+    (str,opt)"rsn"  : (str)
+}
+</pre></div>
+</div>
+</div></div>
+<p>其中：</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>“image”</p></td>
+<td><p>有条件可选的镜像编号：运行中的应用只支持一个镜像时，可省略。</p></td>
+</tr>
+<tr class="row-even"><td><p>“slot”</p></td>
+<td><p>“image”内的槽位编号。每个镜像有两个槽位：主槽位（运行中的槽位）为 0，次槽位（用于双区 DFU）为 1。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“version”</p></td>
+<td><p>镜像版本字符串，由 <code class="docutils literal notranslate"><span class="pre">imgtool</span></code> 设置。</p></td>
+</tr>
+<tr class="row-even"><td><p>“hash”</p></td>
+<td><p>镜像头和镜像体的 SHA256 哈希，不等同于整个文件的 SHA256。这是 MCUboot 的 TLV 区中用于签名验证的数据哈希。仅在使用 MCUboot 串口恢复功能且只有一对镜像槽位时，此字段才可选；此配置下可以禁用 Kconfig 选项 <code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_BOOT_SERIAL_IMG_GRP_HASH</span></code> 来移除对哈希的支持。运行于应用中的 MCUmgr 必须支持发送哈希。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>参见下方 MCUboot 镜像格式文档中的 <code class="docutils literal notranslate"><span class="pre">IMAGE_TLV_SHA256</span></code>。</p>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>“bootable”</p></td>
+<td><p>若已设置镜像的可引导标志，则为 true；为 false 时可不出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“pending”</p></td>
+<td><p>若已将镜像标记为下次交换的目标，则为 true；为 false 时可不出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“confirmed”</p></td>
+<td><p>若镜像已确认，则为 true；为 false 时可不出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“active”</p></td>
+<td><p>若该镜像就是当前活动的应用，则为 true；为 false 时可不出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“permanent”</p></td>
+<td><p>若镜像在下次启动后应留在主槽位，则为 true；为 false 时可不出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“splitStatus”</p></td>
+<td><p>表示拆分镜像的加载程序是否与应用部分兼容；Zephyr 不使用此字段。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“err” -&gt; “group”</p></td>
+<td><p>组专属错误码所属的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ga81f98b9a0c3810f7d607b783f8e259b5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_group_t</span></code></a> 管理组。仅在使用 SMP 版本 2 且返回错误时出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“err” -&gt; “rc”</p></td>
+<td><p>组专属错误码的索引。在 SMP 版本 2 中，仅当该值非零（表示错误）时出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“rc”</p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#gac5d8757a7ca945c77f405764b85ad5c5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_err_t</span></code></a>，仅在值非零（表示错误）时出现；适用于 SMP 版本 1，或 SMP 版本 2 中 SMP 自身的错误。</p></td>
+</tr>
+<tr class="row-even"><td><p>“rsn”</p></td>
+<td><p>可选字符串，用于补充说明错误原因；当 <code class="docutils literal notranslate"><span class="pre">rc</span></code> 为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ggac5d8757a7ca945c77f405764b85ad5c5a68adbc4d77eaae550973b5169d1c14be" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">MGMT_ERR_EUNKNOWN</span></code></a> 时尤为有用。</p></td>
+</tr>
+</tbody>
+</table><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u02" data-zh-note="K06-U02" aria-labelledby="zh-note-k06-u02-label"><p id="zh-note-k06-u02-label"><strong>K06-U02 · 状态 hash 与上传 sha 覆盖范围不同</strong></p><p>在所核 MCUboot 哈希路径中，镜像头、镜像体以及存在时的受保护 TLV 区都参与计算。状态字段 <code style="white-space:normal;overflow-wrap:anywhere">hash</code> 对应镜像 TLV 中的摘要；上传字段 <code style="white-space:normal;overflow-wrap:anywhere">sha</code> 针对整个待传文件，两者不能互换。</p><details><summary>固定版本依据（4 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/west.yml#L331-L334">west.yml · L331–334 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/mcuboot/blob/0fae8920c4e5acb792b3fe766c89c668f42be6ee/boot/bootutil/src/bootutil_img_hash.c#L122-L129">bootutil_img_hash.c · L122–129 · <code style="white-space:normal">0fae8920c4e5</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt_state.c#L505-L509">img_mgmt_state.c · L505–509 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt.c#L344-L365">img_mgmt.c · L344–365 · <code style="white-space:normal">1fc916a2b607</code></a></li></ul></details></div></div><!--/K-R2:note--><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u03" data-zh-note="K06-U03" aria-labelledby="zh-note-k06-u03-label"><p id="zh-note-k06-u03-label"><strong>K06-U03 · bootable 不是启动验证结果</strong></p><p>所核实现将镜像头标志 <code style="white-space:normal;overflow-wrap:anywhere">IMAGE_F_NON_BOOTABLE</code> 取反，得到状态字段 <code style="white-space:normal;overflow-wrap:anywhere">bootable</code>。该字段为真，不等于已经验证镜像能成功启动。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt_state.c#L505-L513">img_mgmt_state.c · L505–513 · <code style="white-space:normal">1fc916a2b607</code></a></li></ul></details></div></div><!--/K-R2:note-->
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>关于镜像和槽位如何工作，请参阅 MCUboot 文档：<a class="reference external" href="https://docs.mcuboot.com/design.html#image-slots">https://docs.mcuboot.com/design.html#image-slots</a>。关于 MCUboot 镜像格式，请参阅：<a class="reference external" href="https://docs.mcuboot.com/design.html#image-format">https://docs.mcuboot.com/design.html#image-format</a>。</p>
+</div>
+</section>
+<section id="set-state-of-image-request">
+<h3>设置镜像状态的请求<a class="headerlink" href="#set-state-of-image-request" title="链接到此标题"></a></h3>
+<p>设置镜像状态的请求帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>请求的 CBOR 数据：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str,opt)"hash"     : (byte str)
+    (str)"confirm"      : (bool)
+}
+</pre></div>
+</div>
+<p>若“confirm”为 false 或未提供，则将“hash”所指的镜像标记为测试：不标记为永久镜像，硬复位后先前的应用将恢复至主槽位。若“confirm”为 true，则“hash”可选；未指定哈希时，默认确认当前运行的应用。</p><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u05" data-zh-note="K06-U05" aria-labelledby="zh-note-k06-u05-label"><p id="zh-note-k06-u05-label"><strong>K06-U05 · 试启动与回退发生在不同的复位上</strong></p><p>在支持测试和回退的交换模式中，标记测试后的第一次复位尝试启动新镜像。若试启动成功但未确认，后续复位才会回退；若已确认，就不会仅因这次测试而回退。这个顺序不适用于所有升级模式。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/4671da12806ddd50a01332d153ef7917467a0240/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt_state.c#L184-L200">img_mgmt_state.c · L184–200 · <code style="white-space:normal">4671da12806d</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt_state.c#L394-L405">img_mgmt_state.c · L394–405 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/4671da12806ddd50a01332d153ef7917467a0240/samples/subsys/mgmt/mcumgr/smp_svr/README.rst#L300-L318">README.rst · L300–318 · <code style="white-space:normal">4671da12806d</code></a></li></ul></details></div></div><!--/K-R2:note-->
+</section>
+<section id="set-state-of-image-response">
+<h3>设置镜像状态的响应<a class="headerlink" href="#set-state-of-image-response" title="链接到此标题"></a></h3>
+<p>响应格式与<a class="reference internal" href="#mcumgr-smp-protocol-op-1-grp-1-cmd-0"><span class="std std-ref">获取镜像状态的响应</span></a>相同。</p>
+</section>
+</section>
+<section id="image-upload">
+<h2>上传镜像<a class="headerlink" href="#image-upload" title="链接到此标题"></a></h2>
+<p>镜像上传命令用于更新应用镜像。</p>
+<section id="image-upload-request">
+<h3>镜像上传请求<a class="headerlink" href="#image-upload-request" title="链接到此标题"></a></h3>
+<p>每个待上传的镜像块都要发送一个上传请求，直至整个镜像上传至设备。</p>
+<p>镜像上传请求的帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>请求的 CBOR 数据：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str,opt)"image"    : (uint)
+    (str,opt)"len"      : (uint)
+    (str)"off"          : (uint)
+    (str,opt)"sha"      : (byte str)
+    (str)"data"         : (byte str)
+    (str,opt)"upgrade"  : (bool)
+}
+</pre></div>
+</div>
+<p>其中：</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>“image”</p></td>
+<td><p>可选的镜像编号，可以完全不出现在请求中；省略时默认为 0。此字段只应在“off”为 0 时出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“len”</p></td>
+<td><p>可选的镜像长度；当“off”为 0 时必须出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“off”</p></td>
+<td><p>此请求携带的镜像块的偏移量。</p></td>
+</tr>
+<tr class="row-even"><td><p>“sha”</p></td>
+<td><p>本次上传的 SHA256 哈希，用于标识上传会话（例如恢复中断的会话），并用于校验镜像。必须提供对整个待上传镜像计算的完整 SHA256；若无法取得哈希，则不要发送此字段，此时不能续传或校验镜像。此字段只应在“off”为 0 时出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“data”</p></td>
+<td><p>要写入指定偏移位置的镜像数据。</p></td>
+</tr>
+<tr class="row-even"><td><p>“upgrade”</p></td>
+<td><p>可选标志，表示只允许升级。若待上传软件的版本不高于设备已有版本，则拒绝上传。Zephyr 默认比较主版本号、次版本号和修订号（x.y.z）；设置 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_GRP_IMG_VERSION_CMP_USE_BUILD_NUMBER" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_GRP_IMG_VERSION_CMP_USE_BUILD_NUMBER</span></code></a> 后还会比较构建号。此字段只应在“off”为 0 时出现。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>没有单列“data”中数据块大小的字段，因为“data”字段自身已经包含这一信息。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>服务端可能以“off”为 0 响应上传：例如另一传输通道开始了上传（甚至在 MCUmgr 之外开始），设备重启，或丢了一个包。遇到这种情况，客户端必须重发原首包中已发送的全部必填和可选字段，以便服务端重建上传状态；缺少这些原始字段就无法继续上传。</p>
+</div><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u06" data-zh-note="K06-U06" aria-labelledby="zh-note-k06-u06-label"><p id="zh-note-k06-u06-label"><strong>K06-U06 · 上传首块还须容纳固定镜像头</strong></p><p>在所核应用端，<code style="white-space:normal;overflow-wrap:anywhere">off=0</code> 时不仅必须提供 <code style="white-space:normal;overflow-wrap:anywhere">len</code>，首块 <code style="white-space:normal;overflow-wrap:anywhere">data</code> 的长度还须至少达到 <code style="white-space:normal;overflow-wrap:anywhere">sizeof(struct image_header)</code>。即使字段齐全，首块太短也会被拒绝；并不要求整个受保护区都在首块内。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/zephyr_img_mgmt.c#L691-L705">zephyr_img_mgmt.c · L691–705 · <code style="white-space:normal">1fc916a2b607</code></a></li></ul></details></div></div><!--/K-R2:note-->
+<p>MCUmgr 库用“sha”标识进行中的更新会话，以便中断后恢复，也用于校验上传内容。如果请求的“off”为零，库会检查状态中保存的“sha”；若匹配，则向更新客户端返回应从何处继续的偏移量。若不能取得哈希（例如文件正以流式传输），就不得提供此字段；此时不能校验镜像，也不能恢复上传会话。</p>
+</section>
+<section id="image-upload-response">
+<h3>镜像上传响应<a class="headerlink" href="#image-upload-response" title="链接到此标题"></a></h3>
+<p>镜像上传响应的帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>成功响应的 CBOR 数据：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str,opt)"off"    : (uint)
+    (str,opt)"match"  : (bool)
+}
+</pre></div>
+</div>
+<p>出错时，CBOR 数据采用以下格式：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="标签页内容" class="closeable" role="tablist"><button aria-controls="panel-1-U01QIHZlcnNpb24gMg==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tab" tabindex="0">SMP 版本 2</button><button aria-controls="panel-1-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tab" tabindex="-1">SMP 版本 1（以及 SMP 版本 2 的非组专属错误）</button></div><div aria-labelledby="tab-1-U01QIHZlcnNpb24gMg==" class="sphinx-tabs-panel group-tab" id="panel-1-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"err" : {
+        (str)"group"    : (uint)
+        (str)"rc"       : (uint)
+    }
+}
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"rc"       : (int)
+    (str,opt)"rsn"  : (str)
+}
+</pre></div>
+</div>
+</div></div>
+<p>其中：</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>“off”</p></td>
+<td><p>此次更新中最后一个成功写入的字节的偏移量。</p></td>
+</tr>
+<tr class="row-even"><td><p>“match”</p></td>
+<td><p>表示上传数据是否与提供的 SHA256 哈希匹配；仅当启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_IMG_ENABLE_IMAGE_CHECK" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_IMG_ENABLE_IMAGE_CHECK</span></code></a> 时才发送，且只在最后一个包中发送。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“err” -&gt; “group”</p></td>
+<td><p>组专属错误码所属的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ga81f98b9a0c3810f7d607b783f8e259b5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_group_t</span></code></a> 管理组。仅在使用 SMP 版本 2 且返回错误时出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“err” -&gt; “rc”</p></td>
+<td><p>组专属错误码的索引。在 SMP 版本 2 中，仅当该值非零（表示错误）时出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“rc”</p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#gac5d8757a7ca945c77f405764b85ad5c5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_err_t</span></code></a>，仅在值非零（表示错误）时出现；适用于 SMP 版本 1，或 SMP 版本 2 中 SMP 自身的错误。</p></td>
+</tr>
+<tr class="row-even"><td><p>“rsn”</p></td>
+<td><p>可选字符串，用于补充说明错误原因；当 <code class="docutils literal notranslate"><span class="pre">rc</span></code> 为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ggac5d8757a7ca945c77f405764b85ad5c5a68adbc4d77eaae550973b5169d1c14be" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">MGMT_ERR_EUNKNOWN</span></code></a> 时尤为有用。</p></td>
+</tr>
+</tbody>
+</table><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u07" data-zh-note="K06-U07" aria-labelledby="zh-note-k06-u07-label"><p id="zh-note-k06-u07-label"><strong>K06-U07 · off 是下一次续写位置</strong></p><p>客户端应将响应的 <code style="white-space:normal;overflow-wrap:anywhere">off</code> 直接用作下一次请求的偏移量。从 0 开始成功处理 16 字节后，最后一个字节下标为 15，返回的 <code style="white-space:normal;overflow-wrap:anywhere">off</code> 却是 16；不要再加一。偏移不符时，设备也可返回它期望的位置。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt.c#L703-L709">img_mgmt.c · L703–709 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt.c#L942-L950">img_mgmt.c · L942–950 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/zephyr_img_mgmt.c#L880-L889">zephyr_img_mgmt.c · L880–889 · <code style="white-space:normal">1fc916a2b607</code></a></li></ul></details></div></div><!--/K-R2:note-->
+<p>只有成功处理的请求，其响应才包含“off”字段；如果“rc”为负数，响应可能不含“off”。</p><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u08" data-zh-note="K06-U08" aria-labelledby="zh-note-k06-u08-label"><p id="zh-note-k06-u08-label"><strong>K06-U08 · 失败不只表现为负 rc</strong></p><p>先检查顶层非零 <code style="white-space:normal;overflow-wrap:anywhere">rc</code>，以及 SMP v2 组错误中的 <code style="white-space:normal;overflow-wrap:anywhere">err.group</code> 和 <code style="white-space:normal;overflow-wrap:anywhere">err.rc</code>，再读取成功响应字段。擦除时的旧式 <code style="white-space:normal;overflow-wrap:anywhere">MGMT_ERR_EBADSTATE</code> 可由多种原因映射而来，不能仅凭它断定次槽已标记为待启动。</p><details><summary>固定版本依据（4 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt.c#L468-L476">img_mgmt.c · L468–476 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt.c#L1060-L1071">img_mgmt.c · L1060–1071 · <code style="white-space:normal">1fc916a2b607</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/include/zephyr/mgmt/mcumgr/mgmt/mgmt_defines.h#L99-L120">mgmt_defines.h · L99–120 · <code style="white-space:normal">a2fcb6cf3e39</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/a2fcb6cf3e393808e89fba62a250d8305480d9bd/subsys/mgmt/mcumgr/smp/src/smp.c#L579-L591">smp.c · L579–591 · <code style="white-space:normal">a2fcb6cf3e39</code></a></li></ul></details></div></div><!--/K-R2:note-->
+</section>
+</section>
+<section id="image-erase">
+<h2>擦除镜像<a class="headerlink" href="#image-erase" title="链接到此标题"></a></h2>
+<p>此命令用于擦除目标设备的镜像槽位。</p>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>这是同步命令：在命令执行完毕之前，请求方不会收到响应。擦除可能需要较长时间。</p>
+</div>
+<section id="image-erase-request">
+<h3>镜像擦除请求<a class="headerlink" href="#image-erase-request" title="链接到此标题"></a></h3>
+<p>镜像擦除请求的帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>请求的 CBOR 数据：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str,opt)"slot"     : (uint)
+}
+</pre></div>
+</div>
+<p>其中：</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>“slot”</p></td>
+<td><p>可选的槽位编号；请求可完全省略此字段，此时默认为 1。</p></td>
+</tr>
+</tbody>
+</table><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u09" data-zh-note="K06-U09" aria-labelledby="zh-note-k06-u09-label"><p id="zh-note-k06-u09-label"><strong>K06-U09 · 省略 slot 不一定擦除物理槽 1</strong></p><p>所核处理器默认选择当前活动镜像的活动槽所配对的另一个槽，并非固定取物理槽 1。只有布局和活动槽确实对应时，两者才相同；不要把示例常数当作擦除目标。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt.c#L443-L455">img_mgmt.c · L443–455 · <code style="white-space:normal">1fc916a2b607</code></a></li></ul></details></div></div><!--/K-R2:note-->
+</section>
+<section id="image-erase-response">
+<h3>镜像擦除响应<a class="headerlink" href="#image-erase-response" title="链接到此标题"></a></h3>
+<p>镜像擦除响应的帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>成功时，此命令发送空的 CBOR 映射作为数据；出错时，CBOR 数据采用以下格式：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="标签页内容" class="closeable" role="tablist"><button aria-controls="panel-2-U01QIHZlcnNpb24gMg==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tab" tabindex="0">SMP 版本 2</button><button aria-controls="panel-2-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tab" tabindex="-1">SMP 版本 1（以及 SMP 版本 2 的非组专属错误）</button></div><div aria-labelledby="tab-2-U01QIHZlcnNpb24gMg==" class="sphinx-tabs-panel group-tab" id="panel-2-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"err" : {
+        (str)"group"    : (uint)
+        (str)"rc"       : (uint)
+    }
+}
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"rc"       : (int)
+    (str,opt)"rsn"  : (str)
+}
+</pre></div>
+</div>
+</div></div>
+<p>其中：</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>“err” -&gt; “group”</p></td>
+<td><p>组专属错误码所属的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ga81f98b9a0c3810f7d607b783f8e259b5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_group_t</span></code></a> 管理组。仅在使用 SMP 版本 2 且返回错误时出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“err” -&gt; “rc”</p></td>
+<td><p>组专属错误码的索引。在 SMP 版本 2 中，仅当该值非零（表示错误）时出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“rc”</p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#gac5d8757a7ca945c77f405764b85ad5c5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_err_t</span></code></a>，仅在值非零（表示错误）时出现；适用于 SMP 版本 1，或 SMP 版本 2 中 SMP 自身的错误。</p></td>
+</tr>
+<tr class="row-even"><td><p>“rsn”</p></td>
+<td><p>可选字符串，用于补充说明错误原因；当 <code class="docutils literal notranslate"><span class="pre">rc</span></code> 为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ggac5d8757a7ca945c77f405764b85ad5c5a68adbc4d77eaae550973b5169d1c14be" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">MGMT_ERR_EUNKNOWN</span></code></a> 时尤为有用。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">说明</p>
+<p>运行 Zephyr 的设备可能返回“rc”为 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ggac5d8757a7ca945c77f405764b85ad5c5a4385d9d027ea3ddd10ae9467ed8ca787" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">MGMT_ERR_EBADSTATE</span></code></a> 的响应，表示次槽位镜像已标记为用于下次启动，不得擦除。</p>
+</div>
+</section>
+</section>
+<section id="slot-info">
+<span id="mcumgr-smp-group-1-slot-info"></span><h2>槽位信息<a class="headerlink" href="#slot-info" title="链接到此标题"></a></h2>
+<p>此命令用于查询可用槽位的信息。用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_GRP_IMG_SLOT_INFO" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_GRP_IMG_SLOT_INFO</span></code></a> 启用。</p>
+<section id="slot-info-request">
+<h3>槽位信息请求<a class="headerlink" href="#slot-info-request" title="链接到此标题"></a></h3>
+<p>槽位信息请求的帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>此命令发送一个空的 CBOR 映射作为数据。</p>
+</section>
+<section id="slot-info-response">
+<h3>槽位信息响应<a class="headerlink" href="#slot-info-response" title="链接到此标题"></a></h3>
+<p>槽位信息响应的帧头字段：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">ID</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">ID</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>成功响应的 CBOR 数据：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"images" : [
+        {
+            (str)"image"                        : (uint)
+            (str)"slots" : [
+                {
+                    (str)"slot"                 : (uint)
+                    (str)"size"                 : (uint)
+                    (str,opt)"upload_image_id"  : (uint)
+                }
+                ...
+            ]
+            (str,opt)"max_image_size"           : (uint)
+        }
+        ...
+    ]
+}
+</pre></div>
+</div>
+<p>出错时，CBOR 数据采用以下格式：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="标签页内容" class="closeable" role="tablist"><button aria-controls="panel-3-U01QIHZlcnNpb24gMg==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tab" tabindex="0">SMP 版本 2</button><button aria-controls="panel-3-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tab" tabindex="-1">SMP 版本 1（以及 SMP 版本 2 的非组专属错误）</button></div><div aria-labelledby="tab-3-U01QIHZlcnNpb24gMg==" class="sphinx-tabs-panel group-tab" id="panel-3-U01QIHZlcnNpb24gMg==" name="U01QIHZlcnNpb24gMg==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"err" : {
+        (str)"group"    : (uint)
+        (str)"rc"       : (uint)
+    }
+}
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" name="U01QIHZlcnNpb24gMSAoYW5kIG5vbi1ncm91cCBTTVAgdmVyc2lvbiAyKQ==" role="tabpanel" tabindex="0"><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+    (str)"rc"       : (int)
+}
+</pre></div>
+</div>
+</div></div>
+<p>其中：</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>“image”</p></td>
+<td><p>正在枚举的镜像编号。</p></td>
+</tr>
+<tr class="row-even"><td><p>“slot”</p></td>
+<td><p>正在枚举的镜像内部槽位号。注意，此值为 0 或 1，是镜像内部的槽位编号，而不是物理槽位编号。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“size”</p></td>
+<td><p>槽位的大小。</p></td>
+</tr>
+<tr class="row-even"><td><p>“upload_image_id”</p></td>
+<td><p>可选字段，仅在启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_GRP_IMG_DIRECT_UPLOAD" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_GRP_IMG_DIRECT_UPLOAD</span></code></a> 允许直接上传镜像时出现。它指定外部工具向此槽位上传镜像时应使用的镜像 ID。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“max_image_size”</p></td>
+<td><p>可选字段，仅在启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_GRP_IMG_TOO_LARGE_SYSBUILD" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_GRP_IMG_TOO_LARGE_SYSBUILD</span></code></a> 或 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_GRP_IMG_TOO_LARGE_BOOTLOADER_INFO" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_GRP_IMG_TOO_LARGE_BOOTLOADER_INFO</span></code></a> 时出现。它指定向该镜像编号上传的应用最大可有多大。</p></td>
+</tr>
+<tr class="row-even"><td><p>“err” -&gt; “group”</p></td>
+<td><p>组专属错误码所属的 <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#ga81f98b9a0c3810f7d607b783f8e259b5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_group_t</span></code></a> 管理组。仅在使用 SMP 版本 2 且返回错误时出现。</p></td>
+</tr>
+<tr class="row-odd"><td><p>“err” -&gt; “rc”</p></td>
+<td><p>组专属错误码的索引。在 SMP 版本 2 中，仅当该值非零（表示错误）时出现。</p></td>
+</tr>
+<tr class="row-even"><td><p>“rc”</p></td>
+<td><p><a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__mgmt__api.html#gac5d8757a7ca945c77f405764b85ad5c5" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref c c-enum docutils literal notranslate"><span class="pre">mcumgr_err_t</span></code></a>，仅在值非零（表示错误）时出现；适用于 SMP 版本 1，或 SMP 版本 2 中 SMP 自身的错误。</p></td>
+</tr>
+</tbody>
+</table><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k06-u10" data-zh-note="K06-U10" aria-labelledby="zh-note-k06-u10-label"><p id="zh-note-k06-u10-label"><strong>K06-U10 · upload_image_id 不能单独用来判断模式</strong></p><p>直接上传模式按物理槽索引加一报告 <code style="white-space:normal;overflow-wrap:anywhere">upload_image_id</code>；关闭直接上传时，所核实现仍可为非活动槽返回按镜像编号计算的同名字段。应读取目标的槽位信息，不能仅凭字段是否存在推断模式。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/subsys/mgmt/mcumgr/grp/img_mgmt/src/img_mgmt.c#L589-L601">img_mgmt.c · L589–601 · <code style="white-space:normal">1fc916a2b607</code></a></li></ul></details></div></div><!--/K-R2:note-->
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-06-07。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../K-sources.txt">本批来源与改动说明</a> · <a href="https://github.com/zephyrproject-rtos/zephyr/blob/1fc916a2b607848892c456b7974bce2f130ff0f5/doc/services/device_mgmt/smp_groups/smp_group_1.rst">本页 RST 固定修订</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

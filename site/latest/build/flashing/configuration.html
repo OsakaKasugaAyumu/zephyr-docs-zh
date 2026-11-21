@@ -237,7 +237,7 @@
              
   <section id="flashing-configuration">
 <span id="flashing-soc-board-config"></span><h1>烧写配置<a class="headerlink" href="#flashing-configuration" title="链接到此标题"></a></h1>
-<p class="zh-edition">非官方简体中文译本 · 英文基线 4.5.99 · B08 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../b-index.html">B 批目录</a> · <a href="https://docs.zephyrproject.org/latest/build/flashing/configuration.html" hreflang="en">本页英文原文</a></p><p>Zephyr 可以配置由 <a class="reference internal" href="../../develop/west/build-flash-debug.html#west-flashing"><span class="std std-ref">west flash</span></a> 调用的烧写后端（flash runner），控制编程时各命令的执行方式。这套配置面向 <a class="reference internal" href="../sysbuild/index.html#sysbuild"><span class="std std-ref">系统构建（Sysbuild）</span></a> 工程，可指定一组开发板目标应在哪一步执行某个命令。例如，多核 SoC 可能要求所有内核合计只使用一次 <code class="docutils literal notranslate"><span class="pre">--erase</span></code> 参数，避免单次 <code class="docutils literal notranslate"><span class="pre">west</span> <span class="pre">flash</span></code> 多次擦除，误清除其他待写入镜像使用的存储区域。</p>
+<p class="zh-edition">非官方简体中文译本 · 英文基线 4.5.99 · B08 · <a href="../../../index.html">全站目录（94 篇）</a> · <a href="../../../b-index.html">B 批目录</a> · <a href="https://docs.zephyrproject.org/latest/build/flashing/configuration.html" hreflang="en">本页英文原文</a></p><p>Zephyr 可以配置由 <a class="reference internal" href="../../develop/west/build-flash-debug.html#west-flashing"><span class="std std-ref">west flash</span></a> 调用的烧写后端（flash runner），控制编程时各命令的执行方式。这套配置面向 <a class="reference internal" href="../sysbuild/index.html#sysbuild"><span class="std std-ref">系统构建（Sysbuild）</span></a> 工程，可指定一组开发板目标应在哪一步执行某个命令。例如，多核 SoC 可能要求所有内核合计只使用一次 <code class="docutils literal notranslate"><span class="pre">--erase</span></code> 参数，避免单次 <code class="docutils literal notranslate"><span class="pre">west</span> <span class="pre">flash</span></code> 多次擦除，误清除其他待写入镜像使用的存储区域。</p>
 <section id="priority">
 <h2>优先级<a class="headerlink" href="#priority" title="链接到此标题"></a></h2>
 <p>只会从一个位置读取烧写配置，不会合并多个来源。以下文件按优先级从高到低排列：</p>
@@ -291,7 +291,7 @@
 <section id="usage">
 <h2>用法<a class="headerlink" href="#usage" title="链接到此标题"></a></h2>
 <p>烧写非 sysbuild 应用时，照常使用后端支持的命令，不采用“只执行一次”的配置。烧写含多个镜像的 sysbuild 工程时，才应用该配置。</p>
-<p>例如，为 nrf5340dk 构建 <a class="reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/mgmt/mcumgr/smp_svr/README.html#smp-svr" title="英文原文" hreflang="en" data-lang-target="en">SMP 服务端</a> 示例，其中 MCUboot 作为辅助镜像：</p>
+<p>例如，为 nrf5340dk 构建 <a class="reference internal" href="../../samples/subsys/mgmt/mcumgr/smp_svr/README.html#smp-svr">SMP 服务端</a> 示例，其中 MCUboot 作为辅助镜像：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cmake -GNinja -Sshare/sysbuild/ -Bbuild -DBOARD=nrf5340dk/nrf5340/cpuapp -DAPP_DIR=samples/subsys/mgmt/mcumgr/smp_svr</span>
 <span class="go">cmake --build build</span>
 </pre></div>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="Store and retrieve data from flash using the NVS API." name="description">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NVS 示例：保存重启计数（Non-Volatile Storage） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/samples/subsys/kvss/nvs/README.html">
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="Zephyr 存储系统（Zephyr Memory Storage，ZMS）" href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/zms/README.html">
+    <link rel="prev" title="键值存储系统" href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/kvss.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../../../_static/zh-pilot.css"><script src="../../../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/nvs/README.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/samples/subsys/kvss/nvs/README.html"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="README.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" hreflang="en" data-lang-target="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" hreflang="en" data-lang-target="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" hreflang="en" data-lang-target="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" hreflang="en" data-lang-target="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" hreflang="en" data-lang-target="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" hreflang="en" data-lang-target="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" hreflang="en" data-lang-target="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" hreflang="en" data-lang-target="en" title="英文原文">系统服务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" hreflang="en" data-lang-target="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" hreflang="en" data-lang-target="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" hreflang="en" data-lang-target="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" hreflang="en" data-lang-target="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" hreflang="en" data-lang-target="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" hreflang="en" data-lang-target="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1 current"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a><ul class="current">
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/application_development/application_development.html" hreflang="en" data-lang-target="en" title="英文原文">应用开发（Application Development）</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/arch/index.html" hreflang="en" data-lang-target="en" title="英文原文">结构依赖样本</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/basic/basic.html" hreflang="en" data-lang-target="en" title="英文原文">基础</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/bluetooth/bluetooth.html" hreflang="en" data-lang-target="en" title="英文原文">蓝牙</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/boards/boards.html" hreflang="en" data-lang-target="en" title="英文原文">开发板</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/cpp/cpp.html" hreflang="en" data-lang-target="en" title="英文原文">C++ 组合</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/data_structures/data_structures.html" hreflang="en" data-lang-target="en" title="英文原文">数据结构</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/drivers/drivers.html" hreflang="en" data-lang-target="en" title="英文原文">司机</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/modules/index.html" hreflang="en" data-lang-target="en" title="英文原文">外部模块</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/kernel/index.html" hreflang="en" data-lang-target="en" title="英文原文">内核和调度器</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/net/net.html" hreflang="en" data-lang-target="en" title="英文原文">联网</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/psa/index.html" hreflang="en" data-lang-target="en" title="英文原文">PSA</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/regulator/index.html" hreflang="en" data-lang-target="en" title="英文原文">稳压器</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/sensor/sensor.html" hreflang="en" data-lang-target="en" title="英文原文">传感器</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/shields/shields.html" hreflang="en" data-lang-target="en" title="英文原文">Shields</a></li>
+<li class="toctree-l2 current"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/subsys.html" hreflang="en" data-lang-target="en" title="英文原文">子系统</a><ul class="current">
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/authentication/authentication.html" hreflang="en" data-lang-target="en" title="英文原文">身份验证</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/bindesc/bindesc.html" hreflang="en" data-lang-target="en" title="英文原文">二进制描述符</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/cpu_freq/cpu_freq.html" hreflang="en" data-lang-target="en" title="英文原文">CPU 频率</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/console/console.html" hreflang="en" data-lang-target="en" title="英文原文">控制台</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/canbus/canbus.html" hreflang="en" data-lang-target="en" title="英文原文">控制器局域网（CAN）总线</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/debug/index.html" hreflang="en" data-lang-target="en" title="英文原文">调试</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/display/display.html" hreflang="en" data-lang-target="en" title="英文原文">显示</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/fs/fs.html" hreflang="en" data-lang-target="en" title="英文原文">文件系统</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/input/input.html" hreflang="en" data-lang-target="en" title="英文原文">输入</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/ipc/ipc.html" hreflang="en" data-lang-target="en" title="英文原文">处理器间通信（IPC）</a></li>
+<li class="toctree-l3 current"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/kvss.html" hreflang="en" data-lang-target="en" title="英文原文">键值存储系统</a><ul class="current">
+<li class="toctree-l4 current"><a class="code-sample-link current reference internal" href="#" title="使用 NVS API 在闪存中保存和读取数据。">NVS 示例：保存重启计数（Non-Volatile Storage）</a></li>
+<li class="toctree-l4"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/zms/README.html" title="英文原文" hreflang="en" data-lang-target="en">Zephyr 存储系统（Zephyr Memory Storage，ZMS）</a></li>
+<li class="toctree-l4"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/zms/zms_cycle_count/README.html" title="英文原文" hreflang="en" data-lang-target="en">ZMS 扇区循环计数验证</a></li>
+<li class="toctree-l4"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/zms/zms_provisioning/README.html" title="英文原文" hreflang="en" data-lang-target="en">ZMS 预置数据（Provisioning Data）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/llext/llext.html" hreflang="en" data-lang-target="en" title="英文原文">可链接、可加载扩展（LLEXT）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/lorawan/lorawan.html" hreflang="en" data-lang-target="en" title="英文原文">LoRaWAN</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/logging/logging.html" hreflang="en" data-lang-target="en" title="英文原文">日志</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/mgmt/mgmt.html" hreflang="en" data-lang-target="en" title="英文原文">管理</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/modbus/modbus.html" hreflang="en" data-lang-target="en" title="英文原文">Modbus</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/pmci/index.html" hreflang="en" data-lang-target="en" title="英文原文">PMCI</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/portability/portability.html" hreflang="en" data-lang-target="en" title="英文原文">可移植性</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/pm/index.html" hreflang="en" data-lang-target="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/profiling/profiling.html" hreflang="en" data-lang-target="en" title="英文原文">性能分析</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/rtio/rtio.html" hreflang="en" data-lang-target="en" title="英文原文">实时 I/O（RTIO）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/sensing/sensing.html" hreflang="en" data-lang-target="en" title="英文原文">传感</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/shell/shell.html" hreflang="en" data-lang-target="en" title="英文原文">命令行（Shell）</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/smf/smf.html" hreflang="en" data-lang-target="en" title="英文原文">状态机框架</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/testsuite/testsuite.html" hreflang="en" data-lang-target="en" title="英文原文">测试套件</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/tracing/tracing.html" hreflang="en" data-lang-target="en" title="英文原文">跟踪</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/usb/usb.html" hreflang="en" data-lang-target="en" title="英文原文">USB</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/usb_c/usbc.html" hreflang="en" data-lang-target="en" title="英文原文">USB-C 设备支持</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/video/video.html" hreflang="en" data-lang-target="en" title="英文原文">视频</a></li>
+<li class="toctree-l3"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/zbus/zbus.html" hreflang="en" data-lang-target="en" title="英文原文">zbus 消息总线</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/sip_svc/README.html" title="英文原文" hreflang="en" data-lang-target="en">Intel Agilex SoC FPGA 上的 Arm SiP 服务</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/dap/README.html" title="英文原文" hreflang="en" data-lang-target="en">CMSIS-DAP</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/crc/README.html" title="英文原文" hreflang="en" data-lang-target="en">循环冗余校验子系统（CRC Subsys）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/demand_paging/README.html" title="英文原文" hreflang="en" data-lang-target="en">按需分页</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/edac/README.html" title="英文原文" hreflang="en" data-lang-target="en">EDAC 命令行</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/instrumentation/README.html" title="英文原文" hreflang="en" data-lang-target="en">插桩（instrumentation）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/precision_timing/README.html" title="英文原文" hreflang="en" data-lang-target="en">高精度计时</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="../../settings/README.html" title="使用设置 API 加载和保存配置值。">Settings API 示例：加载与保存配置（Settings API）</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/task_wdt/README.html" title="英文原文" hreflang="en" data-lang-target="en">任务看门狗</a></li>
+<li class="toctree-l3"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/subsys/uuid/README.html" title="英文原文" hreflang="en" data-lang-target="en">UUID</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/sysbuild/sysbuild.html" hreflang="en" data-lang-target="en" title="英文原文">系统构建（Sysbuild）</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/tfm_integration/tfm_integration.html" hreflang="en" data-lang-target="en" title="英文原文">TF-M 一体化</a></li>
+<li class="toctree-l2"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/userspace/index.html" hreflang="en" data-lang-target="en" title="英文原文">用户空间</a></li>
+<li class="toctree-l2"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/synchronization/README.html" title="英文原文" hreflang="en" data-lang-target="en">基本同步</a></li>
+<li class="toctree-l2"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/philosophers/README.html" title="英文原文" hreflang="en" data-lang-target="en">哲学家就餐问题</a></li>
+<li class="toctree-l2"><a class="code-sample-link reference internal" href="https://docs.zephyrproject.org/latest/samples/hello_world/README.html" title="英文原文" hreflang="en" data-lang-target="en">Hello World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" hreflang="en" data-lang-target="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" hreflang="en" data-lang-target="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" hreflang="en" data-lang-target="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" hreflang="en" data-lang-target="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" hreflang="en" data-lang-target="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" hreflang="en" data-lang-target="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" hreflang="en" data-lang-target="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" hreflang="en" data-lang-target="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" hreflang="en" data-lang-target="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/samples/index.html" hreflang="en" data-lang-target="en" title="英文原文">示例与演示</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/samples/subsys/subsys.html" hreflang="en" data-lang-target="en" title="英文原文">子系统</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/kvss.html" hreflang="en" data-lang-target="en" title="英文原文">键值存储系统</a> »</li>
+  
+  <li>NVS 示例：保存重启计数（Non-Volatile Storage）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main//samples/subsys/kvss/nvs/README.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27samples%2Fsubsys%2Fkvss%2Fnvs%2FREADME%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+Key-Value+Storage+Systems%2Carea%3A+Samples&amp;env=-+Page%3A+samples%2Fsubsys%2Fkvss%2Fnvs%2FREADME%0A-+Version%3A+main%0A-+SHA-1%3A+b9fcb5efa42acd1587cb1eba1ac74e9d96ff3855&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="nvs">
+<h1>NVS 示例：保存重启计数（Non-Volatile Storage）<a class="headerlink" href="#nvs" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · J05 · 英文基线 4.5.99 · <a href="../../../../../index.html">全站目录（94 篇）</a> · <a href="../../../../../index.html#batch-j">J 批目录</a> · <a href="https://docs.zephyrproject.org/latest/samples/subsys/kvss/nvs/README.html" hreflang="en">本页英文原文</a></p><p>
+                <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main//samples/subsys/kvss/nvs/README.rst/.." class="btn btn-info fa fa-github" target="_blank" style="text-align: center;"> 在 GitHub 上浏览源码 </a>
+                </p>
+<section id="overview">
+<h2>概述<a class="headerlink" href="#overview" title="链接到此标题"></a></h2>
+<p>这个小程序演示如何用 NVS 模块在非易失性存储器（闪存）中保存数据。每次重启，应用都会递增计数器并将它写入闪存；再次启动时，应用会读回已保存的重启次数。</p>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J05-U01" id="zh-note-j05-u01" aria-labelledby="zh-note-j05-u01-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j05-u01-label">译校注 · J05-U01</p><p><strong>计数发生在示例主动重启前</strong></p><p>示例先读回计数，在倒计时结束、即将主动重启时才递增并保存。达到配置的上限后，示例将计数清零并结束；它并不是每次掉电或外部复位都自动加一的通用重启计数器。</p><details><summary>固定版本依据（3 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/b9fcb5efa42acd1587cb1eba1ac74e9d96ff3855/samples/subsys/kvss/nvs/src/main.c#L129-L141">该页 RST 修订 · main.c:129-141 · b9fcb5efa42a</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/b9fcb5efa42acd1587cb1eba1ac74e9d96ff3855/samples/subsys/kvss/nvs/src/main.c#L189-L195">该页 RST 修订 · main.c:189-195 · b9fcb5efa42a</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/b9fcb5efa42acd1587cb1eba1ac74e9d96ff3855/samples/subsys/kvss/nvs/src/main.c#L219-L239">该页 RST 修订 · main.c:219-239 · b9fcb5efa42a</a></li></ul></details></div>
+</section>
+<section id="requirements">
+<h2>硬件要求<a class="headerlink" href="#requirements" title="链接到此标题"></a></h2>
+<ul class="simple">
+<li><p>一块支持闪存的开发板。</p></li>
+</ul>
+<div class="admonition note zh-tech-note" role="note" data-zh-note="J05-U02" id="zh-note-j05-u02" aria-labelledby="zh-note-j05-u02-label" style="overflow-wrap:anywhere"><p class="admonition-title" id="zh-note-j05-u02-label">译校注 · J05-U02</p><p><strong>开发板还需要可用的存储分区</strong></p><p>示例选择 <code>storage_partition</code> 并检查闪存设备是否就绪，再用查到的闪存页大小配置 3 个扇区。应为该分区预留相应空间；3 是本示例的配置，不是 NVS 通用的最少扇区数。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/b9fcb5efa42acd1587cb1eba1ac74e9d96ff3855/samples/subsys/kvss/nvs/src/main.c#L50-L54">该页 RST 修订 · main.c:50-54 · b9fcb5efa42a</a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/b9fcb5efa42acd1587cb1eba1ac74e9d96ff3855/samples/subsys/kvss/nvs/src/main.c#L71-L94">该页 RST 修订 · main.c:71-94 · b9fcb5efa42a</a></li></ul></details></div>
+</section>
+<section id="building-and-running">
+<h2>构建与运行<a class="headerlink" href="#building-and-running" title="链接到此标题"></a></h2>
+<p>示例可为多个平台构建。以下命令为 nrf51dk/nrf51822 开发板构建应用。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>build<span class="w"> </span>-b<span class="w"> </span>nrf51dk/nrf51822<span class="w"> </span>samples/subsys/kvss/nvs
+west<span class="w"> </span>flash
+</pre></div>
+</div>
+<p>将镜像烧写到开发板后，控制台会显示重启计数。开发板会重启数次，可以看到计数逐次增加。</p>
+<section id="sample-output">
+<h3>示例输出（Sample Output）<a class="headerlink" href="#sample-output" title="链接到此标题"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">***** Booting Zephyr OS v1.12.0-rc1-176-gf091be783 *****</span>
+<span class="go">[fs/nvs] [DBG] nvs_reinit: (Re)Initializing sectors</span>
+<span class="go">[fs/nvs] [DBG] _nvs_sector_init: f-&gt;write_location set to c</span>
+<span class="go">[fs/nvs] [INF] nvs_mount: maximum storage length 256 byte</span>
+<span class="go">[fs/nvs] [INF] nvs_mount: write-align: 1, write-addr: c</span>
+<span class="go">[fs/nvs] [INF] nvs_mount: entry sector: 0, entry sector ID: 1</span>
+<span class="go">No address found, adding 192.168.1.1 at id 1</span>
+<span class="go">No key found, adding it at id 2</span>
+<span class="go">No Reboot counter found, adding it at id 3</span>
+<span class="go">Id: 4 not found, adding it</span>
+<span class="go">Longarray not found, adding it as id 4</span>
+<span class="go">Reboot counter history: ...0</span>
+<span class="go">Oldest reboot counter: 0</span>
+<span class="go">Rebooting in ...5...4...3...2...1</span>
+<span class="go">***** Booting Zephyr OS v1.12.0-rc1-176-gf091be783 *****</span>
+<span class="go">[fs/nvs] [INF] nvs_mount: maximum storage length 256 byte</span>
+<span class="go">[fs/nvs] [INF] nvs_mount: write-align: 1, write-addr: c7</span>
+<span class="go">[fs/nvs] [INF] nvs_mount: entry sector: 0, entry sector ID: 1</span>
+<span class="go">Entry: 1, Address: 192.168.1.1</span>
+<span class="go">Id: 2, Key: ff fe fd fc fb fa f9 f8</span>
+<span class="go">Id: 3, Reboot_counter: 1</span>
+<span class="go">Id: 4, Data: DATA</span>
+<span class="go">Id: 5, Longarray: 0 1 2 3 4 5 6 7 8 9 a b c d e f 10 11 12 13 14 15 16 17 18</span>
+<span class="go">Reboot counter history: ...1...0</span>
+<span class="go">Oldest reboot counter: 0</span>
+<span class="go">Rebooting in ...5...4...3...2...1</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>另请参阅<a class="headerlink" href="#see-also" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__nvs__high__level__api.html" title="英文原文" hreflang="en" data-lang-target="en">NVS 接口（Non-volatile Storage APIs）</a></dt>
+</dl>
+
+</section>
+</section>
+<script type="application/ld+json">
+                {"@context": "http://schema.org", "@type": "SoftwareSourceCode", "name": "Non-Volatile Storage (NVS)", "description": "Store and retrieve data from flash using the NVS API.", "codeSampleType": "full", "codeRepository": "https://github.com/zephyrproject-rtos/zephyr/blob/main//samples/subsys/kvss/nvs/README.rst"}
+                </script>
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-01-30。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../../../J-sources.txt">本批来源与素材说明</a> · <a href="../../../../../THIRD-PARTY-NOTICES.txt">全站署名与许可</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

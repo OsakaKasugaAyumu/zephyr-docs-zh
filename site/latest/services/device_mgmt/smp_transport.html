@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMP 传输规范（SMP Transport Specification） — Zephyr 中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e">
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d">
+      
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b">
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be">
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=01390100">
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e">
+
+  
+    <link rel="shortcut icon" href="data:,">
+    <link rel="canonical" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/device_mgmt/smp_transport.html">
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f60c4f47"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      
+      
+      
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=761fddf6"></script>
+      <script src="../../_static/js/custom.js?v=4daa9211"></script>
+      <script>let toggleHintShow = '点击展开';</script>
+      <script>let toggleHintHide = '点击收起';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="https://docs.zephyrproject.org/latest/genindex.html">
+    <link rel="search" title="搜索" href="https://docs.zephyrproject.org/latest/search.html">
+    <link rel="next" title="设备固件升级（DFU）" href="dfu.html">
+    <link rel="prev" title="Zephyr 管理组" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_groups/smp_group_63.html">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)">
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+  
+  
+  
+
+<link rel="stylesheet" href="../../_static/zh-pilot.css"><script src="../../_static/zh-sections.js" defer data-zh-index="true"></script><script src="../../_static/zh-pilot.js" defer></script><link rel="alternate" hreflang="en" href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_transport.html"><link rel="alternate" hreflang="zh-Hans" href="https://osakakasugaayumu.github.io/zephyr-docs-zh/latest/services/device_mgmt/smp_transport.html"><link rel="stylesheet" href="../../_static/k-review.css"></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">
+            
+              <span class="zh-site-title">Zephyr 中文文档<small>非官方简体中文译本</small></span></a>
+<div class="search-container" role="search">
+  <form id="rtd-search-form" class="wy-form" action="smp_transport.html" method="get">
+    <input type="search" name="q" placeholder="搜索中文文档" aria-label="搜索中文文档">
+    <span id="search-se-settings-icon" class="fa fa-gear" role="button" tabindex="0" title="搜索设置" aria-label="搜索设置" aria-haspopup="menu" aria-controls="search-se-menu" aria-expanded="false" onclick="toggleSearchEngineSettingsMenu()">
+    </span>
+    <div id="search-se-menu" role="menu" aria-labelledby="search-se-settings-icon">
+      <ul>
+        <li id="search-se-menuitem-sphinx" role="menuitemradio" tabindex="-1" aria-label="中文文档搜索" onclick="switchSearchEngine('sphinx')"> 中文文档搜索 <span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-google" role="menuitemradio" tabindex="-1" aria-label="Google 搜索（英文官网）" onclick="switchSearchEngine('google')"> Google 搜索（英文官网）<span class="fa fa-check"></span> </li>
+        <li id="search-se-menuitem-kapa" role="menuitemradio" tabindex="-1" aria-label="Kapa AI 搜索（英文官网）" onclick="switchSearchEngine('kapa')"> Kapa AI 搜索（英文官网）<span class="fa fa-check"></span> </li>
+      </ul>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+  <div data-nosnippet>
+    
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="文档版本">
+    <span class="rst-current-version" data-toggle="rst-current-version"> <span class="fa fa-book"> Zephyr 项目</span> 版本：latest <span class="fa fa-caret-down"></span> </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>文档版本</dt>
+        
+          <dd><a href="https://docs.zephyrproject.org/" data-lang-target="en" hreflang="en" title="英文原文">开发版（latest）</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.5.0/" data-lang-target="en" hreflang="en" title="英文原文">4.5.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/4.4.0/" data-lang-target="en" hreflang="en" title="英文原文">4.4.0</a></dd>
+        
+          <dd><a href="https://docs.zephyrproject.org/3.7.0/" data-lang-target="en" hreflang="en" title="英文原文">3.7.0（长期支持版，LTS）</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>下载</dt>
+        
+        <dd><a href="https://docs.zephyrproject.org/latest/zephyr.pdf" data-lang-target="en" hreflang="en" title="英文原文">PDF</a></dd>
+      </dl>
+      <dl>
+        <dt>zephyrproject.org 相关链接</dt>
+          <dd>
+            <a href="https://www.zephyrproject.org/">项目主页</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/sdk-ng/releases">SDK</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/zephyrproject-rtos/zephyr/releases">发布版本</a>
+          </dd>
+      </dl>
+    </div>
+  </div>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/introduction/index.html" data-lang-target="en" hreflang="en" title="英文原文">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/index.html" data-lang-target="en" hreflang="en" title="英文原文">使用 Zephyr 开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../kernel/index.html">内核（Kernel）</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/index.html" data-lang-target="en" hreflang="en" title="英文原文">系统服务</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/connectivity/index.html" data-lang-target="en" hreflang="en" title="英文原文">连接与通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/io.html" data-lang-target="en" hreflang="en" title="英文原文">输入／输出</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/messaging.html" data-lang-target="en" hreflang="en" title="英文原文">进程间通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/observability.html" data-lang-target="en" hreflang="en" title="英文原文">日志、跟踪与调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storage/index.html">存储与配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/memory_management.html" data-lang-target="en" hreflang="en" title="英文原文">内存管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/power_management.html" data-lang-target="en" hreflang="en" title="英文原文">电源管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/security.html" data-lang-target="en" hreflang="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">设备管理总览（Device Management）</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="mcumgr.html">设备管理子系统（MCUmgr）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr_handlers.html" data-lang-target="en" hreflang="en" title="英文原文">MCUmgr 处理程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr_callbacks.html" data-lang-target="en" hreflang="en" title="英文原文">MCUmgr 回调</a></li>
+<li class="toctree-l3"><a class="reference internal" href="smp_protocol.html">简单管理协议规范（SMP Protocol Specification）</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SMP 传输规范（SMP Transport Specification）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bluetooth-low-energy-le">低功耗蓝牙（Bluetooth LE）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uart-serial-and-console">UART／串口与控制台</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#frame-fragmenting">帧的分片</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#frame-formats">帧格式</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#crc-details">CRC 计算细节</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#raw-uart-serial-without-console">原始 UART／串口（不经控制台）</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#timeout">超时</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API 参考</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dfu.html">设备固件升级（DFU）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/ota.html" data-lang-target="en" hreflang="en" title="英文原文">无线更新（OTA）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/fota_http.html" data-lang-target="en" hreflang="en" title="英文原文">通过 HTTP 进行固件无线更新</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/device_mgmt/ec_host_cmd.html" data-lang-target="en" hreflang="en" title="英文原文">EC 主机命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/binary_descriptors/index.html" data-lang-target="en" hreflang="en" title="英文原文">二进制描述符</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/algorithms.html" data-lang-target="en" hreflang="en" title="英文原文">算法与数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/frameworks.html" data-lang-target="en" hreflang="en" title="英文原文">框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://docs.zephyrproject.org/latest/services/portability/index.html" data-lang-target="en" hreflang="en" title="英文原文">操作系统抽象层</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/build/index.html" data-lang-target="en" hreflang="en" title="英文原文">构建与配置系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/hardware/index.html" data-lang-target="en" hreflang="en" title="英文原文">硬件支持</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/contribute/index.html" data-lang-target="en" hreflang="en" title="英文原文">为 Zephyr 贡献代码与文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/project/index.html" data-lang-target="en" hreflang="en" title="英文原文">项目及其治理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/security/index.html" data-lang-target="en" hreflang="en" title="英文原文">信息安全（Security）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/safety/index.html" data-lang-target="en" hreflang="en" title="英文原文">功能安全（Safety）</a></li>
+<li class="toctree-l1"><a class="category-link reference internal" href="https://docs.zephyrproject.org/latest/samples/index.html" data-lang-target="en" hreflang="en" title="英文原文">示例与演示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/boards/index.html" data-lang-target="en" hreflang="en" title="英文原文">支持的开发板与扩展板</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://docs.zephyrproject.org/latest/releases/index.html" data-lang-target="en" hreflang="en" title="英文原文">发布版本</a></li>
+</ul>
+
+    
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">参考资料</span></p>
+      <ul>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/index.html" data-lang-target="en" hreflang="en" title="英文原文">API</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html" data-lang-target="en" hreflang="en" title="英文原文">Kconfig 选项</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/dts/api/bindings.html" data-lang-target="en" hreflang="en" title="英文原文">设备树绑定（Devicetree bindings）</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/build/cmake-ref/index.html" data-lang-target="en" hreflang="en" title="英文原文">CMake 模块</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/develop/manifest/index.html" data-lang-target="en" hreflang="en" title="英文原文">west 项目</a>
+        </li>
+        
+        <li class="toctree-l1">
+          <a class="reference internal" href="https://docs.zephyrproject.org/latest/glossary.html" data-lang-target="en" hreflang="en" title="英文原文">术语表</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动端导航菜单">
+          <i data-toggle="wy-nav-top" class="fa fa-bars" role="button" tabindex="0" aria-label="打开或关闭导航菜单"></i>
+          <a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">Zephyr 项目</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+  <!-- Docs / Latest -->
+  
+  
+
+  <li><a href="https://docs.zephyrproject.org/latest/index.html" data-lang-target="en" hreflang="en" title="英文原文">文档 / latest</a> »</li>
+  
+     <li><a href="https://docs.zephyrproject.org/latest/services/index.html" data-lang-target="en" hreflang="en" title="英文原文">系统服务</a> »</li>
+  
+     <li><a href="index.html">设备管理总览（Device Management）</a> »</li>
+  
+  <li>SMP 传输规范（SMP Transport Specification）</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true" aria-label="选择配色：浅色、深色或跟随系统"></dark-mode-toggle>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+      
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/blob/main/doc/services/device_mgmt/smp_transport.rst" class="fa fa-github"> 在 GitHub 上查看原文</a>
+      
+        <a href="https://github.com/zephyrproject-rtos/zephyr/issues/new?template=001_bug_report.yml&amp;title=doc%3A+Documentation+issue+in+%27services%2Fdevice_mgmt%2Fsmp_transport%27&amp;labels=bug%2Carea%3A+Documentation%2Carea%3A+mcumgr&amp;env=-+Page%3A+services%2Fdevice_mgmt%2Fsmp_transport%0A-+Version%3A+main%0A-+SHA-1%3A+42c18115863fa3c2eb793d7582ca2e47d2cf370c&amp;context=This+issue+was+reported+from+the+online+documentation+page+using+the+%27Report+an+issue%27+button." class="fa fa-bug"> 报告英文原页的问题 </a>
+      
+    
+  </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="smp-transport-specification">
+<span id="mcumgr-smp-transport-specification"></span><h1>SMP 传输规范（SMP Transport Specification）<a class="headerlink" href="#smp-transport-specification" title="链接到此标题"></a></h1>
+<p class="zh-edition">非官方简体中文译本 · K04 · 英文基线 4.5.99 · <a href="../../../index.html#batch-k">K 批目录</a> · <a href="https://docs.zephyrproject.org/latest/services/device_mgmt/smp_transport.html" hreflang="en">本页英文原文</a></p><p>本文说明实现服务端和客户端 SMP 传输所需的信息。</p>
+<section id="bluetooth-low-energy-le">
+<span id="mcumgr-smp-transport-ble"></span><h2>低功耗蓝牙（Bluetooth LE）<a class="headerlink" href="#bluetooth-low-energy-le" title="链接到此标题"></a></h2>
+<p>通过蓝牙实现 MCUmgr 的 SMP 客户端时，需要使用以下蓝牙特征（Characteristic）：</p>
+<ul class="simple">
+<li><p><strong>服务 UUID</strong>: <code class="docutils literal notranslate"><span class="pre">8D53DC1D-1DB7-4CD3-868B-8A527460AA84</span></code></p></li>
+<li><p><strong>特征 UUID</strong>: <code class="docutils literal notranslate"><span class="pre">DA2E7828-FBCE-4E01-AE9E-261174997C48</span></code></p></li>
+</ul>
+<p>所有 SMP 通信都使用同一个 GATT 特征。请求经 GATT 无响应写入（Write Without Response）命令发送；响应以 GATT 通知（Notification）发送。</p>
+<p>如果一个 SMP 请求或响应无法放入一条 GATT 命令，发送端会将它分到多个包中。通过 GATT 传输 SMP 请求或响应时，分片不会引入额外的分帧封装，只会将载荷拆分到多个数据包中。由于 GATT 保证按序交付，首个分片中的 SMP 帧头已提供重组所需的信息。</p>
+</section>
+<section id="uart-serial-and-console">
+<span id="mcumgr-smp-transport-uart"></span><h2>UART／串口与控制台<a class="headerlink" href="#uart-serial-and-console" title="链接到此标题"></a></h2>
+<p>Zephyr 的 MCUmgr 子系统通过简单分帧来复用 UART 通道。每帧以两字节标记开头、以换行符结束。目前 MCUmgr 将帧长限制为 127 字节，但协议本身并不要求这一上限。127 字节包含起始标记和换行符，因此实际允许的帧载荷最多 124 字节。</p>
+<p>尽管 Zephyr 中没有这样的传输实现，仍可自行实现经 UART 通信的 MCUmgr 客户端／服务端：可以完全不分帧，也可以使用串口硬件控制或其他分帧方式。</p><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k04-u01" data-zh-note="K04-U01" aria-labelledby="zh-note-k04-u01-label"><p id="zh-note-k04-u01-label"><strong>K04-U01 · Raw UART 是本页已有的实现</strong></p><p>“没有这样的传输实现”不能理解为 Zephyr 没有原始 UART：本页后文的 Raw UART 支持不经控制台封装的二进制传输。这并不表示前文提到的硬件流控或其他分帧方案都已实现。</p><details><summary>固定版本依据（1 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/Kconfig.raw_uart#L11-L21">Kconfig.raw_uart · L11–21 · <code style="white-space:normal">42c18115863f</code></a></li></ul></details></div></div><!--/K-R2:note-->
+<section id="frame-fragmenting">
+<h3>帧的分片<a class="headerlink" href="#frame-fragmenting" title="链接到此标题"></a></h3>
+<p>经串口传输时，SMP 包拆成最长 127 字节的帧。每帧依次包含两字节起始标记、帧体和结尾换行符。</p>
+<p>帧有四类：起始帧、续帧、末续帧和单帧（起始兼结束）。各类帧的起始标记、帧体内容或两者有所不同。</p>
+<section id="frame-formats">
+<h4>帧格式<a class="headerlink" href="#frame-formats" title="链接到此标题"></a></h4>
+<p>起始帧后可以有零个或多个续帧，最后必须是末续帧。帧体一律用 Base64 编码；此处编码后的帧体空间为 MTU - 3，实际可承载的原始数据为 N = (MTU - 3) / 4 * 3 字节。</p>
+<p>起始帧中的原始包体之前有一个按大端字节序编码的两字节总长度字段，其值为整个原始包体大小加上 CRC16 的两字节。因此，起始帧实际最多容纳 N - 2 字节的包体数据。</p>
+<p>若包体大小小于 N - 4，可在一个帧内同时容纳前置长度、完整包体和末尾 CRC。下文称这种帧为单帧（起始兼结束），其格式见下文。</p><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注 · 单帧预算与边界（共用算例）</p><div id="zh-note-k04-u02" data-zh-note="K04-U02" aria-labelledby="zh-note-k04-u02-label"><p id="zh-note-k04-u02-label"><strong>K04-U02 · 区分线上帧长和原始包长</strong></p><p>对控制台串口帧，编码前的字节预算为 <code style="white-space:normal;overflow-wrap:anywhere">N = 3 × floor((MTU − 3) / 4)</code>。以 127 字节的帧为例，扣除 2 字节标记和 1 字节换行，线上留给 Base64 的是 124 字节，对应 93 个原始字节。单帧再扣 2 字节长度和 2 字节 CRC，最多容纳 89 字节的完整 SMP 包（包含 SMP 帧头），不是 89 字节应用数据。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/src/serial_util.c#L275-L309">serial_util.c · L275–309 · <code style="white-space:normal">42c18115863f</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/src/serial_util.c#L312-L331">serial_util.c · L312–331 · <code style="white-space:normal">42c18115863f</code></a></li></ul></details></div><div id="zh-note-k04-u03" data-zh-note="K04-U03" aria-labelledby="zh-note-k04-u03-label"><p id="zh-note-k04-u03-label"><strong>K04-U03 · 单帧边界包含等号</strong></p><p>沿用上面的算例：包长恰为 89 字节时，长度字段、SMP 包与 CRC 合计正好 93 字节，仍可单帧发送。“小于 N − 4”是充分条件，不应据此排除等于 N − 4 的情况。</p><details><summary>固定版本依据（2 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/src/serial_util.c#L291-L309">serial_util.c · L291–309 · <code style="white-space:normal">42c18115863f</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/src/serial_util.c#L318-L331">serial_util.c · L318–331 · <code style="white-space:normal">42c18115863f</code></a></li></ul></details></div></div><!--/K-R2:note-->
+<p>起始帧格式：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>内容</p></th>
+<th class="head"><p>大小（Size）</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x06 0x09</p></td>
+<td><p>2 字节</p></td>
+<td><p>帧起始标记</p></td>
+</tr>
+<tr class="row-odd"><td><p>&lt;base64-i&gt;</p></td>
+<td><p>不超过 MTU - 3 字节</p></td>
+<td><p>Base64 编码的帧体</p></td>
+</tr>
+<tr class="row-even"><td><p>0x0a</p></td>
+<td><p>1 字节</p></td>
+<td><p>帧结束符</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;base64-i&gt;</span></code> 是以下内容经 Base64 编码的结果：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>内容</p></th>
+<th class="head"><p>大小（Size）</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>总长度</p></td>
+<td><p>2 字节</p></td>
+<td><p>16 位大端整数，表示整个包体的长度加上 CRC16 的 2 字节；总长度字段本身不计入该值。</p></td>
+</tr>
+<tr class="row-odd"><td><p>包体</p></td>
+<td><p>不超过 MTU - 5</p></td>
+<td><p>原始包体数据片段</p></td>
+</tr>
+</tbody>
+</table>
+<p>单帧（起始兼结束）与起始帧格式相似，但 <code class="docutils literal notranslate"><span class="pre">&lt;base64-i&gt;</span></code> 的定义不同。</p>
+<p>单帧（起始兼结束）的 <code class="docutils literal notranslate"><span class="pre">&lt;base64-i&gt;</span></code> 是以下内容经 Base64 编码的结果：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>内容</p></th>
+<th class="head"><p>大小（Size）</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>总长度</p></td>
+<td><p>2 字节</p></td>
+<td><p>16 位大端整数，表示整个包体的长度加上 CRC16 的 2 字节；总长度字段本身不计入该值。</p></td>
+</tr>
+<tr class="row-odd"><td><p>包体</p></td>
+<td><p>不超过 MTU - 7</p></td>
+<td><p>原始包体数据片段</p></td>
+</tr>
+<tr class="row-even"><td><p>crc16</p></td>
+<td><p>2 字节</p></td>
+<td><p>整个包体的 CRC16，不含前置长度字段。</p></td>
+</tr>
+</tbody>
+</table>
+<p>续帧承接前面的起始帧或另一个续帧，其格式为：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>内容</p></th>
+<th class="head"><p>大小（Size）</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x04 0x14</p></td>
+<td><p>2 字节</p></td>
+<td><p>帧起始标记</p></td>
+</tr>
+<tr class="row-odd"><td><p>&lt;base64-i&gt;</p></td>
+<td><p>不超过 MTU - 3 字节</p></td>
+<td><p>Base64 编码的帧体</p></td>
+</tr>
+<tr class="row-even"><td><p>0x0a</p></td>
+<td><p>1 字节</p></td>
+<td><p>帧结束符</p></td>
+</tr>
+</tbody>
+</table>
+<p>续帧的 <code class="docutils literal notranslate"><span class="pre">&lt;base64-i&gt;</span></code> 是以下数据经 Base64 编码的结果：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>内容</p></th>
+<th class="head"><p>大小（Size）</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>包体</p></td>
+<td><p>不超过 MTU - 3</p></td>
+<td><p>原始包体数据片段</p></td>
+</tr>
+</tbody>
+</table>
+<p>末续帧的 <code class="docutils literal notranslate"><span class="pre">&lt;base64-i&gt;</span></code> 是以下数据经 Base64 编码的结果：</p>
+<table class="docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>内容</p></th>
+<th class="head"><p>大小（Size）</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>包体</p></td>
+<td><p>不超过 MTU - 5</p></td>
+<td><p>原始包体数据片段</p></td>
+</tr>
+<tr class="row-odd"><td><p>crc16</p></td>
+<td><p>2 字节</p></td>
+<td><p>整个包体的 CRC16，不含前置长度字段。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="crc-details">
+<h4>CRC 计算细节<a class="headerlink" href="#crc-details" title="链接到此标题"></a></h4>
+<p>结束类帧所含的 CRC16 仅根据原始数据计算，不包括包长度。CRC16 多项式为 0x1021，初始值为 0。</p>
+</section>
+</section>
+</section>
+<section id="raw-uart-serial-without-console">
+<span id="mcumgr-smp-transport-raw-uart"></span><h2>原始 UART／串口（不经控制台）<a class="headerlink" href="#raw-uart-serial-without-console" title="链接到此标题"></a></h2>
+<p>Zephyr 还提供另一种 UART 传输，不像经控制台传输 SMP 那样使用 Base64，因此可减小代码体积并提高传输速度。但通信全程使用原始二进制 SMP 协议，不能在同一 UART 还要输出 Shell 或日志的设备上使用，也不能接到显示 ASCII 数据的终端上。</p>
+<p>要使用此协议，请启用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_TRANSPORT_RAW_UART" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_TRANSPORT_RAW_UART</span></code></a>；MCUmgr UART 控制台驱动必须以原始模式启用。</p>
+<section id="timeout">
+<h3>超时<a class="headerlink" href="#timeout" title="链接到此标题"></a></h3>
+<p>此传输不分帧。如果 UART 收到无效数据，系统可能一直等待一个并不会到达的长包。为此提供了超时机制：若在指定时间内未收到完整包，则清空整个接收缓冲区。建议在 UART 端口上启用；对于 USB CDC 等虚拟 UART，如果数据可在递交前验证，则不需要该选项。用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_TRANSPORT_RAW_UART_INPUT_TIMEOUT" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_TRANSPORT_RAW_UART_INPUT_TIMEOUT</span></code></a> 启用超时，用 <a class="reference internal" href="https://docs.zephyrproject.org/latest/kconfig.html#CONFIG_MCUMGR_TRANSPORT_RAW_UART_INPUT_TIMEOUT_TIME_MS" title="英文原文" data-lang-target="en" hreflang="en"><code class="xref kconfig kconfig-option docutils literal notranslate"><span class="pre">CONFIG_MCUMGR_TRANSPORT_RAW_UART_INPUT_TIMEOUT_TIME_MS</span></code></a> 设置超时时间。</p><!--K-R2:note-->
+<div class="admonition note zh-tech-note" role="note" style="overflow-wrap:anywhere"><p class="admonition-title">译校注</p><div id="zh-note-k04-u04" data-zh-note="K04-U04" aria-labelledby="zh-note-k04-u04-label"><p id="zh-note-k04-u04-label"><strong>K04-U04 · Raw UART 从何时计时、何时清理</strong></p><p>启用接收超时后，首个片段未凑齐完整包时开始按毫秒计时，不是每收到一个字节都续期。收齐包会停止计时；若先超时，回调只做标记，到下一次处理接收片段时才释放旧缓冲。</p><details><summary>固定版本依据（4 处）</summary><ul><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/Kconfig.raw_uart#L25-L38">Kconfig.raw_uart · L25–38 · <code style="white-space:normal">42c18115863f</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/src/smp_raw_uart.c#L51-L61">smp_raw_uart.c · L51–61 · <code style="white-space:normal">42c18115863f</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/src/smp_raw_uart.c#L71-L90">smp_raw_uart.c · L71–90 · <code style="white-space:normal">42c18115863f</code></a></li><li><a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/subsys/mgmt/mcumgr/transport/src/smp_raw_uart.c#L95-L111">smp_raw_uart.c · L95–111 · <code style="white-space:normal">42c18115863f</code></a></li></ul></details></div></div><!--/K-R2:note-->
+</section>
+</section>
+<section id="api-reference">
+<h2>API 参考<a class="headerlink" href="#api-reference" title="链接到此标题"></a></h2>
+<dl>
+<dt class="sig sig-object c">
+<a class="doxygroup reference internal" href="https://docs.zephyrproject.org/latest/doxygen/html/group__mcumgr__transport__smp.html" title="英文原文" data-lang-target="en" hreflang="en"><span class="pre">SMP</span> <span class="pre">transport</span></a></dt>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<p> © 2015–2026 Zephyr 项目成员及各位贡献者。 </p><div class="lastupdated"> 英文页生成于 2026-11-19；源文件最近更新于 2026-09-29。 </div>
+
+  </div>
+
+   
+
+<p class="zh-edition">译自 Zephyr 项目贡献者的英文文档 · <a href="https://creativecommons.org/licenses/by/4.0/">正文许可：CC BY 4.0</a> · <a href="../../../K-sources.txt">本批来源与改动说明</a> · <a href="https://github.com/zephyrproject-rtos/zephyr/blob/42c18115863fa3c2eb793d7582ca2e47d2cf370c/doc/services/device_mgmt/smp_transport.rst">本页 RST 固定修订</a></p></footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -235,7 +235,7 @@
              
   <section id="configuration-system-kconfig">
 <span id="kconfig"></span><h1>配置系统（Kconfig）<a class="headerlink" href="#configuration-system-kconfig" title="链接到此标题"></a></h1>
-<p class="zh-edition">非官方简体中文译本 · 英文基线 4.5.99 · C08 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../c-index.html">C 批目录</a> · <a href="https://docs.zephyrproject.org/latest/build/kconfig/index.html" hreflang="en">本页英文原文</a></p><p>Zephyr 内核与各子系统可在构建时配置，以适应具体应用和平台。Zephyr 与 Linux 内核都采用 Kconfig，目的是让用户无须修改源码就能调整配置。</p>
+<p class="zh-edition">非官方简体中文译本 · 英文基线 4.5.99 · C08 · <a href="../../../index.html">全站目录（94 篇）</a> · <a href="../../../c-index.html">C 批目录</a> · <a href="https://docs.zephyrproject.org/latest/build/kconfig/index.html" hreflang="en">本页英文原文</a></p><p>Zephyr 内核与各子系统可在构建时配置，以适应具体应用和平台。Zephyr 与 Linux 内核都采用 Kconfig，目的是让用户无须修改源码就能调整配置。</p>
 <p>配置选项通常称为<em>符号（symbols）</em>，在 <code class="file docutils literal notranslate"><span class="pre">Kconfig</span></code> 文件中定义。文件还会声明符号之间的依赖，决定哪些配置组合有效。符号可分组放入菜单和子菜单，便于在交互界面中浏览。</p>
 <p>Kconfig 输出头文件 <code class="file docutils literal notranslate"><span class="pre">autoconf.h</span></code>，其中的宏可在编译时判断。未使用的功能可以不编入镜像，从而节省空间。</p>
 <p>以下各节介绍如何设置 Kconfig 选项、Zephyr 如何使用 Kconfig，以及编写 <code class="file docutils literal notranslate"><span class="pre">Kconfig</span></code> 文件的技巧与最佳实践。</p>

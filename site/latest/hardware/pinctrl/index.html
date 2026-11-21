@@ -255,7 +255,7 @@
              
   <section id="pin-control">
 <span id="pinctrl-guide"></span><h1>引脚控制（Pin Control）<a class="headerlink" href="#pin-control" title="链接到此标题"></a></h1>
-<p class="zh-edition">非官方简体中文译本 · H02 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（79 篇）</a> · <a href="../../../index.html#batch-h">H 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/pinctrl/index.html" hreflang="en">本页英文原文</a></p><p>本页概述引脚控制；接口细节见<a class="reference internal" href="#pinctrl-api"><span class="std std-ref">引脚控制 API</span></a>。</p>
+<p class="zh-edition">非官方简体中文译本 · H02 · 英文基线 4.5.99 · <a href="../../../index.html">全站目录（94 篇）</a> · <a href="../../../index.html#batch-h">H 批目录</a> · <a href="https://docs.zephyrproject.org/latest/hardware/pinctrl/index.html" hreflang="en">本页英文原文</a></p><p>本页概述引脚控制；接口细节见<a class="reference internal" href="#pinctrl-api"><span class="std std-ref">引脚控制 API</span></a>。</p>
 <section id="introduction">
 <h2>简介<a class="headerlink" href="#introduction" title="链接到此标题"></a></h2>
 <p>控制引脚复用和方向、上下拉等参数的硬件模块称为<strong>引脚控制器（pin controller）</strong>。主要使用者是 SoC 内部外设：例如将 <code class="docutils literal notranslate"><span class="pre">I2C0</span></code> 的 <code class="docutils literal notranslate"><span class="pre">SDA</span></code> 信号映射到引脚 <code class="docutils literal notranslate"><span class="pre">PX0</span></code>。它通常还能设置外设正常运行所需的其他参数，例如按工作频率选择转换速率。选项取决于厂商和 SoC，从简单上下拉到去抖、低功耗模式等不一而足。</p>
